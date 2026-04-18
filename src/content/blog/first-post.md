@@ -13,6 +13,8 @@ Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum q
 
 そして、3度目の正直ということで、CloudfareとAstroを利用してこのウェブサイトを開設しました。この手法ならば、Html直打ちで自由にサイトの構築ができ、自分の望んでいたサイトを構築することができました。
 
+![blog placeholder](/images/fukutoshin.jpg)
+
 Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
 
 今までの人生で積極的に文章の執筆を行ってこなかったが故に、まだ稚拙な文章しか書けずわかりにくい表現等もあるかと思いますが、ブログ執筆を通して少しずつ言語表現を成熟させていきたいと思っておりますので、どうか温かい目で見守っていただけると幸いです。

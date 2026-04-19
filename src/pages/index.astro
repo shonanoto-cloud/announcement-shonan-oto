@@ -17,7 +17,31 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			<p>
 				しょーなんのページへようこそ！
 			</p>
-			<img src="/images/marunouchi.jpg" alt="説明文" />
+<div class="slider-container">
+    <div class="slider-wrapper">
+        <div class="slider-slides">
+            <!-- 各スライド画像 -->
+            <div class="slider-slide">
+                <img src="images/hinatawada.jpg" alt="画像1">
+            </div>
+            <div class="slider-slide">
+                <img src="images/choshi_komaru.jpg" alt="画像2">
+            </div>
+            <div class="slider-slide">
+                <img src="images/mastumoto_switch.jpg" alt="画像3">
+            </div>
+            <div class="slider-slide">
+                <img src="images/panayoko_kurikoma.jpg" alt="画像4">
+            </div>
+        </div>
+        <div class="slider-indicator">
+            <span class="slider-dot slider-active"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+        </div>
+    </div>
+</div>
 			<div class="button001">
 			<a href="/audio" style="text-decoration: none;">駅放送はこちら</a>
 			</div>
@@ -27,3 +51,44 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<Footer />
 	</body>
 </html>
+<script>
+    let currentSlideIndex = 0;
+    const sliderSlides = document.querySelectorAll('.slider-slide');
+    const sliderDots = document.querySelectorAll('.slider-dot');
+
+    function showSliderSlide(index) {
+        // インデックスが範囲外の場合の処理
+        if (index >= sliderSlides.length) {
+            currentSlideIndex = 0;
+        } else if (index < 0) {
+            currentSlideIndex = sliderSlides.length - 1;
+        } else {
+            currentSlideIndex = index;
+        }
+
+        // スライド位置の変更
+        document.querySelector('.slider-slides').style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+        // インジケーターの更新
+        sliderDots.forEach((dot, i) => {
+            dot.classList.toggle('slider-active', i === currentSlideIndex);
+        });
+    }
+
+    // 自動スライド機能
+    function startSliderAutoSlide() {
+        setInterval(() => {
+            showSliderSlide(currentSlideIndex + 1);
+        }, 3000); // 3秒ごとにスライド
+    }
+
+    // インジケータークリックイベント
+    sliderDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => showSliderSlide(i));
+    });
+
+    // 初期表示
+    showSliderSlide(currentSlideIndex);
+    startSliderAutoSlide();
+</script>
+

@@ -150,7 +150,8 @@ hr {
 	color: rgb(var(--gray-dark));
 	text-decoration: none;
 	font-weight: 500;
-	transition: color 0.3s ease-in-out;
+	border-radius: 5px;
+	border: 1px solid #313131;
 }
 
 .sr-only {

@@ -22,64 +22,64 @@ const posts = (await getCollection("blog"))
       <p>しょーなんのページへようこそ！</p>
       <div class="slider-container">
         <div class="slider-wrapper">
-          <div class="slider-slides">
+            <div class="slider-slides">
             <!-- 各スライド画像 -->
             <div class="slider-slide">
-              <img src="/images/hinatawada.JPG" />
+                <img src="/images/hinatawada.JPG"></image>
             </div>
-          </div>
-          <div class="slider-slide">
-            <img src="/images/choshi_komaru.JPG" />
-          </div>
+            <div class="slider-slide">
+                <img src="/images/choshi_komaru.JPG"></image>
+            </div>
+            <div class="slider-slide">
+                <img src="/images/mastumoto_switch.JPG"></image>
+            </div>
+            <div class="slider-slide">
+                <img src="/images/panayoko_kurikoma.JPG"></image>
+            </div>
         </div>
-        <div class="slider-slide">
-          <img src="/images/mastumoto_switch.JPG" />
+        <div class="slider-indicator">
+            <span class="slider-dot slider-active"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
         </div>
-      </div>
-      <div class="slider-slide">
-        <img src="/images/panayoko_kurikoma.JPG" />
-      </div>
-    </main>
-
-    <div class="slider-indicator">
-      <span class="slider-dot slider-active"></span>
-      <span class="slider-dot"></span>
-      <span class="slider-dot"></span>
-      <span class="slider-dot"></span>
     </div>
+</div>
 
-    <div class="button001">
-      <a href="/audio" style="text-decoration: none;">駅放送はこちら</a>
-    </div>
-    <p>
-      <p></p>
-      <h2>最新のブログ投稿</h2>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <a href={`/blog/${post.id}/`}>
-                  <img
-                    width={720}
-                    height={360}
-                    src={post.data.heroImage}
-                    alt=""
-                  />
-                  <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
       <div class="button001">
-        <a href="/blog" style="text-decoration: none;">もっと見る</a>
+        <a href="/audio" style="text-decoration: none;">駅放送はこちら</a>
       </div>
-    </p>
+
+      <p>
+        <p></p>
+        <h2>最新のブログ投稿</h2>
+        <section>
+          <ul>
+            {
+              posts.map((post) => (
+                <li>
+                  <a href={`/blog/${post.id}/`}>
+                    <img
+                      width={720}
+                      height={360}
+                      src={post.data.heroImage}
+                      alt=""
+                    />
+                    <h4 class="title">{post.data.title}</h4>
+                    <p class="date">
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+        <div class="button001">
+          <a href="/blog" style="text-decoration: none;">もっと見る</a>
+        </div>
+      </p>
+    </main>
     <Footer />
   </body>
 </html>

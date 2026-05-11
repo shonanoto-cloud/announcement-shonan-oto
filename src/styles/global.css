@@ -130,6 +130,29 @@ hr {
 	}
 }
 
+.list{
+	display:flex;
+}
+
+.item{
+	width: 20%;
+}
+.item-image{
+	width: 90%;
+	height: auto;
+	border-radius: 8px;
+}
+
+.item-link{
+	display: block;
+	text-align: center;
+	margin-top: 10px;
+	color: rgb(var(--gray-dark));
+	text-decoration: none;
+	font-weight: 500;
+	transition: color 0.3s ease-in-out;
+}
+
 .sr-only {
 	border: 0;
 	padding: 0;

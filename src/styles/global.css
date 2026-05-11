@@ -135,12 +135,13 @@ hr {
 }
 
 .item{
-	width: 20%;
+	width: 50%;
 }
 .item-image{
+	margin: auto;
 	width: 90%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 5px;
 	align-items: center;
 }
 

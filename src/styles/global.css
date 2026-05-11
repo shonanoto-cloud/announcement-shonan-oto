@@ -138,7 +138,7 @@ hr {
 	width: 50%;
 }
 .item-image{
-	margin: auto;
+	display: flex;
 	width: 90%;
 	height: auto;
 	border-radius: 5px;
@@ -182,7 +182,7 @@ hr {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 0 auto;
+    margin: 10px auto;
     max-width: 280px;
     padding: 10px 25px;
     color: #313131;
@@ -232,7 +232,7 @@ hr {
     bottom: 0;
     width: 0;
     display: block;
-    background: #64ffbc;
+    background: #36d691;
     transition: .3s;
     left:0;
 }

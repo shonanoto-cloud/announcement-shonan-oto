@@ -144,18 +144,6 @@ hr {
 	border-radius: 5px;
 }
 
-.item-link{
-	display: block;
-	align-items: center;
-	margin: 5px;
-	padding: 2px;
-	color: rgb(var(--gray-dark));
-	text-decoration: none;
-	font-weight: 500;
-	border-radius: 5px;
-	border: 1px solid #313131;
-}
-
 .sr-only {
 	border: 0;
 	padding: 0;
@@ -217,8 +205,8 @@ hr {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 0 auto;
-    max-width: 240px;
+    margin: 10px auto;
+    max-width: 90%;
     padding: 10px 25px;
     color: #313131;
     transition: 0.3s ease-in-out;

@@ -211,7 +211,7 @@ hr {
     justify-content: space-around;
     align-items: center;
     margin: 10px auto;
-    width: 90%;
+    max-width: 90%;
     padding: 10px 25px;
     color: #313131;
     transition: 0.3s ease-in-out;

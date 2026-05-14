@@ -132,10 +132,11 @@ hr {
 
 .list{
 	display:flex;
+    flex-wrap: wrap;
 }
 
 .item{
-	width: 50%;
+	width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;

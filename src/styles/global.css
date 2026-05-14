@@ -211,7 +211,7 @@ hr {
     justify-content: space-around;
     align-items: center;
     margin: 10px auto;
-    max-width: 90%;
+    width: 90%;
     padding: 10px 25px;
     color: #313131;
     transition: 0.3s ease-in-out;
@@ -221,6 +221,7 @@ hr {
 .button008 a:before {
     content: "";
     position: absolute;
+    border-radius: 5px;
     top: 0;
     bottom: 0;
     width: 0;

@@ -1,0 +1,47 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description="JR East" />
+	</head>
+	<body>
+		<Header/>
+		<main>
+			<h1>JR East</h1>
+			<p>
+				JR東日本の駅放送を公開しています。
+			</p>
+			<h2>路線別</h2>
+			<p>
+				以下から路線を選択してください。
+			</p>
+			<div class="list">
+				<div class="item">
+					<img class="item-image" src="/images/saikyo.JPG" />
+					<div class="button008">
+						<a href="/audio/jreast">埼京線</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/keyo34.jpg" />
+					<div class="button008">
+						<a href="/audio/jrwest">京葉線</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/musashino.jpg" />
+					<div class="button008">
+						<a href="/audio/tokyometro">武蔵野線</a>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer/>
+	</body>
+</html>

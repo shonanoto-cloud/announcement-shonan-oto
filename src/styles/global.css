@@ -159,234 +159,216 @@ p {
 .slider-dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
 .slider-dot.slider-active { background: var(--accent); }
 
-/* --- 路線図ページ共通レイアウト (PC表示での拡大・レスポンシブ対応) --- */
-.route-page-container {
-	width: 100%;
-	max-width: 960px; /* PC表示用に少しワイドに拡大 */
+/* ==========================================================================
+   路線図・駅一覧コンポーネント 共通スタイル (global.css)
+   ========================================================================== */
+
+/* 全体を包むコンテナ（PC表示では中央に最大幅で配置し、スマホでは100%に） */
+.route-page-wrapper {
+	max-width: 640px; /* PC表示で間延びしない絶妙な幅 */
 	margin: 0 auto;
+	padding: 16px;
+	box-sizing: border-box;
+	background-color: #f7f9fa;
+}
+
+/* 路線ヘッダー（四角いバッジやテキスト） */
+.route-header {
+	display: flex;
+	align-items: center;
+	padding: 16px;
 	background-color: #ffffff;
-	border: 1px solid #cbd5e1;
-	border-radius: 12px;
-	overflow: hidden;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+	border: 1px solid #e1e5e8;
+	border-radius: 8px;
+	margin-bottom: 24px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
-
-/* --- test2.html から抽出した共通サインシステムUI --- */
-.route-header-terminal {
-	position: relative;
-	padding: 24px;
+.route-badge {
 	color: #ffffff;
-	text-align: center;
+	font-weight: 900;
+	padding: 6px 12px;
+	font-size: 1.1rem;
+	letter-spacing: 0.5px;
+	margin-right: 16px;
+	border-radius: 4px;
 }
-.route-header-terminal h1 {
-	font-size: 1.8rem;
-	font-weight: 800;
+.route-title-main {
+	font-size: 1.4rem;
+	font-weight: 900;
 	margin: 0;
-	color: #ffffff;
-	letter-spacing: 1px;
+	color: #1a2530;
 }
-.route-header-terminal .subtitle-en {
-	font-size: 0.9rem;
-	margin: 4px 0 0 0;
-	opacity: 0.9;
-	font-weight: 600;
+.route-title-sub {
+	font-size: 0.8rem;
+	color: #616d7a;
+	margin: 2px 0 0 0;
+	font-weight: 700;
 }
 
+/* 駅タイムラインのブロック */
 .station-timeline-container {
 	position: relative;
-	padding: 20px;
-	background-color: #f8fafc;
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 16px; /* 駅カード同士の隙間 */
 }
 
-/* 縦に走る路線一本線 */
-.route-vertical-line {
+/* 縦に突き抜ける路線ライン */
+.route-line {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	left: 56px; /* ナンバリングの中心に合わせる */
-	width: 8px;
+	width: 6px;
 	z-index: 1;
 }
 
-/* 各駅の行 */
-.station-card-row {
+/* 各駅のカード（PC・スマホ対応） */
+.station-card {
 	position: relative;
 	z-index: 2;
 	display: flex;
-	align-items: stretch;
-	gap: 16px;
-	cursor: pointer;
-	transition: transform 0.2s;
-}
-.station-card-row:hover {
-	transform: translateX(4px);
-}
-
-/* 駅のメイン情報パネル */
-.station-main-panel {
-	flex: 1;
-	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	background: #ffffff;
-	border: 1px solid #e2e8f0;
 	padding: 16px;
 	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-	transition: all 0.2s;
+	border: 1px solid #e1e5e8;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+	transition: transform 0.2s, box-shadow 0.2s;
 }
-/* アクティブ（選択中）の時のスタイル */
-.station-card-row.is-active .station-main-panel {
-	border-color: #0f172a;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-	background: #fdfdfd;
+.station-card:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* ナンバリングバッジ */
-.station-number-box {
+/* 駅情報（左側） */
+.station-info {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	width: 52px;
-	height: 52px;
-	border: 3px solid var(--line-color);
-	background: #ffffff;
+	gap: 16px;
+	flex: 1;
+}
+.station-number {
+	background-color: #ffffff;
+	border: 2px solid var(--line-color);
+	color: #1a2530;
 	font-weight: 900;
 	font-size: 0.75rem;
-	border-radius: 6px;
-	margin-right: 16px;
-	line-height: 1.1;
+	padding: 2px 6px;
+	min-width: 48px;
+	text-align: center;
+	border-radius: 4px;
 }
-.station-number-box div {
-	font-size: 1.2rem;
+.station-number div {
+	font-size: 1rem;
+	display: inline-block;
 }
-
-/* 駅名 */
-.station-name-text {
+.station-name {
 	font-size: 1.25rem;
-	font-weight: 800;
-	color: #0f172a;
+	font-weight: 900;
+	color: #1a2530;
+	text-decoration: none;
+}
+.station-name:hover {
+	text-decoration: underline;
 }
 
-/* メロディ情報表示域 */
-.melody-info-zone {
-	margin-left: auto;
+/* メロディ情報 */
+.melody-container {
+	margin-top: 6px;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
-	text-align: right;
+}
+.melody-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 0.8rem;
 }
 .track-badge {
-	display: inline-block;
-	font-size: 0.7rem;
+	color: #616d7a;
 	font-weight: 700;
+	background: #edf0f2;
 	padding: 2px 6px;
-	background: #f1f5f9;
-	color: #475569;
 	border-radius: 4px;
 }
-.melody-name-text {
-	font-size: 0.9rem;
+.melody-name {
 	font-weight: 700;
-	color: #334155;
+	color: #1a2530;
 }
 
-/* 特徴・タグカード（注意など） */
-.station-features-zone {
-	width: 100px;
+/* 特徴タグ（右側） */
+.station-features {
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	gap: 8px;
+	margin-left: 16px;
 }
-.feature-tag-card {
-	width: 100%;
-	height: 100%;
+.feature-card {
+	background-color: #ffffff;
+	border: 1px solid #e1e5e8;
+	border-radius: 6px;
+	padding: 6px 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 8px;
-	border-radius: 8px;
+	min-width: 64px;
+}
+.card-tag {
 	color: #ffffff;
-	font-size: 0.75rem;
-	font-weight: 700;
+	font-size: 0.65rem;
+	font-weight: 900;
+	padding: 1px 4px;
+	border-radius: 3px;
+	margin-bottom: 4px;
+}
+.card-text {
+	font-size: 0.7rem;
+	font-weight: 800;
+	color: #1a2530;
 	text-align: center;
-	line-height: 1.3;
+	line-height: 1.2;
 }
 
-/* フッター乗換案内 */
-.route-footer-terminal {
-	padding: 24px;
-	background: #ffffff;
-	border-top: 1px solid #e2e8f0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 12px;
+/* 終端・乗り換えセクション */
+.footer-terminal {
+	position: relative;
+	padding: 24px 0 12px 0;
+	margin-top: 8px;
 }
-.transfer-title {
-	font-size: 0.85rem;
-	font-weight: 700;
-	color: #64748b;
-}
-.transfer-button-group {
+.transfer-container {
+	position: relative;
+	z-index: 2;
 	display: flex;
 	gap: 12px;
-	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: flex-start;
+	padding-left: 80px; /* 路線ラインを避ける位置 */
 }
-.transfer-btn {
+/* PC・スマホで乗り換えボタンがはみ出さないよう調整 */
+@media (max-width: 480px) {
+	.transfer-container {
+		padding-left: 48px;
+		flex-direction: column;
+		gap: 8px;
+	}
+}
+.transfer-button {
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
-	padding: 8px 16px;
+	gap: 8px;
+	background-color: #ffffff;
 	border: 2px solid #cbd5e1;
-	background: #ffffff;
+	padding: 8px 14px;
+	font-size: 0.85rem;
+	font-weight: 800;
 	text-decoration: none;
-	font-weight: 700;
-	font-size: 0.9rem;
 	border-radius: 6px;
 	transition: all 0.2s;
 }
-.transfer-btn:hover {
-	background: #f8fafc;
+.transfer-button:hover {
+	background-color: #f8fafc;
+	transform: translateY(-1px);
 }
-
-/* --- 下部：動的解説テキストカード --- */
-.route-dynamic-detail-card {
-	margin-top: 24px;
-	background: #ffffff;
-	border: 1px solid #e2e8f0;
-	padding: 24px;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-}
-.route-dynamic-detail-card h2 {
-	margin-top: 0;
-	font-size: 1.4rem;
-	font-weight: 800;
-}
-.route-dynamic-detail-card .sub-en {
-	color: #64748b;
-	font-weight: 600;
-	margin-top: -8px;
-	margin-bottom: 16px;
-	font-size: 0.95rem;
-}
-.audio-action-btn {
-	display: inline-block;
-	margin-top: 16px;
-	background: #0f172a;
-	color: #ffffff;
-	text-decoration: none;
-	padding: 10px 20px;
-	font-weight: 700;
-	border-radius: 6px;
-	transition: background 0.2s;
-}
-.audio-action-btn:hover {
-	background: var(--line-color);
+.transfer-button span {
+	font-size: 0.75rem;
 }

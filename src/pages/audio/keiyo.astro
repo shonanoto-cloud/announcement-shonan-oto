@@ -5,155 +5,137 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE } from '../../consts';
 
 // ==========================================================================
-// 路線別カスタマイズ変数 (別路線を作るときはここを書き換えるだけ！)
+// 路線個別カスタマイズオプション（別の路線を作る時はここを変更）
 // ==========================================================================
-const lineColor = "#c92334";       // 京葉線のラインカラー
-const lineNameJa = "京葉線";
-const lineNameEn = "KEIYO LINE";
-const routeBadgePrefix = "JE";     // 駅ナンバリングのアルファベット
+const lineColor = "#c92334";       // 京葉線ラインカラー（赤）
+const routeBadgeText = "JE";        // 路線記号
+const bgLight = "#f4f5f8";          // 駅背景の互い違い色1
+const bgDark = "#ffffff";           // 駅背景の互い違い色2
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={`${lineNameJa} 路線案内 | ${SITE_TITLE}`} description="JR East" />
-		<style define:vars={{ lineColor }}>
-			/* Astroの変数（lineColor）をCSS変数に紐付け */
-			:root {
-				--line-color: var(--lineColor);
+		<BaseHead title={`京葉線 路線案内 | ${SITE_TITLE}`} description="京葉線の発車メロディ＆路線案内" />
+		
+		<style define:vars={{ lineColor, bgLight, bgDark }}>
+			/* ページごとの固有色をCSS変数に割り当て */
+			.route-badge {
+				background-color: var(--lineColor);
 			}
-			/* 路線ヘッダーの背景色を路線の色にする */
-			.route-header-terminal {
-				background-color: var(--line-color);
+			.route-line {
+				background-color: var(--lineColor);
+				/* タイムラインの丸ポチ（34px付近）の真下にラインが通るようPC・スマホ共通で自動計算 */
+				left: 43px; 
 			}
-			/* 路線縦線の色を路線の色にする */
-			.route-vertical-line {
-				background-color: var(--line-color);
+			/* 偶数・奇数の駅カードの背景色を入れ替え */
+			.station-card:nth-child(odd) {
+				background-color: var(--bgLight);
 			}
-			/* ナンバリングテキストの色を路線の色にする */
-			.station-number-box span {
-				color: var(--line-color);
+			.station-card:nth-child(even) {
+				background-color: var(--bgDark);
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<div class="route-page-container">
-				
-				<div class="route-header-terminal">
-					<h1>{lineNameJa}</h1>
-					<p class="subtitle-en">{lineNameEn}</p>
+		
+		<div class="route-page-wrapper">
+			
+			<div class="route-header">
+				<div class="route-badge">{routeBadgeText}</div>
+				<div>
+					<h1 class="route-title-main">京葉線</h1>
+					<p class="route-title-sub">KEIYO LINE</p>
 				</div>
-
-				<div class="station-timeline-container">
-					<div class="route-vertical-line"></div>
-
-					<div class="station-card-row is-active" data-station-trigger="tokyo">
-						<div class="station-main-panel">
-							<div class="station-number-box">
-								<span>{routeBadgePrefix}</span>
-								<div>01</div>
-							</div>
-							<div class="station-name-text">東京</div>
-							<div class="melody-info-zone">
-								<span class="track-badge">1-4番線</span>
-								<span class="melody-name-text">Verde Rayo V2</span>
-							</div>
-						</div>
-						<div class="station-features-zone">
-							<div class="feature-tag-card" style="background-color: #008024;">始発</div>
-						</div>
-					</div>
-
-					<div class="station-card-row" data-station-trigger="hatchobori">
-						<div class="station-main-panel">
-							<div class="station-number-box">
-								<span>{routeBadgePrefix}</span>
-								<div>02</div>
-							</div>
-							<div class="station-name-text">八丁堀</div>
-							<div class="melody-info-zone">
-								<span class="track-badge">1番線</span>
-								<span class="melody-name-text">Over</span>
-							</div>
-						</div>
-						<div class="station-features-zone">
-							<div class="feature-tag-card" style="background-color: #64748b; font-size: 0.7rem;">快速停車</div>
-						</div>
-					</div>
-
-					<div class="station-card-row" data-station-trigger="soga">
-						<div class="station-main-panel">
-							<div class="station-number-box">
-								<span>{routeBadgePrefix}</span>
-								<div>17</div>
-							</div>
-							<div class="station-name-text">蘇我</div>
-							<div class="melody-info-zone">
-								<span class="track-badge">3・4番線</span>
-								<span class="melody-name-text">Over</span>
-							</div>
-						</div>
-						<div class="station-features-zone">
-							<div class="feature-tag-card" style="background-color: #e24a00;">終着多数</div>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="route-footer-terminal">
-					<div class="transfer-title">乗換路線案内</div>
-					<div class="transfer-button-group">
-						<a href="#" class="transfer-btn" style="border-color: #c92334; color: #c92334;">外房線 ❯</a>
-						<a href="#" class="transfer-btn" style="border-color: #0070bc; color: #0070bc;">内房線 ❯</a>
-					</div>
-				</div>
-
 			</div>
 
-			<div class="route-dynamic-detail-card">
-				<h2 id="st-name">東京駅</h2>
-				<p id="st-sub" class="sub-en">Tokyo Station</p>
-				<p id="st-comment">京葉線の始発駅。地下深く反響しやすい空間に響き渡る独特の旋律が特徴です。</p>
-				<a href="/audio/jreast/keiyo/tokyo" class="audio-action-btn">駅の放送・メロディを聴く ◀</a>
+			<div class="station-timeline-container">
+				<div class="route-line"></div>
+
+				<div class="station-card">
+					<div class="station-info">
+						<div class="station-number">{routeBadgeText}<div>01</div></div>
+						<div>
+							<a href="/audio/jreast/keiyo/tokyo" class="station-name">東京</a>
+							<div class="melody-container">
+								<div class="melody-row">
+									<span class="track-badge">1〜4番線</span>
+									<span class="melody-name">Verde Rayo V2 など</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="station-features">
+						<div class="feature-card">
+							<span class="card-tag" style="background-color: #008024;">始発</span>
+							<div class="card-text">特急・各停<br>快速</div>
+						</div>
+						<div class="feature-card">
+							<span class="card-tag" style="background-color: #616d7a;">乗換</span>
+							<div class="card-text">山手・中央<br>新幹線 他</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="station-card">
+					<div class="station-info">
+						<div class="station-number">{routeBadgeText}<div>02</div></div>
+						<div>
+							<a href="#" class="station-name">八丁堀</a>
+							<div class="melody-container">
+								<div class="melody-row">
+									<span class="track-badge">1番線</span>
+									<span class="melody-name">Over</span>
+								</div>
+								<div class="melody-row">
+									<span class="track-badge">2番線</span>
+									<span class="melody-name">シンコペーション</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="station-features">
+						<div class="feature-card">
+							<span class="card-tag" style="background-color: #616d7a;">乗換</span>
+							<div class="card-text">日比谷線</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="station-card">
+					<div class="station-info">
+						<div class="station-number">{routeBadgeText}<div>17</div></div>
+						<div>
+							<a href="#" class="station-name">蘇我</a>
+							<div class="melody-container">
+								<div class="melody-row">
+									<span class="track-badge">3・4番線</span>
+									<span class="melody-name">Over</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="station-features">
+						<div class="feature-card">
+							<span class="card-tag" style="background-color: #e24a00;">注意</span>
+							<div class="card-text">当駅始発・<br>終着多数</div>
+						</div>
+					</div>
+				</div>
+
+			</div> <div class="footer-terminal">
+				<div class="route-line"></div>
+				<div class="transfer-container">
+					<a href="#" class="transfer-button" style="border-color: #c92334; color: #c92334;">
+						外房線 <span>❯</span>
+					</a>
+					<a href="#" class="transfer-button" style="border-color: #0070bc; color: #0070bc;">
+						内房線 <span>❯</span>
+					</a>
+				</div>
 			</div>
-		</main>
-		<Footer />
 
-		<script is:inline>
-			const stationData = {
-				tokyo: {
-					name: "東京駅", sub: "Tokyo Station",
-					comment: "京葉線の始発駅。発車メロディにはスイッチ製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。"
-				},
-				hatchobori: {
-					name: "八丁堀駅", sub: "Hatchobori Station",
-					comment: "1番線（蘇我方面）は爽快感のある爽やかな『Over』、2番線（東京方面）は小気味よいテンポで人気の高い『シンコペーション』が採用されています。地下駅のため音が非常によく響きます。"
-				},
-				soga: {
-					name: "蘇我駅", sub: "Soga Station",
-					comment: "京葉線の終着駅である蘇我駅の3・4番線ホームでは、おなじみの『Over』が鳴り響きます。ここから内房線・外房線へと直通していく列車も多く、房総半島への玄関口としての活気を感じさせるメロディです。"
-				}
-			};
-
-			const rows = document.querySelectorAll('.station-card-row');
-			rows.forEach(row => {
-				row.addEventListener('click', () => {
-					// アクティブなクラスの付け替え
-					rows.forEach(r => r.classList.remove('is-active'));
-					row.classList.add('is-active');
-
-					// データの流し込み
-					const key = row.getAttribute('data-station-trigger');
-					const data = stationData[key];
-					if (data) {
-						document.getElementById('st-name').textContent = data.name;
-						document.getElementById('st-sub').textContent = data.sub;
-						document.getElementById('st-comment').textContent = data.comment;
-					}
-				});
-			});
-		</script>
+		</div> <Footer />
 	</body>
 </html>

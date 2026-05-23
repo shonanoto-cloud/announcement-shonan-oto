@@ -37,7 +37,7 @@ body {
 
 main {
 	width: 100%;
-	max-width: 720px; /* 元の読みやすい幅に調整 */
+	max-width: 1000px; /* 元の読みやすい幅に調整 */
 	margin: 0 auto;
 	padding: 3em 1em;
 	box-sizing: border-box;
@@ -50,8 +50,8 @@ h1, h2, h3 {
 	font-weight: 700;
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2rem; }
+h1 { font-size: 5rem; }
+h2 { font-size: 3rem; }
 
 p {
 	line-height: 1.7;

@@ -294,7 +294,7 @@ const transfers = [
       </div>
     </div>
 	</main>
-	<Footer />
+	<Footer/>
   </body>
 </html>
 
@@ -343,11 +343,6 @@ const transfers = [
     top: 0;
     z-index: 10;
   }
-
-  /* 【修正】
-    共通フッターやコンテンツの裏に隠れないよう、z-indexを100（最前面）にし、
-    最下部固定（fixed）の基準をブラウザの画面最下部に設定しました。
-  */
   .custom-route-melodiestation .fixed-footer {
     background-color: rgba(244, 245, 248, 0.9);
     backdrop-filter: blur(8px);
@@ -355,7 +350,6 @@ const transfers = [
     text-align: center;
     padding: 12px 15px;
     border-top: 1px solid rgba(225, 229, 232, 0.8);
-    position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);

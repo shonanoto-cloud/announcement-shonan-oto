@@ -16,14 +16,14 @@ const lineConfig = {
 };
 
 // ==========================================================================
-// 2. 駅データ（hasPage: false にすると自動でグレーアウト＆選択不可になります）
+// 2. 駅データ
 // ==========================================================================
 const stations = [
   {
     number: "01",
     name: "東京",
     link: "#",
-    hasPage: true, // 収録済み（通常表示）
+    hasPage: true,
     melodies: [
       { tracks: "1番線", name: "JRE-IKST-004-01" },
       { tracks: "2番線", name: "JRE-IKST-004-02" },
@@ -36,7 +36,7 @@ const stations = [
     number: "02",
     name: "八丁堀",
     link: "#",
-    hasPage: false, // 未収録（グレーアウト＆リンク無効）
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "JRE-IKST-001-01" },
       { tracks: "2番線", name: "JRE-IKST-001-02" }
@@ -47,7 +47,7 @@ const stations = [
     number: "03",
     name: "越中島",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "JRE-IKST-001-01" },
       { tracks: "2番線", name: "JRE-IKST-001-02" }
@@ -58,7 +58,7 @@ const stations = [
     number: "04",
     name: "潮見",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: true,
     melodies: [
       { tracks: "1番線", name: "Ocean Voyage", bg: "#2ca85a" },
       { tracks: "2番線", name: "History", bg: "#c92334" }
@@ -69,7 +69,7 @@ const stations = [
     number: "05",
     name: "新木場",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: ture,
     melodies: [
       { tracks: "1番線", name: "La Moraleja", bg: "#2ca85a" },
       { tracks: "2番線", name: "See You Again", bg: "#c92334" }
@@ -80,7 +80,7 @@ const stations = [
     number: "06",
     name: "葛西臨海公園",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "緑の車窓", bg: "#2ca85a" },
       { tracks: "2番線", name: "海辺 of 散歩", bg: "#c92334" }
@@ -91,7 +91,7 @@ const stations = [
     number: "07",
     name: "舞浜",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "It's a Small World", bg: "#2ca85a" },
       { tracks: "2番線", name: "Zip-A-Dee-Doo-Dah", bg: "#c92334" }
@@ -102,7 +102,7 @@ const stations = [
     number: "08",
     name: "新浦安",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1・2番", name: "Sparkling Time" },
       { tracks: "3・4番", name: "A Way of Life" }
@@ -113,7 +113,7 @@ const stations = [
     number: "09",
     name: "市川塩浜",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "Harbor Light", bg: "#2ca85a" },
       { tracks: "2番線", name: "Sunset Cruise", bg: "#c92334" }
@@ -124,7 +124,7 @@ const stations = [
     number: "10",
     name: "二俣新町",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "Blue Sky", bg: "#2ca85a" },
       { tracks: "2番線", name: "Winds of Change", bg: "#c92334" }
@@ -135,7 +135,7 @@ const stations = [
     number: "11",
     name: "南船橋",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1・2番", name: "Seaside Journey" },
       { tracks: "3・4番", name: "Coast Line" }
@@ -146,7 +146,7 @@ const stations = [
     number: "12",
     name: "新習志野",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1-4番線", name: "千葉ロッテ<br>応援歌" }
     ],
@@ -156,7 +156,7 @@ const stations = [
     number: "13",
     name: "幕張豊砂",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "希望の風", bg: "#2ca85a" },
       { tracks: "2番線", name: "そよ風のロンド", bg: "#c92334" }
@@ -167,7 +167,7 @@ const stations = [
     number: "14",
     name: "海浜幕張",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1-4番線", name: "We Love Marines" }
     ],
@@ -177,7 +177,7 @@ const stations = [
     number: "15",
     name: "検見川浜",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "Lover's Concerto", bg: "#2ca85a" },
       { tracks: "2番線", name: "Minuet", bg: "#c92334" }
@@ -188,7 +188,7 @@ const stations = [
     number: "16",
     name: "稲毛海岸",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "1番線", name: "Ocean Wave", bg: "#2ca85a" },
       { tracks: "2番線", name: "Beach Side", bg: "#c92334" }
@@ -199,7 +199,7 @@ const stations = [
     number: "17",
     name: "蘇我",
     link: "#",
-    hasPage: false, // 未収録
+    hasPage: false,
     melodies: [
       { tracks: "3・4番線", name: "Over" }
     ],
@@ -207,7 +207,6 @@ const stations = [
   }
 ];
 
-// 接続路線データ
 const transfers = [
   { name: "外房線", url: "https://example.com/sotobo", color: "#c92334" },
   { name: "内房線", url: "https://example.com/uchibo", color: "#0070bc" }
@@ -228,12 +227,6 @@ const transfers = [
         <div class="sticky-header">
           <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
             {lineConfig.topBadgeText}
-          </span>
-        </div>
-
-        <div class="fixed-footer">
-          <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
-            {lineConfig.bottomBadgeText}
           </span>
         </div>
 
@@ -291,6 +284,12 @@ const transfers = [
           </div>
         </div>
       </div>
+
+      <div class="fixed-footer">
+        <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
+          {lineConfig.bottomBadgeText}
+        </span>
+      </div>
     </div>
 
     <Footer />
@@ -299,16 +298,15 @@ const transfers = [
 
 <style>
   /* ==========================================================================
-     1. スコープ＆全体リセット（global.cssの干渉を徹底的に破壊・無効化）
+     1. スコープ＆全体リセット
      ========================================================================== */
   .custom-route-melodiestation {
     width: 100%;
-    max-width: 480px; /* test2.htmlのジャストサイズ */
+    max-width: 480px;
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
     background-color: #f7f9fa;
-    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     position: relative;
   }
 
@@ -326,7 +324,8 @@ const transfers = [
     position: relative;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
     min-height: 100vh;
-    padding-bottom: 80px; /* 固定フッターに絶対に被らないセーフエリア */
+    /* バッジエリア(約60px) + 重なりを防ぐ追加余白を含めたセーフエリアを確保 */
+    padding-bottom: 75px; 
   }
 
   /* ==========================================================================
@@ -344,21 +343,25 @@ const transfers = [
     z-index: 10;
   }
 
+  /* 【修正】
+    共通フッターやコンテンツの裏に隠れないよう、z-indexを100（最前面）にし、
+    最下部固定（fixed）の基準をブラウザの画面最下部に設定しました。
+  */
   .custom-route-melodiestation .fixed-footer {
-    background-color: rgba(244, 245, 248, 0.85);
+    background-color: rgba(244, 245, 248, 0.9);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     text-align: center;
-    padding: 14px 15px;
+    padding: 12px 15px;
     border-top: 1px solid rgba(225, 229, 232, 0.8);
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 480px;
-    z-index: 10;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.03);
+    max-width: 480px; /* 親の横幅と一致させてスマホ表示でハミ出さないようにガード */
+    z-index: 100;    /* 共通Footerよりも手前に表示する設定 */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
   }
 
   .custom-route-melodiestation .line-badge {
@@ -395,7 +398,7 @@ const transfers = [
   }
 
   /* ==========================================================================
-     4. 中央トラック配置（test2.html 準拠の 55% センター軸）
+     4. 中央トラック配置
      ========================================================================== */
   .custom-route-melodiestation .route-track {
     position: absolute;
@@ -435,7 +438,7 @@ const transfers = [
   }
 
   /* ==========================================================================
-     5. 左側エリア：通常駅名・未収録グレーアウト機能
+     5. 左側エリア：駅情報
      ========================================================================== */
   .custom-route-melodiestation .station-info {
     width: 55% !important;
@@ -463,7 +466,6 @@ const transfers = [
     color: #1a2530 !important;
   }
 
-  /* 通常時のリンク駅名 */
   .custom-route-melodiestation .station-name {
     font-size: 1.3rem !important;
     font-weight: bold !important;
@@ -488,7 +490,6 @@ const transfers = [
     transform: translateX(6px) !important;
   }
 
-  /* 未収録駅（グレーアウト）用スタイル */
   .custom-route-melodiestation .station-name-disabled {
     font-size: 1.3rem !important;
     font-weight: bold !important;
@@ -499,7 +500,6 @@ const transfers = [
     cursor: not-allowed;
   }
 
-  /* 未収録ブロック全体の要素を少し透過 */
   .custom-route-melodiestation .is-disabled .melody-name,
   .custom-route-melodiestation .is-disabled .track-badge,
   .custom-route-melodiestation .is-disabled .station-number {
@@ -544,7 +544,7 @@ const transfers = [
   }
 
   /* ==========================================================================
-     6. 右側エリア：お役立ちカード (global.cssの flex-direction: column 等を徹底無効化)
+     6. 右側エリア：お役立ちカード
      ========================================================================== */
   .custom-route-melodiestation .station-features {
     width: 45% !important;
@@ -553,8 +553,8 @@ const transfers = [
     justify-content: center !important;
     align-items: flex-start !important;
     z-index: 4;
-    margin-left: 0 !important; /* global.css の margin-left: 16px を打ち消し */
-    gap: 0 !important;         /* global.css の gap: 8px を打ち消し */
+    margin-left: 0 !important;
+    gap: 0 !important;
   }
 
   .custom-route-melodiestation .feature-card {
@@ -568,12 +568,11 @@ const transfers = [
     text-align: center !important;
     font-size: 0.8rem !important;
     position: relative;
-    display: block !important; /* global.css の flex をブロックに戻して完全復元 */
+    display: block !important;
     margin: 0 auto !important;
     min-width: unset !important;
   }
 
-  /* 吹き出しの三角ピン */
   .custom-route-melodiestation .feature-card::before {
     content: '' !important;
     position: absolute;
@@ -598,7 +597,7 @@ const transfers = [
   }
 
   .custom-route-melodiestation .card-text {
-    font-size: 0.8rem !important; /* 元のサイズ */
+    font-size: 0.8rem !important;
     font-weight: bold !important;
     line-height: 1.3 !important;
     color: #1a2530 !important;
@@ -610,7 +609,7 @@ const transfers = [
      7. 終端接続エリア（乗り換えリンク）
      ========================================================================== */
   .custom-route-melodiestation .footer-terminal {
-    display: block !important; /* global.css の grid/flex 展開をリセット */
+    display: block !important;
     position: relative;
     padding-top: 20px;
     padding-bottom: 40px;

@@ -1,0 +1,370 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { SITE_TITLE } from '../../../consts';
+
+// ==========================================================================
+// 1. 駅個別カスタマイズオプション（別駅を作るときはここを変えるだけ！）
+// ==========================================================================
+const stationConfig = {
+  lineName: "京葉線",
+  lineColor: "#c92334",          // 京葉線の赤
+  routeBadgeText: "JE",
+  stationNumber: "01",
+  stationName: "東京",
+  stationNameEn: "Tokyo",
+  pageTitle: "東京駅 発車メロディ・自動放送詳細",
+};
+
+// ==========================================================================
+// 2. 収録音源データリスト（今後音源を増やしたり差し替える時はここを編集）
+// ==========================================================================
+const audioTracks = [
+  {
+    tags: ["発車メロディ", "スイッチ製", "鳴りやすさ：低"],
+    heading: "Verde Rayo V1",
+    subname: "1・2番線",
+    audioSrc: "melody1.mp3",
+    details: "京葉線地下ホーム1・2番線で使用されている標準的なメロディです。日中は途中切りが多く、始発列車やラッシュ時でないとフルコーラス以上の鳴動は困難です。"
+  },
+  {
+    tags: ["発車メロディ", "スイッチ製", "鳴りやすさ：低"],
+    heading: "Gota del Vient V1",
+    subname: "3・4番線",
+    audioSrc: "melody2.mp3",
+    details: "3・4番線で流れる爽やかなメロディです。1・2番線同様に駅員の扱いがシビアなため、フルコーラスを収録するには時間帯の見極めが非常に重要となります。"
+  },
+  {
+    tags: ["自動案内放送", "戸閉連動", "特急対応・予告あり"],
+    heading: "自動案内放送＋戸閉連動",
+    subname: "特急対応・予告あり",
+    audioSrc: "announcement3.mp3",
+    details: "特急列車の入線時には、専用のスクロール表示と連動した長い案内放送が流れます。発車間際の「ドアが閉まります」まで綺麗に収録が可能です。"
+  },
+  {
+    tags: ["発車メロディ", "スイッチ製", "鳴りやすさ：中"],
+    heading: "Verde Rayo V2",
+    subname: "1・2番線と同曲",
+    audioSrc: "melody3.mp3",
+    details: "武蔵野線直通の普通列車や特急などバラエティ豊かな車両が発車します。乗降客数によって鳴動時間が大きく変動するため、粘り強い収録が必要です。"
+  }
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={`${stationConfig.stationName}駅 | ${SITE_TITLE}`} description={`${stationConfig.lineName} ${stationConfig.stationName}駅の発車メロディと自動放送の収録データ詳細です。`} />
+  </head>
+  <body>
+    <Header />
+
+    <div class="custom-station-audiosignage">
+      <div class="app-container">
+        
+        <div class="signage-header">
+          <div class="header-main-row">
+            <div class="station-id-box" style={{ borderColor: stationConfig.lineColor }}>
+              <span class="line-id-text">{stationConfig.routeBadgeText}</span>
+              <span class="number-id-text">{stationConfig.stationNumber}</span>
+            </div>
+            <h1 class="station-title-text">{stationConfig.stationName}</h1>
+          </div>
+          <div class="header-sub-row">
+            <span class="line-indicator-name" style={{ backgroundColor: stationConfig.lineColor }}>
+              {stationConfig.lineName}
+            </span>
+            <span class="english-title-text">{stationConfig.stationNameEn}</span>
+          </div>
+        </div>
+
+        <div class="audio-section">
+          <h2 class="section-badge-title">収録音源一覧</h2>
+
+          <div class="audio-list">
+            {audioTracks.map((track) => (
+              <div class="audio-row">
+                <div class="audio-tags">
+                  {track.tags.map((tag, idx) => (
+                    <span class={`tag ${idx === 0 ? 'accent' : ''}`}>{tag}</span>
+                  ))}
+                </div>
+
+                <div class="audio-heading">
+                  <span class="audio-main-title">{track.heading}</span>
+                  <span class="audio-subname">{track.subname}</span>
+                </div>
+
+                <audio controls src={track.audioSrc}></audio>
+
+                <div class="audio-details">
+                  {track.details}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="footer-nav">
+          <a href="/keiyo" class="btn-app-back">
+            路線別へ戻る
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  /* ==========================================================================
+     1. スコープ＆全体リセットガード（global.css等の干渉を完全に断ち切る）
+     ========================================================================== */
+  .custom-station-audiosignage {
+    width: 100%;
+    max-width: 480px; /* test2 copy.html 準拠の完璧なスマホ特化幅 */
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f6f8;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    position: relative;
+  }
+
+  .custom-station-audiosignage * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    writing-mode: horizontal-tb !important; /* 横書きを徹底固定 */
+    letter-spacing: normal;
+  }
+
+  .custom-station-audiosignage .app-container {
+    background-color: #ffffff;
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 70px; /* 戻るボタンエリア(固定)と被らない余白 */
+  }
+
+  /* ==========================================================================
+     2. サイネージヘッダー（駅名標風デザインシステム）
+     ========================================================================== */
+  .custom-station-audiosignage .signage-header {
+    background-color: #111827; /* 深みのあるサイネージブラック */
+    color: #ffffff;
+    padding: 24px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: 4px solid #374151;
+  }
+
+  .custom-station-audiosignage .header-main-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .custom-station-audiosignage .station-id-box {
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #111827;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    font-weight: 900;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+
+  .custom-station-audiosignage .line-id-text {
+    font-size: 0.75rem;
+  }
+
+  .custom-station-audiosignage .number-id-text {
+    font-size: 1.15rem;
+    margin-top: -1px;
+  }
+
+  .custom-station-audiosignage .station-title-text {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .custom-station-audiosignage .header-sub-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2px;
+    padding-left: 2px;
+  }
+
+  .custom-station-audiosignage .line-indicator-name {
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .custom-station-audiosignage .english-title-text {
+    font-size: 0.95rem;
+    color: #9ca3af;
+    font-weight: 500;
+    font-family: Arial, sans-serif;
+  }
+
+  /* ==========================================================================
+     3. 収録音源セクション
+     ========================================================================== */
+  .custom-station-audiosignage .audio-section {
+    padding: 24px 16px;
+    flex: 1;
+    background-color: #ffffff;
+  }
+
+  .custom-station-audiosignage .section-badge-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #4b5563;
+    background-color: #f3f4f6;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
+  .custom-station-audiosignage .audio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .custom-station-audiosignage .audio-row {
+    background-color: #ffffff;
+    border: 1px solid #e5e8eb;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* タグシステム */
+  .custom-station-audiosignage .audio-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .custom-station-audiosignage .tag {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .custom-station-audiosignage .tag.accent {
+    background-color: #eff6ff;
+    color: #2563eb; /* クリーンな鉄道案内ブルー */
+  }
+
+  /* 音源の見出し */
+  .custom-station-audiosignage .audio-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 2px 0;
+  }
+
+  .custom-station-audiosignage .audio-main-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1f2937;
+  }
+
+  .custom-station-audiosignage .audio-subname {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #6b7280;
+  }
+
+  /* ネイティブオーディオプレイヤーのスマホ最適化 */
+  .custom-station-audiosignage audio {
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+  }
+
+  /* 音源解説テキスト */
+  .custom-station-audiosignage .audio-details {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #4b5563;
+    background-color: #fafbfc;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px dashed #e5e8eb;
+  }
+
+  /* ==========================================================================
+     4. 下部固定ナビゲーション（路線別へ戻るボタン）
+     ========================================================================== */
+  .custom-station-audiosignage .footer-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px; /* ヘッダー幅と一致 */
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12px 16px;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+    border-top: 1px solid #e5e8eb;
+    z-index: 100;
+    text-align: center;
+  }
+
+  .custom-station-audiosignage .btn-app-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 44px;
+    background-color: #1f2937;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(31, 41, 55, 0.15);
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .custom-station-audiosignage .btn-app-back:hover,
+  .custom-station-audiosignage .btn-app-back:active {
+    background-color: #111827;
+    transform: scale(0.99);
+  }
+</style>

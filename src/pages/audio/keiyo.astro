@@ -23,7 +23,10 @@ const stations = [
     name: "東京",
     link: "#",
     melodies: [
-      { tracks: "1-4番線", name: "Verde Rayo V2" }
+      { tracks: "1番線", name: "JRE-IKST-004-01" },
+	  { tracks: "2番線", name: "JRE-IKST-004-02" },
+	  { tracks: "3番線", name: "JRE-IKST-001-01" },
+	  { tracks: "4番線", name: "JRE-IKST-001-02" }
     ],
     feature: { tag: "名所", text: "赤レンガ<br>駅舎", bgColor: "#ffc107", textColor: "#1a2530" }
   },
@@ -32,8 +35,8 @@ const stations = [
     name: "八丁堀",
     link: "#",
     melodies: [
-      { tracks: "1番線", name: "Over", bg: "#2ca85a" },
-      { tracks: "2番線", name: "シンコペーション", bg: "#c92334" }
+      { tracks: "1番線", name: "JRE-IKST-001-01" },
+	  { tracks: "2番線", name: "JRE-IKST-001-02" }
     ],
     feature: { tag: "乗換", text: "日比谷線<br>連絡", bgColor: "#17a2b8", textColor: "#ffffff" }
   },
@@ -42,8 +45,8 @@ const stations = [
     name: "越中島",
     link: "#",
     melodies: [
-      { tracks: "1番線", name: "Subway", bg: "#2ca85a" },
-      { tracks: "2番線", name: "Cielo Estrellado", bg: "#c92334" }
+      { tracks: "1番線", name: "JRE-IKST-001-01" },
+	  { tracks: "2番線", name: "JRE-IKST-001-02" }
     ],
     feature: { tag: "データ", text: "23区内の<br>JR駅で最少", bgColor: "#6c757d", textColor: "#ffffff" }
   },
@@ -200,7 +203,9 @@ const transfers = [
   </head>
   <body>
     <Header />
-
+	<main>
+	<h1>京葉線</h1>
+	<p>以下から駅名を選択してください。</p>
     <div class="custom-route-melodiestation">
       <div class="line-container">
         <div class="header">
@@ -209,7 +214,6 @@ const transfers = [
             {lineConfig.badgeText}
           </span>
         </div>
-
         <div class="timeline">
           {stations.map((station) => (
             <div class="station-block">
@@ -261,6 +265,7 @@ const transfers = [
         </div>
       </div>
     </div>
+</main>
 
     <Footer />
   </body>

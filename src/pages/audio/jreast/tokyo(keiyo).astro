@@ -192,7 +192,10 @@ const stationConfig = {
         /* ==========================================================================
            5. 駅放送メイン・番線別セクション
            ========================================================================== */
-        .platform-container {
+        .main{
+          max-width: 1000px;
+        }
+           .platform-container {
             padding: 0 16px;
         }
 
@@ -351,7 +354,7 @@ const stationConfig = {
                 <img src="https://picsum.photos/id/1016/800/500" alt="駅写真2">
             </div>
         </div>
-        <main>
+        <div class ="main">
         <div class="section-title">駅スピーカー・環境情報</div>
         <div class="info-card">
             <div class="info-grid">
@@ -461,11 +464,11 @@ const stationConfig = {
         </div>
 
         <div class="footer-nav">
-            <a href="keiyo" class="btn-app-back">
+            <a href="../jreast/keiyo" class="btn-app-back">
                 路線別へ戻る
             </a>
         </div>
-        </main>
+      </div>
     </div>
 <Footer />
 </body>

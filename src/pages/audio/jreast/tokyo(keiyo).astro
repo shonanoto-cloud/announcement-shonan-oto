@@ -44,7 +44,7 @@ const stationConfig = {
             </div>
         </div>
         <div class ="main">
-        <div class="section-title">駅スピーカー・環境情報</div>
+        <div class="section-title">基本情報</div>
         <div class="info-card">
             <div class="info-grid">
                 <div>
@@ -198,7 +198,6 @@ const stationConfig = {
         main {
             background-color: var(--bg-main);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif
             flex: 1;
             display: flex;
             justify-content: center;
@@ -281,7 +280,7 @@ const stationConfig = {
         .section-title {
             font-size: 2em;
             font-weight: 800;
-            padding: 24px 16px 10px 20px;
+            padding: 24px 20px 10px 30px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -360,8 +359,9 @@ const stationConfig = {
         .track-title::before {
             content: '';
             display: inline-block;
-            width: 4px;
+            width: 6px;
             height: 1.5em;
+            border-radius: 1px;
             background-color: var(--line-color);
         }
         .track-destination {
@@ -426,7 +426,7 @@ const stationConfig = {
         }
 
         .audio-details {
-            font-size: 20px;
+            font-size: 16px;
             color: #4b5563;
             line-height: 1.6;
             margin-top: 10px;

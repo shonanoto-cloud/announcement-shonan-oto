@@ -2,33 +2,59 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={`鉄道事業者一覧 | ${SITE_TITLE}`} description="収録している鉄道事業者の一覧ページです。" />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
-		<main class="main-container">
-			<div class="section-title">鉄道事業者を選択</div>
+		<Header/>
+		<main>
+			<h1>Audio</h1>
+			<p>ここでは、管理人が収録した駅放送や発車メロディを公開しています。</p>
+			<h2>会社別</h2>
+			<p>ここでは、鉄道会社別に駅放送を公開しています。</p>
 			
-			<div class="flat-list">
-				<a href="/audio/jreast" class="flat-card" style="border-left: 6px solid var(--jr-green);">
-					<span>JR東日本 (JR East)</span>
-					<span style="color: var(--text-sub); font-size: 0.85rem;">選択 ◀</span>
-				</a>
-
-				<a href="#" class="flat-card" style="border-left: 6px solid #1c599c; opacity: 0.6;">
-					<span>小田急電鉄 (Odakyu)</span>
-					<span style="color: var(--text-sub); font-size: 0.8rem;">準備中</span>
-				</a>
-				<a href="#" class="flat-card" style="border-left: 6px solid #0097a7; opacity: 0.6;">
-					<span>江ノ島電鉄 (Enoden)</span>
-					<span style="color: var(--text-sub); font-size: 0.8rem;">準備中</span>
-				</a>
+			<div class="list">
+				<div class="item">
+					<img class="item-image" src="/images/F-5102.jpg" alt="JR北海道" />
+					<div class="button-container">
+						<a href="/audio/jrkita" class="btn-styled">JR北海道</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/saikyo.JPG" alt="JR東日本" />
+					<div class="button-container">
+						<a href="/audio/jreast" class="btn-styled">JR東日本</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/yamatoji.jpg" alt="JR西日本" />
+					<div class="button-container">
+						<a href="/audio/jrwest" class="btn-styled">JR西日本</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/ICE2.jpg" alt="DB" />
+					<div class="button-container">
+						<a href="/audio/DB" class="btn-styled">Deutsche Bahn</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/TM7101.jpg" alt="東京メトロ" />
+					<div class="button-container">
+						<a href="/audio/tokyometro" class="btn-styled">東京メトロ</a>
+					</div>
+				</div>
+				<div class="item">
+					<img class="item-image" src="/images/tobu.jpg" alt="東武鉄道" />
+					<div class="button-container">
+						<a href="/audio/tobu" class="btn-styled">東武鉄道</a>
+					</div>
+				</div>
 			</div>
 		</main>
 		<Footer />

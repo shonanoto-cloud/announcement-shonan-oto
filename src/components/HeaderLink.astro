@@ -15,35 +15,21 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 
 <style>
 	a {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		height: 56px; /* ヘッダーの高さに合わせる */
-		padding: 0 12px;
-		color: #9ca3af; /* 通常時は落ち着いたグレー */
+		display: inline-block;
 		text-decoration: none;
-		font-weight: 700;
-		font-size: 0.85rem;
-		position: relative;
-		transition: color 0.2s ease;
+		padding: 6px 12px;
+		color: #475569;
+		font-weight: 600;
+		font-size: 0.95rem;
+		border-radius: 6px;
+		transition: all 0.2s;
 	}
 	a:hover {
-		color: #ffffff;
+		background-color: #f1f5f9;
+		color: #0f172a;
 	}
-	
-	/* アクティブ（現在地）の時に直線的な下線を表示 */
 	a.active {
-		color: #ffffff;
-		font-weight: 800;
-	}
-	a.active::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 12px;
-		right: 12px;
-		height: 3px;
-		background-color: #ffffff;
-		border-radius: 1.5px 1.5px 0 0;
+		color: #008024; /* アクティブなときはJRグリーンに優しく光る */
+		background-color: #e6f4ea;
 	}
 </style>

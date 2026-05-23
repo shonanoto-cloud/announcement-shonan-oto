@@ -3,111 +3,153 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE } from '../../consts';
-
-const lineColor = "#c92334"; // 京葉線赤
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={`京葉線 駅一覧 | ${SITE_TITLE}`} description="京葉線の収録駅一覧ページです。" />
-		<style define:vars={{ lineColor }}>
-			/* 縦の路線図を表現するライン */
-			.station-timeline {
-				position: relative;
-				padding: 8px 16px;
+		<BaseHead title={SITE_TITLE} description="JR East" />
+		<style>
+			:root {
+				--line-color: #c92334; /* 京葉線赤 */
+			}
+			/* 元の2カラムレイアウトを完全に維持 */
+			.keiyo-container {
+				display: flex;
+				height: calc(100vh - 150px);
+				overflow: hidden;
+				background-color: #ffffff;
+				max-width: 1200px;
+				margin: 0 auto;
+				border: 1px solid #e2e8f0;
+				border-radius: 12px; /* 全体にマイルドな丸み */
+			}
+
+			/* 左側駅リスト */
+			.sidebar-stations {
+				width: 400px;
+				overflow-y: auto;
+				border-right: 1px solid #e2e8f0;
+				background: #f8fafc;
+			}
+			.station-block {
+				padding: 20px;
+				border-bottom: 1px solid #e2e8f0;
+				cursor: pointer;
+				transition: all 0.2s;
+				border-left: 4px solid transparent;
+			}
+			.station-block:hover { background: #f1f5f9; }
+			.station-block.is-active {
+				background: #ffffff;
+				border-left-color: var(--line-color);
+			}
+			.station-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+			.badge {
+				border: 2px solid var(--line-color);
+				padding: 1px 6px;
+				font-size: 0.75rem;
+				font-weight: 800;
+				border-radius: 4px; /* ここも優しい角丸に */
+			}
+			.name-ja { font-weight: 700; font-size: 1.1rem; }
+
+			/* 右側詳細エリア */
+			.detail-content {
+				flex: 1;
+				padding: 40px;
+				overflow-y: auto;
 				display: flex;
 				flex-direction: column;
-				gap: 0; /* 密着させて路線図っぽく見せる */
+				justify-content: center;
 			}
-			.station-row {
-				display: flex;
-				align-items: center;
+			.detail-card {
+				background: #f8fafc;
+				padding: 32px;
+				border-radius: 12px;
+				border: 1px solid #e2e8f0;
+			}
+			.btn-link {
+				display: inline-block;
+				margin-top: 20px;
+				background: #0f172a;
+				color: #ffffff;
 				text-decoration: none;
-				color: var(--text-main);
-				padding: 14px 16px;
-				border: 1px solid var(--border-light);
-				border-top: none;
-				background: #ffffff;
-				position: relative;
-				transition: background 0.2s;
+				padding: 12px 24px;
+				font-weight: 700;
+				border-radius: 8px;
 			}
-			.station-row:first-child {
-				border-top: 1px solid var(--border-light);
-			}
-			.station-row:hover {
-				background: #f9fafb;
-			}
-			
-			/* ナンバリング用のシャープな角丸なし四角バッジ */
-			.station-badge-flat {
-				border: 2px solid var(--lineColor);
-				background: #ffffff;
-				color: var(--text-main);
-				font-weight: 900;
-				padding: 2px 6px;
-				font-size: 0.75rem;
-				min-width: 48px;
-				text-align: center;
-				margin-right: 16px;
-			}
-			.station-badge-flat span {
-				color: var(--lineColor);
-				margin-right: 1px;
-			}
-			
-			.station-name-ja {
-				font-weight: 800;
-				font-size: 1.05rem;
-				letter-spacing: 0.5px;
-			}
-			.station-name-en {
-				font-size: 0.75rem;
-				color: var(--text-sub);
-				margin-left: 8px;
-				font-weight: 600;
-			}
-			.arrow-mark {
-				margin-left: auto;
-				color: var(--text-sub);
-				font-size: 0.85rem;
-			}
+			.btn-link:hover { background: var(--line-color); }
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main class="main-container">
-			<div class="section-title">京葉線 駅一覧</div>
-			
-			<div class="station-timeline">
-				<a href="/audio/jreast/keiyo/tokyo" class="station-row" style="border-left: 4px solid var(--lineColor);">
-					<div class="station-badge-flat"><span>JE</span>01</div>
-					<div>
-						<span class="station-name-ja">東京</span>
-						<span class="station-name-en">Tōkyō</span>
+		<main style="max-width: 100%; padding: 20px;">
+			<div class="keiyo-container">
+				<div class="sidebar-stations">
+					<div class="station-block is-active" data-station-trigger="tokyo">
+						<div class="station-meta">
+							<span class="badge">JE 01</span>
+							<span class="name-ja">東京駅</span>
+						</div>
 					</div>
-					<span class="arrow-mark">詳細へ ◀</span>
-				</a>
+					<div class="station-block" data-station-trigger="hatchobori">
+						<div class="station-meta">
+							<span class="badge">JE 02</span>
+							<span class="name-ja">八丁堀駅</span>
+						</div>
+					</div>
+					<div class="station-block" data-station-trigger="soga">
+						<div class="station-meta">
+							<span class="badge">JE 17</span>
+							<span class="name-ja">蘇我駅</span>
+						</div>
+					</div>
+				</div>
 
-				<a href="#" class="station-row" style="border-left: 4px solid var(--lineColor); opacity: 0.5;">
-					<div class="station-badge-flat"><span>JE</span>02</div>
-					<div>
-						<span class="station-name-ja">八丁堀</span>
-						<span class="station-name-en">Hatchōbori</span>
+				<div class="detail-content">
+					<div class="detail-card">
+						<h2 id="st-name" style="margin-top:0;">東京駅</h2>
+						<p id="st-sub" style="color:#64748b; font-weight:600;">Tokyo Station</p>
+						<p id="st-comment">京葉線の始発駅。地下深く反響しやすい空間に響き渡る独特の旋律が特徴です。</p>
+						<a href="/audio/jreast/keiyo/tokyo" class="btn-link">駅の放送・メロディを聴く ◀</a>
 					</div>
-					<span class="arrow-mark">準備中</span>
-				</a>
-
-				<a href="#" class="station-row" style="border-left: 4px solid var(--lineColor); opacity: 0.5;">
-					<div class="station-badge-flat"><span>JE</span>03</div>
-					<div>
-						<span class="station-name-ja">越中島</span>
-						<span class="station-name-en">Etchūjima</span>
-					</div>
-					<span class="arrow-mark">準備中</span>
-				</a>
+				</div>
 			</div>
 		</main>
 		<Footer />
+
+		<script is:inline>
+			const stationData = {
+				tokyo: {
+					name: "東京駅", sub: "Tokyo Station",
+					comment: "京葉線の始発駅。発車メロディにはスイッチ製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。"
+				},
+				hatchobori: {
+					name: "八丁堀駅", sub: "Hatchobori Station",
+					comment: "1番線（蘇我方面）は爽快感のある爽やかな『Over』、2番線（東京方面）は小気味よいテンポで人気の高い『シンコペーション』が採用されています。地下駅のため音が非常によく響きます。"
+				},
+				soga: {
+					name: "蘇我駅", sub: "Soga Station",
+					comment: "京葉線の終着駅である蘇我駅の3・4番線ホームでは、おなじみの『Over』が鳴り響きます。ここから内房線・外房線へと直通していく列車も多く、房総半島への玄関口としての活気を感じさせるメロディです。"
+				}
+			};
+
+			const blocks = document.querySelectorAll('[data-station-trigger]');
+			blocks.forEach(block => {
+				block.addEventListener('click', () => {
+					blocks.forEach(b => b.classList.remove('is-active'));
+					block.classList.add('is-active');
+
+					const key = block.getAttribute('data-station-trigger');
+					const data = stationData[key];
+					if (data) {
+						document.getElementById('st-name').textContent = data.name;
+						document.getElementById('st-sub').textContent = data.sub;
+						document.getElementById('st-comment').textContent = data.comment;
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

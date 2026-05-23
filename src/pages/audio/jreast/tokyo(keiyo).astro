@@ -20,19 +20,19 @@ const stationConfig = {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東京駅</title>
-    <style>
+    <title>{stationConfig.pageTitle}</title>
+    <style define:vars={{ lineColor: stationConfig.lineColor }}>
         /* ==========================================================================
            1. デザインシステム（クリーン白ベース × サイネージのメリハリ）
            ========================================================================== */
         :root {
-            --jr-green: #008024;        /* JR東日本コーポレートカラー */
-            --line-color: #c92334;      /* 京葉線ラインカラー（赤） */
-            --bg-dark: #111827;         /* ヘッダー用の引き締まった黒 */
-            --bg-main: #f4f6f8;         /* ボディ背景（見やすい薄グレー） */
+            --jr-green: #008024; /* JR東日本コーポレートカラー */
+            --line-color: var(--lineColor); /* フロントマターの値を適用 */
+            --bg-dark: #111827; /* ヘッダー用の引き締まった黒 */
+            --bg-main: #f4f6f8; /* ボディ背景（見やすい薄グレー） */
             --card-white: #ffffff;
-            --text-main: #1f2937;       /* メイン文字色 */
-            --text-sub: #4b5563;        /* 補足文字色 */
+            --text-main: #1f2937; /* メイン文字色 */
+            --text-sub: #4b5563; /* 補足文字色 */
             --border-light: #e5e8eb;
         }
 
@@ -46,16 +46,23 @@ const stationConfig = {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
         }
 
-        /* 1カラムのスマートUIコンテナ（白背景ベース） */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* レスポンシブ対応コンテナ（スマホでは全幅、PCではスマートなカード風に） */
         .app-wrapper {
             width: 100%;
-            max-width: 480px;
+            max-width: 600px; /* 少し幅を広げて可読性を向上 */
             background: #ffffff;
-            min-height: 100vh;
             padding-bottom: 60px;
             box-shadow: 0 0 24px rgba(0,0,0,0.05);
         }
@@ -94,7 +101,7 @@ const stationConfig = {
             border-radius: 4px;
             padding: 2px 8px;
             font-size: 0.8rem;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .station-badge span {
             color: var(--line-color);
@@ -103,7 +110,7 @@ const stationConfig = {
 
         /* 駅名表示 */
         .station-title-ja {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: 2px;
             line-height: 1.2;
@@ -115,7 +122,7 @@ const stationConfig = {
         }
 
         /* ==========================================================================
-           3. 大型写真エリア（100%幅スクロール）
+           3. 大型写真エリア（レスポンス対応）
            ========================================================================== */
         .hero-gallery {
             width: 100%;
@@ -129,7 +136,7 @@ const stationConfig = {
         .hero-img-box {
             flex: 0 0 100%;
             scroll-snap-align: center;
-            aspect-ratio: 16 / 10;
+            aspect-ratio: 16 / 9; /* より一般的な16:9比率に修正 */
         }
         .hero-img-box img {
             width: 100%;
@@ -139,7 +146,7 @@ const stationConfig = {
         }
 
         /* ==========================================================================
-           4. セクションタイトル（JRグリーンマーカー付き）
+           4. セクションタイトル
            ========================================================================== */
         .section-title {
             font-size: 1.1rem;
@@ -166,12 +173,12 @@ const stationConfig = {
             border-radius: 12px;
             padding: 16px;
             border: 1px solid var(--border-light);
-            background-color: #f9fafb; /* ここだけ少しグレーにして引き締め */
+            background-color: #f9fafb;
         }
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 16px;
             font-size: 0.85rem;
         }
         .info-item-label {
@@ -184,7 +191,7 @@ const stationConfig = {
         }
 
         /* ==========================================================================
-           5. 駅放送メイン・番線別セクション（フラットデザイン）
+           5. 駅放送メイン・番線別セクション
            ========================================================================== */
         .platform-container {
             padding: 0 16px;
@@ -196,14 +203,15 @@ const stationConfig = {
             overflow: hidden;
         }
 
-        /* 楕円を廃止し、本物の発車標や掲示板のように直線的に見せるヘッダー */
         .track-header {
             padding: 10px 0;
-            border-bottom: 2px solid var(--text-main); /* クッキリとした直線デザイン */
+            border-bottom: 2px solid var(--text-main);
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 16px;
+            flex-wrap: wrap; /* 画面が狭い時に破綻しないよう折り返し許可 */
+            gap: 4px;
         }
         .track-title {
             font-weight: 900;
@@ -213,7 +221,6 @@ const stationConfig = {
             align-items: center;
             gap: 8px;
         }
-        /* 番線数字の前にアクセントとして細い路線カラーの縦線を入れる演出 */
         .track-title::before {
             content: '';
             display: inline-block;
@@ -227,7 +234,6 @@ const stationConfig = {
             font-weight: 700;
         }
 
-        /* 放送コンテンツ中身 */
         .track-body {
             display: flex;
             flex-direction: column;
@@ -241,7 +247,6 @@ const stationConfig = {
             border: 1px solid #edf2f7;
         }
 
-        /* マニア用タグ */
         .audio-tags {
             display: flex;
             flex-wrap: wrap;
@@ -268,6 +273,8 @@ const stationConfig = {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
         }
         .audio-subname {
             font-size: 0.8rem;
@@ -277,11 +284,11 @@ const stationConfig = {
 
         audio {
             width: 100%;
-            height: 36px;
+            height: 40px; /* 少し押しやすく高さを調整 */
             margin-top: 4px;
+            display: block; /* 隙間をなくす */
         }
 
-        /* 専門解説テキスト */
         .audio-details {
             font-size: 0.8rem;
             color: #4b5563;
@@ -320,7 +327,7 @@ const stationConfig = {
     </style>
 </head>
 <body>
-<Header/>
+<Header />
 <main>
     <div class="app-wrapper">
         
@@ -329,9 +336,13 @@ const stationConfig = {
                 <span class="prev">当駅終着</span>
                 <span class="next">八丁堀</span>
             </div>
-            <p></p>
-            <h1 class="station-title-ja">東京（京葉線地下ホーム）</h1>
-            <p class="station-title-sub">Tokyo / 도쿄 / 东京</p>
+            
+            <div class="station-badge">
+                <span>{stationConfig.stationNumber.split(' ')[0]}</span>{stationConfig.stationNumber.split(' ')[1]}
+            </div>
+ 
+            <h1 class="station-title-ja">{stationConfig.stationName}（{stationConfig.lineName}地下ホーム）</h1>
+            <p class="station-title-sub">{stationConfig.stationEn} / 도쿄 / 东京</p>
         </div>
 
         <div class="hero-gallery">
@@ -458,7 +469,7 @@ const stationConfig = {
         </div>
 
     </div>
-    </main>
-<Footer/>
+</main>
+<Footer />
 </body>
 </html>

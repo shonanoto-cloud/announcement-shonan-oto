@@ -5,148 +5,118 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE } from '../../consts';
 
 // ==========================================================================
-// 【路線のカラー・設定オプション】別の路線を作るときはここを書き換えるだけ！
+// 路線別カスタマイズカラー（他の路線を作る時はここだけ変えればOK！）
 // ==========================================================================
-const lineColor = "#c92334"; // 京葉線の赤（Tohkaidoなら #ff7e00、Saikyoなら #00b48d など）
+const lineColor = "#c92334"; // 京葉線のラインカラー（赤）
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={`京葉線 駅一覧 | ${SITE_TITLE}`} description="JR東日本 京葉線の駅放送・発車メロディ一覧" />
+		<BaseHead title={`京葉線 路線案内 | ${SITE_TITLE}`} description="京葉線の駅一覧と発車メロディ案内" />
 		<style define:vars={{ lineColor }}>
-			/* コンポーネント固有、またはカラー変数の受け渡し用 */
-			.route-split-container {
-				--line-color: var(--lineColor);
+			/* keiyo.astro 個別のカラーマッピング */
+			.route-line-core {
+				background-color: var(--lineColor);
+			}
+			.station-id-badge {
+				color: var(--lineColor);
+			}
+			/* 路線図の縦棒の位置をナンバリングの真後ろに綺麗にPC最適化 */
+			.route-line-core {
+				left: 14px;
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main style="max-width: 100%; padding: 20px; box-sizing: border-box;">
+		<main style="max-width: 100%; padding: 20px 16px;">
 			
-			<div class="route-split-container">
+			<div class="route-board-container">
 				
-				<div class="sidebar-timeline">
-					
-					<div class="station-row-block is-active" data-station-id="tokyo">
-						<div class="station-main-info">
-							<div class="station-number-badge"><span>JE</span>01</div>
-							<div>
-								<div class="station-title-name">東京</div>
-								<div class="station-melody-summary">
-									<div class="melody-track-row">
-										<span class="track-label-badge">1-4番線</span>
-										<span class="melody-title-text">Verde Rayo V2</span>
-									</div>
+				<h2 style="margin-top: 0; margin-bottom: 24px; font-size: 1.6rem; font-weight: 900; display: flex; align-items: center; gap: 12px;">
+					<span style={`display: inline-block; width: 8px; height: 1.6rem; background-color: ${lineColor}; border-radius: 4px;`}></span>
+					京葉線 駅一覧・メロディ案内
+				</h2>
+
+				<div class="route-map-vertical">
+					<div class="route-line-core"></div>
+
+					<div class="station-row-item">
+						<div class="station-left-box">
+							<div class="station-id-badge">JE<div>01</div></div>
+							<a href="/audio/jreast/keiyo/tokyo" class="station-name-link">東京</a>
+							
+							<div class="station-melody-block">
+								<div class="melody-track-line">
+									<span class="track-badge">1〜4番線</span>
+									<span class="melody-title-text">Verde Rayo V2</span>
 								</div>
 							</div>
 						</div>
-						<div class="station-feature-tags">
-							<div class="feature-tag-card" style="background-color: #e0f2fe; border-color: #bae6fd; color: #0369a1;">始発</div>
+						<div class="station-right-box">
+							<div class="feature-info-card">
+								<span class="feature-tag-pill" style="background-color: #008024;">始発</span>
+								<div class="feature-desc-text">地下ホーム<br>全列車始発</div>
+							</div>
 						</div>
 					</div>
 
-					<div class="station-row-block" data-station-id="hatchobori">
-						<div class="station-main-info">
-							<div class="station-number-badge"><span>JE</span>02</div>
-							<div>
-								<div class="station-title-name">八丁堀</div>
-								<div class="station-melody-summary">
-									<div class="melody-track-row">
-										<span class="track-label-badge">1番線</span>
-										<span class="melody-title-text">Over</span>
-									</div>
-									<div class="melody-track-row">
-										<span class="track-label-badge">2番線</span>
-										<span class="melody-title-text">シンコペーション</span>
-									</div>
+					<div class="station-row-item">
+						<div class="station-left-box">
+							<div class="station-id-badge">JE<div>02</div></div>
+							<a href="#" class="station-name-link">八丁堀</a>
+							
+							<div class="station-melody-block">
+								<div class="melody-track-line">
+									<span class="track-badge">1番線</span>
+									<span class="melody-title-text">Over</span>
+								</div>
+								<div class="melody-track-line">
+									<span class="track-badge">2番線</span>
+									<span class="melody-title-text">シンコペーション</span>
 								</div>
 							</div>
 						</div>
-						<div class="station-feature-tags">
-							<div class="feature-tag-card">地下駅</div>
+						<div class="station-right-box">
+							</div>
+					</div>
+
+					<div class="station-row-item">
+						<div class="station-left-box">
+							<div class="station-id-badge">JE<div>17</div></div>
+							<a href="#" class="station-name-link">蘇我</a>
+							
+							<div class="station-melody-block">
+								<div class="melody-track-line">
+									<span class="track-badge">3・4番線</span>
+									<span class="melody-title-text">Over</span>
+								</div>
+							</div>
+						</div>
+						<div class="station-right-box">
+							<div class="feature-info-card">
+								<span class="feature-tag-pill" style="background-color: #e24a00;">注意</span>
+								<div class="feature-desc-text">当駅始発・<br>終着多数</div>
+							</div>
 						</div>
 					</div>
 
-					<div class="station-row-block" data-station-id="soga">
-						<div class="station-main-info">
-							<div class="station-number-badge"><span>JE</span>17</div>
-							<div>
-								<div class="station-title-name">蘇我</div>
-								<div class="station-melody-summary">
-									<div class="melody-track-row">
-										<span class="track-label-badge">3・4番線</span>
-										<span class="melody-title-text">Over</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="station-feature-tags">
-							<div class="feature-tag-card" style="background-color: #fff7ed; border-color: #ffedd5; color: #c2410c;">終着</div>
+					<div class="route-footer-terminal">
+						<div class="transfer-buttons-wrapper">
+							<a href="#" class="transfer-route-btn" style="border-color: #c92334; color: #c92334;">
+								外房線 <span>❯</span>
+							</a>
+							<a href="#" class="transfer-route-btn" style="border-color: #0070bc; color: #0070bc;">
+								内房線 <span>❯</span>
+							</a>
 						</div>
 					</div>
 
 				</div>
-
-				<div class="detail-view-pane">
-					<div class="detail-display-card">
-						<h2 id="target-name">東京駅</h2>
-						<p id="target-sub" class="station-sub-en">Tokyo Station</p>
-						<p id="target-comment" class="station-description">
-							京葉線の始発駅。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律（Verde Rayo V2）が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。
-						</p>
-						<a id="target-link" href="/audio/jreast/keiyo/tokyo" class="btn-styled" style="display: inline-block;">
-							駅の放送・メロディを聴く ◀
-						</a>
-					</div>
-				</div>
-
 			</div>
+
 		</main>
 		<Footer />
-
-		<script is:inline>
-			const stationDataset = {
-				tokyo: {
-					name: "東京駅",
-					sub: "Tokyo Station",
-					comment: "京葉線の始発駅。発車メロディにはスイッチ製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。",
-					link: "/audio/jreast/keiyo/tokyo"
-				},
-				hatchobori: {
-					name: "八丁堀駅",
-					sub: "Hatchobori Station",
-					comment: "1番線（蘇我方面）は爽快感のある爽やかな『Over』、2番線（東京方面）は小気味よいテンポで人気の高い『シンコペーション』が採用されています。東京メトロ日比谷線との乗換駅であり、地下駅のため音が非常に心地よく響きます。",
-					link: "/audio/jreast/keiyo/hatchobori"
-				},
-				soga: {
-					name: "蘇我駅",
-					sub: "Soga Station",
-					comment: "京葉線の終着駅である蘇我駅の3・4番線ホームでは、おなじみの『Over』が鳴り響きます。ここから内房線・外房線へと直通していく列車も多く、房総半島への玄関口としての活気を感じさせる駅です。",
-					link: "/audio/jreast/keiyo/soga"
-				}
-			};
-
-			const rows = document.querySelectorAll('[data-station-id]');
-			rows.forEach(row => {
-				row.addEventListener('click', () => {
-					// 全行のアクティブクラスを一回解除
-					rows.forEach(r => r.classList.remove('is-active'));
-					// クリックされた行をアクティブにする
-					row.classList.add('is-active');
-
-					// 対応するデータを流し込む
-					const id = row.getAttribute('data-station-id');
-					const data = stationDataset[id];
-					if (data) {
-						document.getElementById('target-name').textContent = data.name;
-						document.getElementById('target-sub').textContent = data.sub;
-						document.getElementById('target-comment').textContent = data.comment;
-						document.getElementById('target-link').setAttribute('href', data.link);
-					}
-				});
-			});
-		</script>
 	</body>
 </html>

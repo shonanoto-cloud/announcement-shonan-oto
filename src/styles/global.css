@@ -45,6 +45,12 @@ body {
 	color: rgb(var(--black));
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 main {
 	width: 100%;
 	max-width: 1000px; /* 元の読みやすい幅に調整 */
@@ -64,7 +70,7 @@ h1 { font-size: 48px; }
 h2 { font-size: 32px; }
 
 p {
-	font-size: 18px;
+	font-size: 20px;
 	line-height: 1.7;
 	margin-bottom: 1.5rem;
 }

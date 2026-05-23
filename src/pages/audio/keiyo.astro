@@ -3,150 +3,147 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE } from '../../consts';
+
+// ==========================================================================
+// 【路線のカラー・設定オプション】別の路線を作るときはここを書き換えるだけ！
+// ==========================================================================
+const lineColor = "#c92334"; // 京葉線の赤（Tohkaidoなら #ff7e00、Saikyoなら #00b48d など）
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={SITE_TITLE} description="JR East" />
-		<style>
-			:root {
-				--line-color: #c92334; /* 京葉線赤 */
+		<BaseHead title={`京葉線 駅一覧 | ${SITE_TITLE}`} description="JR東日本 京葉線の駅放送・発車メロディ一覧" />
+		<style define:vars={{ lineColor }}>
+			/* コンポーネント固有、またはカラー変数の受け渡し用 */
+			.route-split-container {
+				--line-color: var(--lineColor);
 			}
-			/* 元の2カラムレイアウトを完全に維持 */
-			.keiyo-container {
-				display: flex;
-				height: calc(100vh - 150px);
-				overflow: hidden;
-				background-color: #ffffff;
-				max-width: 1200px;
-				margin: 0 auto;
-				border: 1px solid #e2e8f0;
-				border-radius: 12px; /* 全体にマイルドな丸み */
-			}
-
-			/* 左側駅リスト */
-			.sidebar-stations {
-				width: 400px;
-				overflow-y: auto;
-				border-right: 1px solid #e2e8f0;
-				background: #f8fafc;
-			}
-			.station-block {
-				padding: 20px;
-				border-bottom: 1px solid #e2e8f0;
-				cursor: pointer;
-				transition: all 0.2s;
-				border-left: 4px solid transparent;
-			}
-			.station-block:hover { background: #f1f5f9; }
-			.station-block.is-active {
-				background: #ffffff;
-				border-left-color: var(--line-color);
-			}
-			.station-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-			.badge {
-				border: 2px solid var(--line-color);
-				padding: 1px 6px;
-				font-size: 0.75rem;
-				font-weight: 800;
-				border-radius: 4px; /* ここも優しい角丸に */
-			}
-			.name-ja { font-weight: 700; font-size: 1.1rem; }
-
-			/* 右側詳細エリア */
-			.detail-content {
-				flex: 1;
-				padding: 40px;
-				overflow-y: auto;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
-			.detail-card {
-				background: #f8fafc;
-				padding: 32px;
-				border-radius: 12px;
-				border: 1px solid #e2e8f0;
-			}
-			.btn-link {
-				display: inline-block;
-				margin-top: 20px;
-				background: #0f172a;
-				color: #ffffff;
-				text-decoration: none;
-				padding: 12px 24px;
-				font-weight: 700;
-				border-radius: 8px;
-			}
-			.btn-link:hover { background: var(--line-color); }
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main style="max-width: 100%; padding: 20px;">
-			<div class="keiyo-container">
-				<div class="sidebar-stations">
-					<div class="station-block is-active" data-station-trigger="tokyo">
-						<div class="station-meta">
-							<span class="badge">JE 01</span>
-							<span class="name-ja">東京駅</span>
+		<main style="max-width: 100%; padding: 20px; box-sizing: border-box;">
+			
+			<div class="route-split-container">
+				
+				<div class="sidebar-timeline">
+					
+					<div class="station-row-block is-active" data-station-id="tokyo">
+						<div class="station-main-info">
+							<div class="station-number-badge"><span>JE</span>01</div>
+							<div>
+								<div class="station-title-name">東京</div>
+								<div class="station-melody-summary">
+									<div class="melody-track-row">
+										<span class="track-label-badge">1-4番線</span>
+										<span class="melody-title-text">Verde Rayo V2</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="station-feature-tags">
+							<div class="feature-tag-card" style="background-color: #e0f2fe; border-color: #bae6fd; color: #0369a1;">始発</div>
 						</div>
 					</div>
-					<div class="station-block" data-station-trigger="hatchobori">
-						<div class="station-meta">
-							<span class="badge">JE 02</span>
-							<span class="name-ja">八丁堀駅</span>
+
+					<div class="station-row-block" data-station-id="hatchobori">
+						<div class="station-main-info">
+							<div class="station-number-badge"><span>JE</span>02</div>
+							<div>
+								<div class="station-title-name">八丁堀</div>
+								<div class="station-melody-summary">
+									<div class="melody-track-row">
+										<span class="track-label-badge">1番線</span>
+										<span class="melody-title-text">Over</span>
+									</div>
+									<div class="melody-track-row">
+										<span class="track-label-badge">2番線</span>
+										<span class="melody-title-text">シンコペーション</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="station-feature-tags">
+							<div class="feature-tag-card">地下駅</div>
 						</div>
 					</div>
-					<div class="station-block" data-station-trigger="soga">
-						<div class="station-meta">
-							<span class="badge">JE 17</span>
-							<span class="name-ja">蘇我駅</span>
+
+					<div class="station-row-block" data-station-id="soga">
+						<div class="station-main-info">
+							<div class="station-number-badge"><span>JE</span>17</div>
+							<div>
+								<div class="station-title-name">蘇我</div>
+								<div class="station-melody-summary">
+									<div class="melody-track-row">
+										<span class="track-label-badge">3・4番線</span>
+										<span class="melody-title-text">Over</span>
+									</div>
+								</div>
+							</div>
 						</div>
+						<div class="station-feature-tags">
+							<div class="feature-tag-card" style="background-color: #fff7ed; border-color: #ffedd5; color: #c2410c;">終着</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="detail-view-pane">
+					<div class="detail-display-card">
+						<h2 id="target-name">東京駅</h2>
+						<p id="target-sub" class="station-sub-en">Tokyo Station</p>
+						<p id="target-comment" class="station-description">
+							京葉線の始発駅。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律（Verde Rayo V2）が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。
+						</p>
+						<a id="target-link" href="/audio/jreast/keiyo/tokyo" class="btn-styled" style="display: inline-block;">
+							駅の放送・メロディを聴く ◀
+						</a>
 					</div>
 				</div>
 
-				<div class="detail-content">
-					<div class="detail-card">
-						<h2 id="st-name" style="margin-top:0;">東京駅</h2>
-						<p id="st-sub" style="color:#64748b; font-weight:600;">Tokyo Station</p>
-						<p id="st-comment">京葉線の始発駅。地下深く反響しやすい空間に響き渡る独特の旋律が特徴です。</p>
-						<a href="/audio/jreast/keiyo/tokyo" class="btn-link">駅の放送・メロディを聴く ◀</a>
-					</div>
-				</div>
 			</div>
 		</main>
 		<Footer />
 
 		<script is:inline>
-			const stationData = {
+			const stationDataset = {
 				tokyo: {
-					name: "東京駅", sub: "Tokyo Station",
-					comment: "京葉線の始発駅。発車メロディにはスイッチ製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。"
+					name: "東京駅",
+					sub: "Tokyo Station",
+					comment: "京葉線の始発駅。発車メロディにはスイッチ製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。",
+					link: "/audio/jreast/keiyo/tokyo"
 				},
 				hatchobori: {
-					name: "八丁堀駅", sub: "Hatchobori Station",
-					comment: "1番線（蘇我方面）は爽快感のある爽やかな『Over』、2番線（東京方面）は小気味よいテンポで人気の高い『シンコペーション』が採用されています。地下駅のため音が非常によく響きます。"
+					name: "八丁堀駅",
+					sub: "Hatchobori Station",
+					comment: "1番線（蘇我方面）は爽快感のある爽やかな『Over』、2番線（東京方面）は小気味よいテンポで人気の高い『シンコペーション』が採用されています。東京メトロ日比谷線との乗換駅であり、地下駅のため音が非常に心地よく響きます。",
+					link: "/audio/jreast/keiyo/hatchobori"
 				},
 				soga: {
-					name: "蘇我駅", sub: "Soga Station",
-					comment: "京葉線の終着駅である蘇我駅の3・4番線ホームでは、おなじみの『Over』が鳴り響きます。ここから内房線・外房線へと直通していく列車も多く、房総半島への玄関口としての活気を感じさせるメロディです。"
+					name: "蘇我駅",
+					sub: "Soga Station",
+					comment: "京葉線の終着駅である蘇我駅の3・4番線ホームでは、おなじみの『Over』が鳴り響きます。ここから内房線・外房線へと直通していく列車も多く、房総半島への玄関口としての活気を感じさせる駅です。",
+					link: "/audio/jreast/keiyo/soga"
 				}
 			};
 
-			const blocks = document.querySelectorAll('[data-station-trigger]');
-			blocks.forEach(block => {
-				block.addEventListener('click', () => {
-					blocks.forEach(b => b.classList.remove('is-active'));
-					block.classList.add('is-active');
+			const rows = document.querySelectorAll('[data-station-id]');
+			rows.forEach(row => {
+				row.addEventListener('click', () => {
+					// 全行のアクティブクラスを一回解除
+					rows.forEach(r => r.classList.remove('is-active'));
+					// クリックされた行をアクティブにする
+					row.classList.add('is-active');
 
-					const key = block.getAttribute('data-station-trigger');
-					const data = stationData[key];
+					// 対応するデータを流し込む
+					const id = row.getAttribute('data-station-id');
+					const data = stationDataset[id];
 					if (data) {
-						document.getElementById('st-name').textContent = data.name;
-						document.getElementById('st-sub').textContent = data.sub;
-						document.getElementById('st-comment').textContent = data.comment;
+						document.getElementById('target-name').textContent = data.name;
+						document.getElementById('target-sub').textContent = data.sub;
+						document.getElementById('target-comment').textContent = data.comment;
+						document.getElementById('target-link').setAttribute('href', data.link);
 					}
 				});
 			});

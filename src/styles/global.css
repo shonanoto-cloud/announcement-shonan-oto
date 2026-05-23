@@ -158,3 +158,109 @@ p {
 .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
 .slider-dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
 .slider-dot.slider-active { background: var(--accent); }
+
+/* ==========================================================================
+   鉄道サインシステム・2カラム共通レイアウト（global.css に集約）
+   ========================================================================== */
+
+/* 2カラム全体のコンテナ（PC時は横並び、スマホ時は縦に並ぶかスクロール） */
+.route-split-container {
+    display: flex;
+    height: calc(100vh - 140px); /* ヘッダー・フッターを考慮 */
+    min-height: 550px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* 左側：駅タイムラインエリア */
+.sidebar-timeline {
+    width: 420px;
+    overflow-y: auto;
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 駅ひとつ分の行ブロック */
+.station-row-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #edf2f7;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    /* 選択時の左バーの土台（デフォルトは透明） */
+    border-left: 5px solid transparent;
+}
+.station-row-block:hover {
+    background-color: #f1f5f9;
+}
+/* JavaScriptで選択された駅のアクティブ状態 */
+.station-row-block.is-active {
+    background-color: #ffffff;
+    /* 色はコンポーネント側でインライン定義された --line-color が適用されます */
+    border-left-color: var(--line-color);
+}
+
+/* 駅情報（ナンバリング＋駅名） */
+.station-main-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 駅ナンバリング四角バッジ */
+.station-number-badge {
+    border: 2px solid var(--line-color);
+    background-color: #ffffff;
+    color: rgb(var(--black));
+    font-weight: 800;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    min-width: 54px;
+    text-align: center;
+    line-height: 1.2;
+}
+.station-number-badge span {
+    color: var(--line-color);
+    margin-right: 2px;
+}
+
+.station-title-name {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: rgb(var(--black));
+}
+
+/* メロディ情報表示エリア */
+.station-melody-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.melody-track-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+.track-label-badge {
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.melody-title-text {
+    font-weight: 700;
+    color: rgb(var(--black));
+}

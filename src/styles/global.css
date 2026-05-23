@@ -330,4 +330,15 @@ p {
     border: 2px solid #cbd5e1;
     padding: 8px 16px;
     text-decoration: none;
-    font-size: 0.85
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+.transfer-route-btn:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+}
+.transfer-route-btn span {
+    font-size: 0.75rem;
+}

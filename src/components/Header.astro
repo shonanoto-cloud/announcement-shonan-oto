@@ -13,35 +13,48 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 	</nav>
+	<div class="header-line-bar"></div>
 </header>
 
 <style>
 	.site-header {
 		margin: 0;
 		padding: 0;
-		background: #ffffff;
-		border-bottom: 1px solid #e2e8f0;
+		background-color: #111827; /* 共通のサイネージ風ブラック */
+		position: relative;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	}
 	.header-nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 960px;
+		max-width: 480px; /* 詳細ページのコンテンツ幅と統一 */
 		margin: 0 auto;
-		padding: 0 1.5rem;
-		height: 64px;
+		padding: 0 16px;
+		height: 56px;
 	}
 	.site-title {
 		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 700;
+		font-size: 1em;
+		font-weight: 800;
+		letter-spacing: 1px;
 	}
 	.site-title a {
-		color: #0f172a;
+		color: #ffffff;
 		text-decoration: none;
 	}
 	.internal-links {
 		display: flex;
-		gap: 8px;
+		gap: 4px;
+		height: 100%;
+		align-items: center;
 	}
+	
+	/* JRグリーンのライン */
+	.header-line-bar {
+		background-color: #008024;
+		height: 4px;
+		width: 100%;
+	}
+	
 </style>

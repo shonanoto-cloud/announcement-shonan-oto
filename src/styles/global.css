@@ -50,10 +50,11 @@ h1, h2, h3 {
 	font-weight: 700;
 }
 
-h1 { font-size: 5rem; }
-h2 { font-size: 3rem; }
+h1 { font-size: 3em; }
+h2 { font-size: 2.5em; }
 
 p {
+	font-size: 20px;
 	line-height: 1.7;
 	margin-bottom: 1.5rem;
 }
@@ -71,9 +72,9 @@ p {
 .item {
 	background: #ffffff;
 	border: 1px solid var(--border-color);
-	border-radius: 12px; /* 綺麗な丸み */
+	border-radius: 10px; /* 綺麗な丸み */
 	overflow: hidden;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	box-shadow: 0 4px 10px rgba(0,0,0,0.03);
 	transition: transform 0.2s, box-shadow 0.2s;
 	display: flex;
 	flex-direction: column;
@@ -148,7 +149,7 @@ p {
 	max-width: 600px;
 	margin: 0 auto 24px auto;
 	overflow: hidden;
-	border-radius: 12px; /* スライダー全体にも綺麗な丸みを */
+	border-radius: 10px; /* スライダー全体にも綺麗な丸みを */
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 .slider-wrapper { position: relative; }
@@ -376,7 +377,7 @@ p {
 /* 001 */
 .button001 a {
     background: #eee;
-    border-radius: 3px;
+    border-radius: 8px;
     position: relative;
     display: flex;
     justify-content: space-around;

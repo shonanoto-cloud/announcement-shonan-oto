@@ -79,13 +79,13 @@ const stationConfig = {
                     <div class="audio-row">
                         <div class="audio-tags">
                             <span class="tag accent">発車メロディ</span>
-                            <span class="tag">向山佳比子 氏</span>
+                            <span class="tag">田中一永</span>
                         </div>
                         <div class="audio-heading">
                             <span> JRE-IKST-004-02</span>
                             <span class="audio-subname"></span>
                         </div>
-                        <audio controls src="#1発車.wav"></audio>
+                        <audio controls src="keiyochika1.wav"></audio>
                         <div class="audio-details">
                             主に特急列車が使用します。基本的には余韻まで鳴りますが、それ以上は車掌次第です。
                         </div>
@@ -101,33 +101,35 @@ const stationConfig = {
                     <div class="audio-row">
                         <div class="audio-tags">
                             <span class="tag accent">発車メロディ</span>
+                            <span class="tag">向山佳比子</span>
                             <span class="tag">IKST</span>
                         </div>
                         <div class="audio-heading">
                             <span>JRE-IKST-004-01</span>
                             <span class="audio-subname"></span>
                         </div>
-                        <audio controls src=#2発車.wav></audio>
+                        <audio controls src=keiyochika2.wav></audio>
                         <div class="audio-details">
-                            主に武蔵野線の列車が使用します。本数が多い時間帯だと開通が遅れて途中で切られることもあります。
+                            主に武蔵野線の列車が使用します。なぜかメロディの音量が小さいです。本数が多い時間帯だと開通が遅れて途中で切られることもあります。
                         </div>
                     </div>
               </div>
               <div class="platform-track-card">
                 <div class="track-header">
-                    <span class="track-title">2番線</span>
+                    <span class="track-title">3番線</span>
                     <span class="track-destination">舞浜・海浜幕張・蘇我方面</span>
                 </div>
                     <div class="audio-row">
                         <div class="audio-tags">
                             <span class="tag accent">発車メロディ</span>
-                            <span class="tag">スイッチ製</span>
+                            <span class="tag">田中一永</span>
+                            <span class="tag">IKST</span>
                         </div>
                         <div class="audio-heading">
                             <span>JRE-IKST-001-02</span>
                             <span class="audio-subname"></span>
                         </div>
-                        <audio controls src="melody1.mp3"></audio>
+                        <audio controls src="keiyochika3.wav"></audio>
                         <div class="audio-details">
                             全列車始発なので鳴りやすいですが、開通が遅れると途中切りもあります。
                         </div>
@@ -141,13 +143,14 @@ const stationConfig = {
                     <div class="audio-row">
                         <div class="audio-tags">
                             <span class="tag accent">発車メロディ</span>
-                            <span class="tag">スイッチ製</span>
+                            <span class="tag">向山佳比子</span>
+                            <span class="tag">IKST</span>
                         </div>
                         <div class="audio-heading">
                             <span>JRE-IKST-001-01</span>
                             <span class="audio-subname"></span>
                         </div>
-                        <audio controls src="melody1.mp3"></audio>
+                        <audio controls src="keiyochika4.wav"></audio>
                         <div class="audio-details">
                             全列車始発なので鳴りやすいですが、開通が遅れると途中切りもあります。
                         </div>
@@ -252,6 +255,7 @@ const stationConfig = {
            ========================================================================== */
         .hero-gallery {
             width: 80%;
+            align-items: center;
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
@@ -275,7 +279,7 @@ const stationConfig = {
            4. セクションタイトル
            ========================================================================== */
         .section-title {
-            font-size: 1.1rem;
+            font-size: 2em;
             font-weight: 800;
             padding: 24px 16px 10px 16px;
             display: flex;
@@ -286,10 +290,10 @@ const stationConfig = {
         .section-title::before {
             content: '';
             display: inline-block;
-            width: 4px;
-            height: 1.1rem;
+            width: 5px;
+            height: 2em;
             background-color: var(--jr-green);
-            border-radius: 2px;
+            border-radius: 1px;
         }
 
         /* 駅環境情報カード */
@@ -305,7 +309,7 @@ const stationConfig = {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
-            font-size: 0.85rem;
+            font-size: 1em;
         }
         .info-item-label {
             color: var(--text-sub);
@@ -346,7 +350,7 @@ const stationConfig = {
         }
         .track-title {
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.5em;
             color: var(--text-main);
             display: flex;
             align-items: center;
@@ -356,7 +360,7 @@ const stationConfig = {
             content: '';
             display: inline-block;
             width: 4px;
-            height: 1.2rem;
+            height: 1.5em;
             background-color: var(--line-color);
         }
         .track-destination {
@@ -398,7 +402,7 @@ const stationConfig = {
         }
 
         .audio-heading {
-            font-size: 0.95rem;
+            font-size: 1.5em;
             font-weight: 700;
             margin-bottom: 10px;
             display: flex;
@@ -421,7 +425,7 @@ const stationConfig = {
         }
 
         .audio-details {
-            font-size: 0.8rem;
+            font-size: 20px;
             color: #4b5563;
             line-height: 1.6;
             margin-top: 10px;

@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>路線案内・発車メロディ紹介（レスポンシブ＆連動版）</title>
+    <title>京葉線 発車メロディ＆路線案内</title>
     <style>
         /* ==========================================================================
            1. カスタマイズ変数
            ========================================================================== */
         :root {
-            --line-color: #c92334;       /* 路線のメインカラー */
-            --bg-color-light: #f8f9fa;   /* 駅背景の互い違い色1 */
-            --bg-color-dark: #ffffff;    /* 駅背景の互い違い色2 */
-            --text-main: #1a2530;        /* メイン文字色 */
-            --text-sub: #616d7a;         /* 補足文字色 */
-            --sidebar-width: 450px;      /* PC時の左側エリアの幅 */
+            --line-color: #c92334;
+            /* 京葉線ラインカラー（赤） */
+            --bg-color-light: #f4f5f8;
+            /* 駅背景の互い違い色1 */
+            --bg-color-dark: #ffffff;
+            /* 駅背景の互い違い色2 */
+            --text-main: #1a2530;
+            /* メイン文字色 */
+            --text-sub: #616d7a;
+            /* 補足文字色 */
         }
 
         /* ==========================================================================
-           2. 全体レイアウト（ベースはPC向け）
+           2. 全体スタイル
            ========================================================================== */
         * {
             box-sizing: border-box;
@@ -28,84 +33,79 @@
 
         body {
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #f7f9fa;
             color: var(--text-main);
             display: flex;
-            height: 100vh;
-            overflow: hidden;
+            justify-content: center;
         }
 
-        /* 左側：路線図サイドバー */
-        .sidebar {
-            width: var(--sidebar-width);
-            min-width: var(--sidebar-width);
+        .container {
+            width: 100%;
+            max-width: 480px;
             background: #ffffff;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.05);
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            min-height: 100vh;
+        }
+
+        /* 【新仕様】灰色半透明の固定ヘッダー */
+        .header {
+            background-color: rgba(244, 245, 248, 0.85);
+            /* 灰色かつ半透明 */
+            backdrop-filter: blur(8px);
+            /* 後ろの要素をぼかす（対応ブラウザのみ） */
+            -webkit-backdrop-filter: blur(8px);
+            text-align: center;
+            padding: 16px 15px;
+            border-bottom: 1px solid rgba(225, 229, 232, 0.8);
+            position: sticky;
+            top: 0;
             z-index: 10;
         }
 
-        /* 右側：メインコンテンツ表示エリア */
-        .main-content {
-            flex-grow: 1;
-            height: 100%;
-            overflow-y: auto;
-            padding: 40px;
-            background-color: #f0f2f5;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        /* ==========================================================================
-           3. ヘッダー・タイムライン共通（前枠通り）
-           ========================================================================== */
-        .header {
-            background-color: #ffffff;
-            text-align: center;
-            padding: 24px 15px;
-            border-bottom: 1px solid #e1e5e8;
-        }
         .header h1 {
             font-size: 1.1rem;
             color: var(--text-sub);
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
+
         .line-badge {
             display: inline-block;
             background-color: var(--line-color);
             color: #ffffff;
-            padding: 4px 18px;
+            padding: 4px 16px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: bold;
         }
 
-        .timeline-scroll {
-            flex-grow: 1;
-            overflow-y: auto;
+        /* ==========================================================================
+           3. 駅ブロックと路線構造
+           ========================================================================== */
+        .timeline {
+            width: 100%;
         }
-        .timeline { width: 100%; position: relative; }
 
         .station-block {
             display: flex;
             position: relative;
-            min-height: 150px;
-            cursor: pointer;
-        }
-        .station-block:nth-child(odd) { background-color: var(--bg-color-light); }
-        .station-block:nth-child(even) { background-color: var(--bg-color-dark); }
-        .station-block:hover { background-color: #eef2f7 !important; }
-        
-        /* 現在右側に詳細が出ている駅をハイライトするCSSクラス */
-        .station-block.is-active {
-            background-color: #e0e8f5 !important;
+            min-height: 180px;
         }
 
+        /* 背景の交互色設定 */
+        .station-block:nth-child(odd) {
+            background-color: var(--bg-color-light);
+        }
+
+        .station-block:nth-child(even) {
+            background-color: var(--bg-color-dark);
+        }
+
+        /* 中央の一本の道 */
         .route-track {
             position: absolute;
-            left: 50%;
+            left: 55%;
             top: 0;
             bottom: 0;
             width: 20px;
@@ -113,6 +113,8 @@
             display: flex;
             justify-content: center;
         }
+
+        /* 縦の直線 */
         .route-line {
             position: absolute;
             top: 0;
@@ -121,8 +123,13 @@
             background-color: var(--line-color);
             z-index: 1;
         }
-        .station-block:first-child .route-line { top: 46px; }
 
+        /* 最初のアライメント調整 */
+        .station-block:first-child .route-line {
+            top: 46px;
+        }
+
+        /* 駅の〇 */
         .station-dot {
             position: absolute;
             top: 40px;
@@ -132,14 +139,17 @@
             border: 3px solid var(--line-color);
             border-radius: 50%;
             z-index: 2;
-            transition: background-color 0.2s;
-        }
-        /* アクティブな駅の丸ポチを塗りつぶす */
-        .station-block.is-active .station-dot {
-            background-color: var(--line-color);
         }
 
-        .station-info { width: 50%; padding: 30px 10px 20px 24px; z-index: 3; }
+        /* ==========================================================================
+           4. 左側エリア：駅名（リンク化）・ナンバリング・発車メロディ
+           ========================================================================== */
+        .station-info {
+            width: 55%;
+            padding: 30px 10px 20px 20px;
+            z-index: 3;
+        }
+
         .station-number {
             display: inline-flex;
             flex-direction: column;
@@ -156,20 +166,18 @@
             background-color: #ffffff;
         }
 
-        /* aタグから、クリックイベントを受け持つbuttonタグへ変更（SEO・デザイン最適化） */
         .station-name {
             font-size: 1.3rem;
             font-weight: bold;
             color: var(--text-main);
-            background: none;
-            border: none;
-            cursor: pointer;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 5px;
             margin-bottom: 12px;
-            text-align: left;
         }
+
+        /* 駅名の横の緑の矢印（›） */
         .station-name::after {
             content: '›';
             color: #2ca85a;
@@ -178,266 +186,617 @@
             display: inline-block;
             transition: transform 0.3s ease;
         }
-        .station-name:hover::after { transform: translateX(6px); }
 
-        .station-features { width: 50%; padding: 30px 24px 20px 15px; display: flex; flex-direction: column; z-index: 3; }
-        .melody-container { display: flex; flex-direction: column; gap: 6px; width: 100%; }
-        .melody-row { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; }
-        .track-badge { background-color: #555555; color: #ffffff; font-weight: bold; padding: 2px 6px; border-radius: 3px; white-space: nowrap; font-size: 0.7rem; }
-        .melody-name { color: var(--text-sub); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* 駅名ホバー時に矢印を右に動かす */
+        .station-name:hover::after {
+            transform: translateX(6px);
+        }
 
-        /* フッター */
-        .footer-terminal { display: flex; position: relative; padding-top: 24px; padding-bottom: 40px; background-color: var(--bg-color-dark); }
-        .footer-terminal .route-line { bottom: 30px; }
-        .transfer-container { position: relative; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 3; }
-        .transfer-button { display: flex; align-items: center; justify-content: center; gap: 6px; background-color: #ffffff; width: 130px; height: 36px; border-radius: 18px; font-size: 0.9rem; font-weight: bold; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.06); border: 2px solid #616d7a; color: #616d7a; }
-        .transfer-button span { font-size: 0.8rem; margin-top: -2px; }
+        /* 発車メロディ全体の枠 */
+        .melody-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-width: 200px;
+        }
+
+        /* 番線＋曲名の1行セット */
+        .melody-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+        }
+
+        /* 数字バッジ */
+        .track-badge {
+            background-color: #555555;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+            font-size: 0.7rem;
+        }
+
+        /* 曲名テキスト */
+        .melody-name {
+            color: var(--text-sub);
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         /* ==========================================================================
-           4. 右側：詳細解説カード
+           5. 右側エリア：お役立ちカード（列車風吹き出し）
            ========================================================================== */
-        .detail-card {
+        .station-features {
+            width: 45%;
+            padding: 25px 15px 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 3;
+        }
+
+        .feature-card {
             background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
             border: 1px solid #e1e5e8;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 130px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
             position: relative;
         }
 
-        /* スマホ時のみ使用する「閉じるボタン」PCでは非表示 */
-        .close-detail-btn {
-            display: none;
+        .feature-card::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #eef2f7;
-            border: none;
-            font-size: 1.2rem;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            color: var(--text-sub);
-            font-weight: bold;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            border-left: 1px solid #e1e5e8;
+            border-top: 1px solid #e1e5e8;
         }
 
-        .detail-header { border-bottom: 3px solid var(--line-color); padding-bottom: 15px; margin-bottom: 30px; display: flex; align-items: baseline; gap: 15px; }
-        .detail-station-name { font-size: 2.2rem; font-weight: bold; }
-        .detail-station-sub { font-size: 1.1rem; color: var(--text-sub); }
-        .audio-player-placeholder { background-color: #f8f9fa; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 40px; text-align: center; color: var(--text-sub); margin-bottom: 30px; font-weight: bold; }
-        .commentary-box { line-height: 1.8; color: #334155; }
-        .commentary-box h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-main); }
+        .card-tag {
+            color: #ffffff;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .card-text {
+            font-weight: bold;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
 
         /* ==========================================================================
-           5. 【重要】レスポンシブ・メディアクエリ（横幅が900px以下になった時）
+           6. フッター（他路線への接続・ふわふわアニメーション）
            ========================================================================== */
-        @media screen and (max-width: 900px) {
-            body {
-                flex-direction: column; /* 縦並びに変更 */
-            }
+        .footer-terminal {
 
-            .sidebar {
-                width: 100%; /* 駅一覧を画面いっぱいに広げる */
-                min-width: 100%;
-                height: 100%;
-            }
+            display: flex;
 
-            /* 詳細画面をスマホ用ポップアップ（全画面オーバーレイ）に変身させる */
-            .main-content {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 100;
-                padding: 20px;
-                background-color: rgba(240, 242, 245, 0.98); /* 背景をわずかに透過 */
-                
-                /* 初期状態は画面の外（右側）に隠しておく */
-                transform: translateX(100%);
-                opacity: 0;
-                pointer-events: none;
-            }
+            position: relative;
 
-            /* 駅名がタップされて詳細が開いた時の状態 */
-            .main-content.is-open {
-                transform: translateX(0);
-                opacity: 1;
-                pointer-events: auto;
-            }
+            padding-top: 20px;
 
-            .detail-card {
-                height: 100%;
-                overflow-y: auto;
-                padding: 30px 20px;
-            }
+            padding-bottom: 40px;
 
-            /* スマホの時だけ閉じるボタン「×」を表示 */
-            .close-detail-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+            background-color: var(--bg-color-dark);
+
+        }
+
+
+
+        .footer-terminal .route-line {
+
+            bottom: 30px;
+
+        }
+
+
+
+        .transfer-container {
+            position: relative;
+            left: 55%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            z-index: 3;
+        }
+
+        .transfer-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background-color: #ffffff;
+            width: 120px;
+            height: 36px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid #616d7a;
+            color: #616d7a;
+        }
+
+        .transfer-button span {
+            font-size: 0.8rem;
+            margin-top: -2px;
+        }
+
+        .transfer-button:hover,
+        .transfer-button:active {
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
 
-    <div class="sidebar">
+    <div class="container">
         <div class="header">
-            <h1>京葉線 発車メロディ一覧</h1>
-            <span class="line-badge">蘇我方面</span>
+            <h1>京葉線 発車メロディ案内</h1>
+            <span class="line-badge">京葉線</span>
         </div>
 
-        <div class="timeline-scroll">
-            <div class="timeline">
+        <div class="timeline">
 
-                <div class="station-block is-active" onclick="showDetail(this)" 
-                     data-name="東京駅" 
-                     data-sub="Tokyo Station" 
-                     data-comment="京葉地下ホーム1〜4番線では、長年テイチク製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。">
-                    <div class="route-track">
-                        <div class="route-line"></div>
-                        <div class="station-dot"></div>
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>01</div>
                     </div>
-                    
-                    <div class="station-info">
-                        <div class="station-number">JE<div>01</div></div>
-                        <div>
-                            <button class="station-name">東京</button>
-                        </div>
-                    </div>
-                    <div class="station-features">
-                        <div class="melody-container">
-                            <div class="melody-row">
-                                <span class="track-badge">1〜4番線</span>
-                                <span class="melody-name">Verde Rayo V2</span>
-                            </div>
-                        </div>
+                    <div><a href="#" class="station-name">東京</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge">1-4番線</span><span class="melody-name">Verde
+                                Rayo V2</span></div>
                     </div>
                 </div>
-
-                <div class="station-block" onclick="showDetail(this)" 
-                     data-name="八丁堀駅" 
-                     data-sub="Hatchobori Station" 
-                     data-comment="1番線（蘇我方面）は爽快感のある爽やかな『Over』、2番線（東京方面）は小気味よいテンポで人気の高い『シンコペーション』が採用されています。地下駅のため音が非常によく響きます。">
-                    <div class="route-track">
-                        <div class="route-line"></div>
-                        <div class="station-dot"></div>
-                    </div>
-
-                    <div class="station-info">
-                        <div class="station-number">JE<div>02</div></div>
-                        <div>
-                            <button class="station-name">八丁堀</button>
-                        </div>
-                    </div>
-                    <div class="station-features">
-                        <div class="melody-container">
-                            <div class="melody-row">
-                                <span class="track-badge" style="background-color: #2ca85a;">1番線</span>
-                                <span class="melody-name">Over</span>
-                            </div>
-                            <div class="melody-row">
-                                <span class="track-badge" style="background-color: #c92334;">2番線</span>
-                                <span class="melody-name">シンコペーション</span>
-                            </div>
-                        </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #ffc107; color: #1a2530;">名所</span>
+                        <div class="card-text">赤レンガ<br>駅舎</div>
                     </div>
                 </div>
-
-                <div class="station-block" onclick="showDetail(this)" 
-                     data-name="蘇我駅" 
-                     data-sub="Soga Station" 
-                     data-comment="京葉線の終着駅である蘇我駅の3・4番線ホームでは、おなじみの『Over』が鳴り響きます。ここから内房線・外房線へと直通していく列車も多く、房総半島への玄関口としての活気を感じさせるメロディです。">
-                    <div class="route-track">
-                        <div class="route-line"></div>
-                        <div class="station-dot"></div>
-                    </div>
-
-                    <div class="station-info">
-                        <div class="station-number">JE<div>17</div></div>
-                        <div>
-                            <button class="station-name">蘇我</button>
-                        </div>
-                    </div>
-                    <div class="station-features">
-                        <div class="melody-container">
-                            <div class="melody-row">
-                                <span class="track-badge">3・4番線</span>
-                                <span class="melody-name">Over</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-terminal">
-                    <div class="route-line" style="left: 50%; transform: translateX(-50%);"></div>
-                    <div class="transfer-container">
-                        <a href="#" class="transfer-button" style="border-color: #c92334; color: #c92334;">
-                            外房線 <span>❯</span>
-                        </a>
-                        <a href="#" class="transfer-button" style="border-color: #0070bc; color: #0070bc;">
-                            内房線 <span>❯</span>
-                        </a>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>02</div>
+                    </div>
+                    <div><a href="#" class="station-name">八丁堀</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Over</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">シンコペーション</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #17a2b8;">乗換</span>
+                        <div class="card-text">日比谷線<br>連絡</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>03</div>
+                    </div>
+                    <div><a href="#" class="station-name">越中島</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Subway</span>
+                        </div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">Cielo
+                                Estrellado</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #6c757d;">データ</span>
+                        <div class="card-text">23区内の<br>JR駅で最少</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>04</div>
+                    </div>
+                    <div><a href="#" class="station-name">潮見</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Ocean
+                                Voyage</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">History</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #28a745;">構造</span>
+                        <div class="card-text">ここから<br>高架ホーム</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>05</div>
+                    </div>
+                    <div><a href="#" class="station-name">新木場</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">La
+                                Moraleja</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">See You
+                                Again</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #17a2b8;">乗換</span>
+                        <div class="card-text">有楽町線<br>りんかい線</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>06</div>
+                    </div>
+                    <div><a href="#" class="station-name">葛西臨海公園</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">緑の車窓</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">海辺の散歩</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #ffc107; color: #1a2530;">名所</span>
+                        <div class="card-text">大観覧車<br>水族館</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>07</div>
+                    </div>
+                    <div><a href="#" class="station-name">舞浜</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">It's a Small
+                                World</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span
+                                class="melody-name">Zip-A-Dee-Doo-Dah</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #e83e8c;">限定</span>
+                        <div class="card-text">ディズニー<br>ソング</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>08</div>
+                    </div>
+                    <div><a href="#" class="station-name">新浦安</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge">1・2番</span><span class="melody-name">Sparkling
+                                Time</span></div>
+                        <div class="melody-row"><span class="track-badge">3・4番</span><span class="melody-name">A Way of
+                                Life</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #007bff;">運行</span>
+                        <div class="card-text">快速の<br>緩急接続駅</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>09</div>
+                    </div>
+                    <div><a href="#" class="station-name">市川塩浜</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Harbor
+                                Light</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">Sunset
+                                Cruise</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #6f42c1;">分岐</span>
+                        <div class="card-text">高谷支線<br>（西船橋方面）</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>10</div>
+                    </div>
+                    <div><a href="#" class="station-name">二俣新町</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Blue Sky</span>
+                        </div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">Winds of
+                                Change</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #6c757d;">周辺</span>
+                        <div class="card-text">工業地帯・<br>デルタ線中央</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>11</div>
+                    </div>
+                    <div><a href="#" class="station-name">南船橋</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge">1・2番</span><span class="melody-name">Seaside
+                                Journey</span></div>
+                        <div class="melody-row"><span class="track-badge">3・4番</span><span class="melody-name">Coast
+                                Line</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #6f42c1;">分岐</span>
+                        <div class="card-text">武蔵野線<br>直通分岐駅</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>12</div>
+                    </div>
+                    <div><a href="#" class="station-name">新習志野</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge">1-4番線</span><span
+                                class="melody-name">千葉ロッテマリーンズ<br>応援歌</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #fd7e14;">車庫</span>
+                        <div class="card-text">京葉車両<br>センター隣接</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>13</div>
+                    </div>
+                    <div><a href="#" class="station-name">幕張豊砂</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">希望の風</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">そよ風のロンド</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #28a745;">新駅</span>
+                        <div class="card-text">2023年開業<br>イオンモール前</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>14</div>
+                    </div>
+                    <div><a href="#" class="station-name">海浜幕張</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge">1-4番線</span><span class="melody-name">We Love
+                                Marines</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #ffc107; color: #1a2530;">名所</span>
+                        <div class="card-text">幕張メッセ<br>マリンスタジアム</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>15</div>
+                    </div>
+                    <div><a href="#" class="station-name">検見川浜</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Lover's
+                                Concerto</span></div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">Minuet</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #6c757d;">周辺</span>
+                        <div class="card-text">美浜区役所<br>ニュータウン</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>16</div>
+                    </div>
+                    <div><a href="#" class="station-name">稲毛海岸</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #2ca85a;">1番線</span><span class="melody-name">Ocean Wave</span>
+                        </div>
+                        <div class="melody-row"><span class="track-badge"
+                                style="background-color: #c92334;">2番線</span><span class="melody-name">Beach Side</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #ffc107; color: #1a2530;">名所</span>
+                        <div class="card-text">稲毛海浜公園<br>いなげの浜</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-block">
+                <div class="route-track">
+                    <div class="route-line"></div>
+                    <div class="station-dot"></div>
+                </div>
+                <div class="station-info">
+                    <div class="station-number">JE<div>17</div>
+                    </div>
+                    <div><a href="#" class="station-name">蘇我</a></div>
+                    <div class="melody-container">
+                        <div class="melody-row"><span class="track-badge">3・4番線</span><span
+                                class="melody-name">Over</span></div>
+                    </div>
+                </div>
+                <div class="station-features">
+                    <div class="feature-card">
+                        <span class="card-tag" style="background-color: #e24a00;">注意</span>
+                        <div class="card-text">当駅始発・<br>終着多数</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-terminal">
+                <div class="route-line" style="left: 55%; transform: translateX(-50%);"></div>
+                <div class="transfer-container">
+                    <a href="https://example.com/sotobo" class="transfer-button"
+                        style="border-color: #c92334; color: #c92334;">
+                        外房線 <span>❯</span>
+                    </a>
+                    <a href="https://example.com/uchibo" class="transfer-button"
+                        style="border-color: #0070bc; color: #0070bc;">
+                        内房線 <span>❯</span>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <main class="main-content" id="detailSpace">
-        <div class="detail-card">
-            <button class="close-detail-btn" onclick="closeDetail()">×</button>
-
-            <div class="detail-header">
-                <span class="detail-station-name" id="dstName">東京駅</span>
-                <span class="detail-station-sub" id="dstSub">Tokyo Station</span>
-            </div>
-
-            <div class="audio-player-placeholder">
-                🎵 ここに音源プレイヤーや動画、または駅の画像を挿入できます
-            </div>
-
-            <div class="commentary-box">
-                <h3>発車メロディ解説</h3>
-                <p id="dstText">京葉地下ホーム1〜4番線では、長年テイチク製の「Verde Rayo V2」が使用されています。地下深く反響しやすい空間に響き渡る独特の爽やかな旋律が特徴で、ディズニーリゾートに向かう旅行客や通勤客を日々送り出しています。</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function showDetail(element) {
-            // 1. すべての駅のアクティブ状態（薄青ハイライト）を一度解除
-            const blocks = document.querySelectorAll('.station-block');
-            blocks.forEach(b => b.classList.remove('is-active'));
-
-            // 2. クリックされた駅をハイライト
-            element.classList.add('is-active');
-
-            // 3. クリックされた駅の HTML内「data-*」属性からデータを抽出
-            const name = element.getAttribute('data-name');
-            const sub = element.getAttribute('data-sub');
-            const comment = element.getAttribute('data-comment');
-
-            // 4. 右側の詳細エリアのテキストを瞬時に書き換え
-            document.getElementById('dstName').innerText = name;
-            document.getElementById('dstSub').innerText = sub;
-            document.getElementById('dstText').innerText = comment;
-
-            // 5. 【スマホ用】詳細画面に「is-open」クラスをつけて右からスライドインさせる
-            document.getElementById('detailSpace').classList.add('is-open');
-        }
-
-        // スマホ用：詳細画面を閉じて駅一覧に戻る関数
-        function closeDetail() {
-            document.getElementById('detailSpace').classList.remove('is-open');
-        }
-    </script>
-
 </body>
+
 </html>

@@ -6,7 +6,7 @@ import { SITE_TITLE } from '../../../consts';
 
 // 駅個別の情報を管理するオブジェクト
 const stationConfig = {
-  pageTitle: "東京駅 発車メロディ案内",
+  pageTitle: "東京駅(京葉線地下ホーム)",
   lineName: "京葉線",
   lineColor: "#c92334",
   stationName: "東京",
@@ -31,12 +31,7 @@ const stationConfig = {
                 <span class="prev">当駅終着</span>
                 <span class="next">八丁堀</span>
             </div>
-            
-            <div class="station-badge">
-                <span>{stationConfig.stationNumber.split(' ')[0]}</span>{stationConfig.stationNumber.split(' ')[1]}
-            </div>
- 
-            <h1 class="station-title-ja">{stationConfig.stationName}（{stationConfig.lineName}地下ホーム）</h1>
+            <h1 class="station-title-ja">{stationConfig.stationName}（京葉線地下ホーム）</h1>
             <p class="station-title-sub">{stationConfig.stationEn} / 도쿄 / 东京</p>
         </div>
 
@@ -84,13 +79,13 @@ const stationConfig = {
                     <div class="audio-row">
                         <div class="audio-tags">
                             <span class="tag accent">発車メロディ</span>
-                            <span class="tag">向山佳比子 氏</span>
+                            <span class="tag">IKST</span>
                         </div>
                         <div class="audio-heading">
                             <span> JRE-IKST-004-02</span>
                             <span class="audio-subname"></span>
                         </div>
-                        <audio controls src="announcement1.mp3"></audio>
+                        <audio controls src="#1発車.wav"></audio>
                         <div class="audio-details">
                             主に特急列車が使用します。基本的には余韻まで鳴りますが、それ以上は車掌次第です。
                         </div>
@@ -106,13 +101,13 @@ const stationConfig = {
                     <div class="audio-row">
                         <div class="audio-tags">
                             <span class="tag accent">発車メロディ</span>
-                            <span class="tag">スイッチ製</span>
+                            <span class="tag">IKST</span>
                         </div>
                         <div class="audio-heading">
                             <span>JRE-IKST-004-01</span>
                             <span class="audio-subname"></span>
                         </div>
-                        <audio controls src="melody1.mp3"></audio>
+                        <audio controls src=#2発車.wav></audio>
                         <div class="audio-details">
                             主に武蔵野線の列車が使用します。本数が多い時間帯だと開通が遅れて途中で切られることもあります。
                         </div>
@@ -239,32 +234,15 @@ const stationConfig = {
         .neighbor-stations .prev::before { content: '◀ '; }
         .neighbor-stations .next::after { content: ' ▶'; }
 
-        /* 駅ナンバリング */
-        .station-badge {
-            display: inline-block;
-            border: 2px solid var(--line-color);
-            background: #ffffff;
-            color: var(--text-main);
-            font-weight: 900;
-            border-radius: 4px;
-            padding: 2px 8px;
-            font-size: 0.8rem;
-            margin-bottom: 8px;
-        }
-        .station-badge span {
-            color: var(--line-color);
-            margin-right: 2px;
-        }
-
         /* 駅名表示 */
         .station-title-ja {
-            font-size: 1.8rem;
+            font-size: 4rem;
             font-weight: 800;
             letter-spacing: 2px;
             line-height: 1.2;
         }
         .station-title-sub {
-            font-size: 0.85rem;
+            font-size: 1.5rem;
             color: #9ca3af;
             margin-top: 4px;
         }
@@ -273,7 +251,7 @@ const stationConfig = {
            3. 大型写真エリア（レスポンス対応）
            ========================================================================== */
         .hero-gallery {
-            width: 100%;
+            width: 80%;
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;

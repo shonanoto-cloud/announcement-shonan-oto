@@ -21,7 +21,156 @@ const stationConfig = {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{stationConfig.pageTitle}</title>
-    <style define:vars={{ lineColor: stationConfig.lineColor }}>
+</head>
+<body>
+<Header />
+    <div class="app-wrapper">
+        
+        <div class="signage-header">
+            <div class="neighbor-stations">
+                <span class="prev">当駅終着</span>
+                <span class="next">八丁堀</span>
+            </div>
+            
+            <div class="station-badge">
+                <span>{stationConfig.stationNumber.split(' ')[0]}</span>{stationConfig.stationNumber.split(' ')[1]}
+            </div>
+ 
+            <h1 class="station-title-ja">{stationConfig.stationName}（{stationConfig.lineName}地下ホーム）</h1>
+            <p class="station-title-sub">{stationConfig.stationEn} / 도쿄 / 东京</p>
+        </div>
+
+        <div class="hero-gallery">
+            <div class="hero-img-box">
+                <img src="https://picsum.photos/id/1015/800/500" alt="駅写真1">
+            </div>
+            <div class="hero-img-box">
+                <img src="https://picsum.photos/id/1016/800/500" alt="駅写真2">
+            </div>
+        </div>
+        <div class ="main">
+        <div class="section-title">駅スピーカー・環境情報</div>
+        <div class="info-card">
+            <div class="info-grid">
+                <div>
+                    <p class="info-item-label">収録難易度</p>
+                    <p class="info-item-value" style="color: #ff9f43;">★★★★★ (比較的鳴りやすい)</p>
+                </div>
+                <div>
+                    <p class="info-item-label">スピーカー</p>
+                    <p class="info-item-value">Panasonic天井型:やや高い</p>
+                </div>
+                <div>
+                    <p class="info-item-label">放送種類</p>
+                    <p class="info-item-value">宇都宮改良型ATOS</p>
+                </div>
+                <div>
+                    <p class="info-item-label">ホーム環境</p>
+                    <p class="info-item-value">地下駅、環境悪め</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">番線別 駅放送・発車メロディ</div>
+        <div class="platform-container">
+
+            <div class="platform-track-card">
+                <div class="track-header">
+                    <span class="track-title">1番線</span>
+                    <span class="track-destination">舞浜・海浜幕張・蘇我方面</span>
+                </div>
+                
+                <div class="track-body">
+                    <div class="audio-row">
+                        <div class="audio-tags">
+                            <span class="tag accent">発車メロディ</span>
+                            <span class="tag">向山佳比子 氏</span>
+                        </div>
+                        <div class="audio-heading">
+                            <span> JRE-IKST-004-02</span>
+                            <span class="audio-subname"></span>
+                        </div>
+                        <audio controls src="announcement1.mp3"></audio>
+                        <div class="audio-details">
+                            主に特急列車が使用します。基本的には余韻まで鳴りますが、それ以上は車掌次第です。
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="platform-track-card">
+                <div class="track-header">
+                    <span class="track-title">2番線</span>
+                    <span class="track-destination">舞浜・海浜幕張・蘇我方面</span>
+                </div>
+                    <div class="audio-row">
+                        <div class="audio-tags">
+                            <span class="tag accent">発車メロディ</span>
+                            <span class="tag">スイッチ製</span>
+                        </div>
+                        <div class="audio-heading">
+                            <span>JRE-IKST-004-01</span>
+                            <span class="audio-subname"></span>
+                        </div>
+                        <audio controls src="melody1.mp3"></audio>
+                        <div class="audio-details">
+                            主に武蔵野線の列車が使用します。本数が多い時間帯だと開通が遅れて途中で切られることもあります。
+                        </div>
+                    </div>
+              </div>
+              <div class="platform-track-card">
+                <div class="track-header">
+                    <span class="track-title">2番線</span>
+                    <span class="track-destination">舞浜・海浜幕張・蘇我方面</span>
+                </div>
+                    <div class="audio-row">
+                        <div class="audio-tags">
+                            <span class="tag accent">発車メロディ</span>
+                            <span class="tag">スイッチ製</span>
+                        </div>
+                        <div class="audio-heading">
+                            <span>JRE-IKST-001-02</span>
+                            <span class="audio-subname"></span>
+                        </div>
+                        <audio controls src="melody1.mp3"></audio>
+                        <div class="audio-details">
+                            全列車始発なので鳴りやすいですが、開通が遅れると途中切りもあります。
+                        </div>
+                    </div>
+              </div>
+              <div class="platform-track-card">
+                <div class="track-header">
+                    <span class="track-title">4番線</span>
+                    <span class="track-destination">舞浜・海浜幕張・蘇我方面</span>
+                </div>
+                    <div class="audio-row">
+                        <div class="audio-tags">
+                            <span class="tag accent">発車メロディ</span>
+                            <span class="tag">スイッチ製</span>
+                        </div>
+                        <div class="audio-heading">
+                            <span>JRE-IKST-001-01</span>
+                            <span class="audio-subname"></span>
+                        </div>
+                        <audio controls src="melody1.mp3"></audio>
+                        <div class="audio-details">
+                            全列車始発なので鳴りやすいですが、開通が遅れると途中切りもあります。
+                        </div>
+                    </div>
+              </div>
+
+        </div>
+
+        <div class="footer-nav">
+            <a href="/keiyo" class="btn-app-back">
+                路線別へ戻る
+            </a>
+        </div>
+      </div>
+    </div>
+<Footer />
+</body>
+<style define:vars={{ lineColor: stationConfig.lineColor }}>
         /* ==========================================================================
            1. デザインシステム（クリーン白ベース × サイネージのメリハリ）
            ========================================================================== */
@@ -329,149 +478,4 @@ const stationConfig = {
             color: #ffffff;
         }
     </style>
-</head>
-<body>
-<Header />
-    <div class="app-wrapper">
-        
-        <div class="signage-header">
-            <div class="neighbor-stations">
-                <span class="prev">当駅終着</span>
-                <span class="next">八丁堀</span>
-            </div>
-            
-            <div class="station-badge">
-                <span>{stationConfig.stationNumber.split(' ')[0]}</span>{stationConfig.stationNumber.split(' ')[1]}
-            </div>
- 
-            <h1 class="station-title-ja">{stationConfig.stationName}（{stationConfig.lineName}地下ホーム）</h1>
-            <p class="station-title-sub">{stationConfig.stationEn} / 도쿄 / 东京</p>
-        </div>
-
-        <div class="hero-gallery">
-            <div class="hero-img-box">
-                <img src="https://picsum.photos/id/1015/800/500" alt="駅写真1">
-            </div>
-            <div class="hero-img-box">
-                <img src="https://picsum.photos/id/1016/800/500" alt="駅写真2">
-            </div>
-        </div>
-        <div class ="main">
-        <div class="section-title">駅スピーカー・環境情報</div>
-        <div class="info-card">
-            <div class="info-grid">
-                <div>
-                    <p class="info-item-label">密着集音難易度</p>
-                    <p class="info-item-value" style="color: #ff9f43;">★★★☆☆ (普通)</p>
-                </div>
-                <div>
-                    <p class="info-item-label">主なスピーカー型番</p>
-                    <p class="info-item-value">BOSE / CLARITY</p>
-                </div>
-                <div>
-                    <p class="info-item-label">放送システム</p>
-                    <p class="info-item-value">宇都宮型・新音源</p>
-                </div>
-                <div>
-                    <p class="info-item-label">ホーム環境</p>
-                    <p class="info-item-value">地下（反響強め）</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title">番線別 駅放送・発車メロディ</div>
-        <div class="platform-container">
-
-            <div class="platform-track-card">
-                <div class="track-header">
-                    <span class="track-title">1・2番線ホーム</span>
-                    <span class="track-destination">舞浜・海浜幕張・蘇我方面</span>
-                </div>
-                
-                <div class="track-body">
-                    <div class="audio-row">
-                        <div class="audio-tags">
-                            <span class="tag accent">接近放送</span>
-                            <span class="tag">向山佳比子 氏</span>
-                            <span class="tag">音質：良</span>
-                        </div>
-                        <div class="audio-heading">
-                            <span>自動案内放送</span>
-                            <span class="audio-subname">宇都宮型標準</span>
-                        </div>
-                        <audio controls src="announcement1.mp3"></audio>
-                        <div class="audio-details">
-                            地下ホーム特有の「ワンワン」という強い反響を抑えるため、スピーカー直下での密着収録を推奨します。前後のアナウンスの間隔が短めなのが特徴です。
-                        </div>
-                    </div>
-
-                    <div class="audio-row">
-                        <div class="audio-tags">
-                            <span class="tag accent">発車メロディ</span>
-                            <span class="tag">スイッチ製</span>
-                            <span class="tag">鳴りやすさ：高</span>
-                        </div>
-                        <div class="audio-heading">
-                            <span>Verde Rayo V2</span>
-                            <span class="audio-subname">定番アレンジ</span>
-                        </div>
-                        <audio controls src="melody1.mp3"></audio>
-                        <div class="audio-details">
-                            始発列車となるため、ラッシュ時以外でも比較的長めのコーラスが鳴りやすい環境です。2ターン目に入ることも珍しくありません。
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="platform-track-card">
-                <div class="track-header">
-                    <span class="track-title">3・4番線ホーム</span>
-                    <span class="track-destination">武蔵野線直通・特急方面</span>
-                </div>
-                
-                <div class="track-body">
-                    <div class="audio-row">
-                        <div class="audio-tags">
-                            <span class="tag accent">始発・戸閉放送</span>
-                            <span class="tag">田中一永 氏</span>
-                        </div>
-                        <div class="audio-heading">
-                            <span>自動案内放送＋戸閉連動</span>
-                            <span class="audio-subname">特急対応・予告あり</span>
-                        </div>
-                        <audio controls src="announcement3.mp3"></audio>
-                        <div class="audio-details">
-                            特急列車の入線時には、専用のスクロール表示と連動した長い案内放送が流れます。発車間際の「ドアが閉まります」まで綺麗に収録が可能です。
-                        </div>
-                    </div>
-
-                    <div class="audio-row">
-                        <div class="audio-tags">
-                            <span class="tag accent">発車メロディ</span>
-                            <span class="tag">スイッチ製</span>
-                            <span class="tag">鳴りやすさ：中</span>
-                        </div>
-                        <div class="audio-heading">
-                            <span>Verde Rayo V2</span>
-                            <span class="audio-subname">1・2番線と同曲</span>
-                        </div>
-                        <audio controls src="melody3.mp3"></audio>
-                        <div class="audio-details">
-                            武蔵野線直通の普通列車や特急などバラエティ豊かな車両が発車します。乗降客数によって鳴動時間が大きく変動するため、粘り強い収録が必要です。
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="footer-nav">
-            <a href="keiyo" class="btn-app-back">
-                路線別へ戻る
-            </a>
-        </div>
-      </div>
-    </div>
-<Footer />
-</body>
 </html>

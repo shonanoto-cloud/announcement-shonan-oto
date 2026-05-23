@@ -1,328 +1,73 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+	--jr-green: #008024;        /* JR東日本コーポレートカラー */
+	--bg-dark: #111827;         /* ヘッダー・フッター用の引き締まった黒 */
+	--bg-main: #f4f6f8;         /* ボディ背景（クリーンな薄グレー） */
+	--card-white: #ffffff;
+	--text-main: #1f2937;       /* メイン文字色 */
+	--text-sub: #4b5563;        /* 補足文字色 */
+	--border-light: #e5e8eb;
+	--black: #111827;
 }
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
+
 body {
-	font-family: "Atkinson", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+	background-color: var(--bg-main);
+	color: var(--text-main);
 	margin: 0;
 	padding: 0;
-	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
 }
-main {
-	width: 1000px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
+
+/* 画面幅を制限してスマホアプリ風に見せるコンテナ */
+.main-container {
 	width: 100%;
-	font-size: 16px;
+	max-width: 480px;
+	margin: 0 auto;
+	background: #ffffff;
+	min-height: calc(100vh - 60px); /* ヘッダー分を考慮 */
+	padding-bottom: 40px;
+	box-shadow: 0 0 24px rgba(0,0,0,0.02);
 }
-input {
-	font-size: 16px;
+
+/* 【初代復活】JRグリーンマーカー付きセクションタイトル */
+.section-title {
+	font-size: 1.1rem;
+	font-weight: 800;
+	padding: 24px 16px 12px 16px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--text-main);
 }
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+.section-title::before {
+	content: '';
+	display: inline-block;
+	width: 4px;
+	height: 1.1rem;
+	background-color: var(--jr-green);
 	border-radius: 2px;
 }
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0px;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 1000px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1em;
-	}
-}
 
-.list{
-    margin: auto;
-	display:flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.item{
-	width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.item-image{
+/* 直線的でフラットなリストカード */
+.flat-list {
 	display: flex;
-	width: 90%;
-	height: auto;
-	border-radius: 5px;
+	flex-direction: column;
+	padding: 0 16px;
+	gap: 12px;
 }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
+.flat-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px;
+	background: var(--card-white);
+	border: 1px solid var(--border-light);
+	text-decoration: none;
+	color: var(--text-main);
+	font-weight: 700;
+	transition: all 0.2s ease;
 }
-
-/* 001 */
-.button001 a {
-    background: #eee;
-    border-radius: 3px;
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px auto;
-    max-width: 280px;
-    padding: 10px 25px;
-    color: #313131;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
-}
-.button001 a:hover {
-    background: #313131;
-    color: #FFF;
-}
-.button001 a:after {
-    content: '';
-    width: 5px;
-    height: 5px;
-    border-top: 3px solid #313131;
-    border-right: 3px solid #313131;
-    transform: rotate(45deg) translateY(-50%);
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    border-radius: 1px;
-    transition: 0.3s ease-in-out;
-}
-.button001 a:hover:after {
-    border-color: #FFF;
-}
-
-/* 008 */
-.button008 a {
-    background: #eee;
-    position: relative;
-    text-decoration: none;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px auto;
-    max-width: 90%;
-    padding: 10px 25px;
-    color: #313131;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
-    z-index:0;
-}
-.button008 a:before {
-    content: "";
-    position: absolute;
-    border-radius: 5px;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    display: block;
-    background: #222939;
-    transition: .3s;
-    left:0;
-}
-.button008 a:hover {
-    color: #FFF;
-}
-.button008 a:hover:before {
-    width: 100%;
-    z-index: -1;
-}
-
-/* スライダー全体 */
-.slider-container {
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px; /* 下に余白を追加 */
-}
-
-/* スライドラッパー */
-.slider-wrapper {
-    position: relative;
-}
-
-/* スライドの表示エリア */
-.slider-slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-/* 各スライド */
-.slider-slide {
-    min-width: 100%;
-}
-
-.slider-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* キャプション */
-.slider-caption {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5); /* 半透明の黒背景で全体を覆う */
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-/* 見出し */
-.slider-caption-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* キャプションテキスト */
-.slider-caption-text {
-    font-size: 1.2rem;
-}
-
-/* インジケーター */
-.slider-indicator {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 5px;
-}
-
-.slider-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.slider-dot.slider-active {
-    background-color: #fff; /* アクティブなインジケーターを白色に */
+.flat-card:hover {
+	background-color: #f9fafb;
+	border-color: var(--text-main);
 }

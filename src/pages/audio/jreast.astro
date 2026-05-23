@@ -2,58 +2,37 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 	<head>
-		<BaseHead title={SITE_TITLE} description="JR East" />
+		<BaseHead title={`JR東日本 路線一覧 | ${SITE_TITLE}`} description="JR東日本の路線一覧ページです。" />
 	</head>
 	<body>
-		<Header/>
-		<main>
-			<h1>JR EAST</h1>
-			<p>
-				JR東日本の駅放送を公開しています。
-			</p>
-			<h2>路線別</h2>
-			<p>
-				以下から路線を選択してください。
-			</p>
-			<div class="list">
-				<div class="item">
-					<img class="item-image" src="/images/saikyo.JPG" />
-					<div class="button008">
-						<a href="/audio/jreast">埼京線</a>
+		<Header />
+		<main class="main-container">
+			<div class="section-title">JR東日本 路線一覧</div>
+			
+			<div class="flat-list">
+				<a href="/audio/jreast/keiyo" class="flat-card" style="border-left: 6px solid #c92334;">
+					<div>
+						<span style="font-size: 0.75rem; color: #c92334; font-weight: 900; display: block; letter-spacing: 0.5px;">JE KEIYO LINE</span>
+						<span>京葉線</span>
 					</div>
-				</div>
-				<div class="item">
-					<img class="item-image" src="/images/keyo34.jpg" />
-					<div class="button008">
-						<a href="/audio/keiyo">京葉線</a>
+					<span style="color: var(--text-sub); font-size: 0.85rem;">駅一覧へ ◀</span>
+				</a>
+
+				<a href="#" class="flat-card" style="border-left: 6px solid #ff7e00; opacity: 0.6;">
+					<div>
+						<span style="font-size: 0.75rem; color: #ff7e00; font-weight: 900; display: block;">JT TOKAIDO LINE</span>
+						<span>東海道線</span>
 					</div>
-				</div>
-				<div class="item">
-					<img class="item-image" src="/images/musashino.jpg" />
-					<div class="button008">
-						<a href="/audio/musashino">武蔵野線</a>
-					</div>
-				</div>
-				<div class="item">
-					<img class="item-image" src="/images/EF8198.jpg" />
-					<div class="button008">
-						<a href="/audio/utsunomiya">宇都宮線</a>
-					</div>
-				</div>
-				<div class="item">
-					<img class="item-image" src="/images/nikko205.jpg" />
-					<div class="button008">
-						<a href="/audio/nikko">日光線</a>
-					</div>
-				</div>
+					<span style="color: var(--text-sub); font-size: 0.8rem;">準備中</span>
+				</a>
 			</div>
 		</main>
-		<Footer/>
+		<Footer />
 	</body>
 </html>

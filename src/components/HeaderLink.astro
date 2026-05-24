@@ -1,12 +1,12 @@
 ---
-import type { HTMLAttributes } from 'astro/types'; [cite: 7]
+import type { HTMLAttributes } from 'astro/types'; 
 
-type Props = HTMLAttributes<'a'>; [cite: 7]
+type Props = HTMLAttributes<'a'>;
 
-const { href, class: className, ...props } = Astro.props; [cite: 7]
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, ''); [cite: 8]
-const subpath = pathname.match(/[^\/]+/g); [cite: 8]
-const isActive = href === pathname || href === '/' + (subpath?.[0] || ''); [cite: 8, 9]
+const { href, class: className, ...props } = Astro.props;
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, ''); 
+const subpath = pathname.match(/[^\/]+/g);
+const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 ---
 
 <a href={href} class:list={[`cyber-link ${className || ''}`, { active: isActive }]} {...props}>

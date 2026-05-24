@@ -1,20 +1,20 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts'; [cite: 2]
+import { SITE_TITLE } from '../consts'; 
 ---
 
 <header class="site-header">
 	<nav class="header-nav">
 		<h2 class="site-title">
 			<span class="title-indicator">//</span>
-			<a href="/">{SITE_TITLE}</a> [cite: 4]
+			<a href="/">{SITE_TITLE}</a> 
 		</h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink> [cite: 4]
-			<HeaderLink href="/blog">Blog</HeaderLink> [cite: 4]
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
 			
 			<div class="dropdown">
-				<HeaderLink href="/audio" class="dropdown-trigger"> [cite: 4]
+				<HeaderLink href="/audio" class="dropdown-trigger">
 					Audio
 					<svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
 				</HeaderLink>
@@ -25,7 +25,7 @@ import { SITE_TITLE } from '../consts'; [cite: 2]
 				</div>
 			</div>
 
-			<HeaderLink href="/about">About</HeaderLink> [cite: 4]
+			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 	</nav>
 	<div class="header-line-bar"></div>

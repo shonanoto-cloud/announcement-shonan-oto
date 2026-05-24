@@ -5,7 +5,10 @@ import { SITE_TITLE } from '../consts';
 
 <header class="site-header">
 	<nav class="header-nav">
-		<h2 class="site-title"><a href="/">{SITE_TITLE}</a></h2>
+		<h2 class="site-title">
+			<span class="title-indicator">//</span>
+			<a href="/">{SITE_TITLE}</a>
+		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
@@ -13,11 +16,12 @@ import { SITE_TITLE } from '../consts';
 			<div class="dropdown">
 				<HeaderLink href="/audio" class="dropdown-trigger">
 					Audio
-					<svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+					<svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
 				</HeaderLink>
 				<div class="dropdown-menu">
-					<a href="/audio/tracks">音源一覧</a>
-					<a href="/audio/equipment">収録機材</a>
+					<div class="dropdown-corner-top"></div>
+					<a href="/audio/tracks"><span class="sub-dir">└</span> 音源一覧</a>
+					<a href="/audio/equipment"><span class="sub-dir">└</span> 収録機材</a>
 				</div>
 			</div>
 
@@ -34,43 +38,49 @@ import { SITE_TITLE } from '../consts';
 		z-index: 100;
 		margin: 0;
 		padding: 0;
-		background-color: rgba(17, 24, 39, 0.95); /* 背景色を維持しつつ、ほんのり透過させてモダンに */
-		backdrop-filter: blur(8px); /* 背後をぼかすトレンドのガラスエフェクト */
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+		background-color: rgba(10, 15, 26, 0.85); /* よりディープな宇宙船ドック風の黒 */
+		backdrop-filter: blur(12px);
+		border-bottom: 1px solid rgba(0, 128, 36, 0.2); /* JRグリーンを薄く光らせる境界線 */
+		box-shadow: 0 4px 30px rgba(0, 128, 36, 0.05);
 	}
 	.header-nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 800px; /* 少し幅を広げてゆとりを持たせました */
+		max-width: 1400px; /* パソコン表示用に横幅を大幅に拡張 */
 		margin: 0 auto;
-		padding: 0 24px;
-		height: 64px; /* 少し高さを出してスマートな印象に */
+		padding: 0 40px; /* 左右の余白を広げてゆったりと */
+		height: 70px; /* 少し高さを出してメカニカルな重厚感を */
 	}
 	.site-title {
 		margin: 0;
-		font-size: 1.1rem;
-		font-weight: 800;
-		letter-spacing: 1.5px;
-		text-transform: uppercase;
+		font-size: 1.15rem;
+		font-weight: 900;
+		letter-spacing: 2px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.title-indicator {
+		color: #008024; /* サイバーグリーン */
+		font-size: 0.9em;
+		text-shadow: 0 0 8px rgba(0, 128, 36, 0.6);
+		animation: blink 1.5s infinite steps(2, start); /* チカチカと点滅するSF演出 */
 	}
 	.site-title a {
 		color: #ffffff;
 		text-decoration: none;
-		transition: opacity 0.2s;
+		font-family: monospace, sans-serif;
 	}
-	.site-title a:hover {
-		opacity: 0.8;
-	}
+
 	.internal-links {
 		display: flex;
-		gap: 8px;
+		gap: 16px; /* リンク同士の間隔を広げてPCでの見栄えを最適化 */
 		height: 100%;
 		align-items: center;
 	}
 
-	/* --- ドロップダウンのスタイリング --- */
+	/* --- SF仕様ドロップダウン --- */
 	.dropdown {
 		position: relative;
 		height: 100%;
@@ -80,57 +90,79 @@ import { SITE_TITLE } from '../consts';
 	.dropdown-trigger {
 		display: flex;
 		align-items: center;
-		gap: 4px;
+		gap: 6px;
 	}
 	.chevron-icon {
-		transition: transform 0.2s ease;
+		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		color: #008024;
 	}
-	/* ホバー時に矢印を回転 */
 	.dropdown:hover .chevron-icon {
 		transform: rotate(180deg);
+		color: #ffffff;
 	}
-	/* 子ページメニューのボックス */
 	.dropdown-menu {
 		position: absolute;
-		top: calc(100% - 4px); /* ヘッダーの底面に合わせる */
+		top: calc(100% - 2px);
 		left: 50%;
-		transform: translateX(-50%) translateY(10px);
-		width: 160px;
-		background-color: #1f2937; /* ヘッダーより一段明るいダークグレー */
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		border-radius: 8px;
-		padding: 6px;
-		box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+		width: 180px;
+		background: rgba(10, 15, 26, 0.95);
+		border: 1px solid #008024; /* グリーンのフレーム */
+		border-radius: 2px; /* SFはあえて直角気味に */
+		padding: 8px;
+		box-shadow: 0 0 20px rgba(0, 128, 36, 0.2);
 		opacity: 0;
+		transform: translateX(-50%) translateY(15px) scale(0.95);
 		pointer-events: none;
-		transition: all 0.2s ease;
+		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		font-family: monospace;
 	}
-	/* ホバー時にふわっと表示 */
+	/* 近未来UIの角の装飾 */
+	.dropdown-corner-top {
+		position: absolute;
+		top: -1px;
+		left: -1px;
+		width: 6px;
+		height: 6px;
+		border-top: 2px solid #ffffff;
+		border-left: 2px solid #ffffff;
+	}
 	.dropdown:hover .dropdown-menu {
 		opacity: 1;
 		pointer-events: auto;
-		transform: translateX(-50%) translateY(0);
+		transform: translateX(-50%) translateY(0) scale(1);
 	}
-	/* 子ページリンクのスタイル */
 	.dropdown-menu a {
 		display: block;
-		padding: 10px 14px;
+		padding: 10px 12px;
 		color: #9ca3af;
 		text-decoration: none;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 		font-weight: 600;
-		border-radius: 6px;
-		transition: all 0.15s ease;
+		transition: all 0.2s ease;
+	}
+	.sub-dir {
+		color: #008024;
+		margin-right: 4px;
 	}
 	.dropdown-menu a:hover {
 		color: #ffffff;
-		background-color: rgba(255, 255, 255, 0.05);
+		background-color: rgba(0, 128, 36, 0.15);
+		padding-left: 18px; /* ホバーで右に少しスライドするアニメーション */
 	}
 	
-	/* JRグリーンのアクセントライン */
+	/* JRグリーンのラインバーをSFの「ライトレール」風に */
 	.header-line-bar {
-		background-color: #008024;
-		height: 3px; /* 4pxから3pxにしてよりシャープに */
+		background: linear-gradient(90deg, #008024, #00ff47, #008024);
+		background-size: 200% 100%;
+		height: 3px;
 		width: 100%;
+		animation: laserMove 4s linear infinite; /* 光が流れるようなアニメーション */
+	}
+
+	/* アニメーション定義 */
+	@keyframes blink { to { opacity: 0; } }
+	@keyframes laserMove {
+		0% { background-position: 0% 50%; }
+		100% { background-position: 200% 50%; }
 	}
 </style>

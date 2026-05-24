@@ -1,13 +1,13 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts'; 
+import { SITE_TITLE } from '../consts';
 ---
 
 <header class="site-header">
 	<nav class="header-nav">
 		<h2 class="site-title">
-			<span class="title-indicator">//</span>
-			<a href="/">{SITE_TITLE}</a> 
+			<span class="title-core">{SITE_TITLE}</span>
+			<span class="system-tag">UI_v2.5</span>
 		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
@@ -16,12 +16,16 @@ import { SITE_TITLE } from '../consts';
 			<div class="dropdown">
 				<HeaderLink href="/audio" class="dropdown-trigger">
 					Audio
-					<svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+					<svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
 				</HeaderLink>
 				<div class="dropdown-menu">
-					<div class="dropdown-corner-top"></div>
-					<a href="/audio/tracks"><span class="sub-dir">└</span> 音源一覧</a>
-					<a href="/audio/equipment"><span class="sub-dir">└</span> 収録機材</a>
+					<div class="menu-label">SELECT DIRECTORY</div>
+					<a href="/audio/tracks">
+						<span class="link-accent">/</span>音源一覧
+					</a>
+					<a href="/audio/equipment">
+						<span class="link-accent">/</span>収録機材
+					</a>
 				</div>
 			</div>
 
@@ -38,49 +42,52 @@ import { SITE_TITLE } from '../consts';
 		z-index: 100;
 		margin: 0;
 		padding: 0;
-		background-color: rgba(10, 15, 26, 0.85); /* よりディープな宇宙船ドック風の黒 */
-		backdrop-filter: blur(12px);
-		border-bottom: 1px solid rgba(0, 128, 36, 0.2); /* JRグリーンを薄く光らせる境界線 */
-		box-shadow: 0 4px 30px rgba(0, 128, 36, 0.05);
+		/* 背景を真っ黒ではなく、視認性の高い超深海ネイビーブラックに */
+		background-color: rgba(11, 16, 27, 0.96);
+		backdrop-filter: blur(16px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 	}
 	.header-nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 1400px; /* パソコン表示用に横幅を大幅に拡張 */
+		max-width: 1400px;
 		margin: 0 auto;
-		padding: 0 40px; /* 左右の余白を広げてゆったりと */
-		height: 70px; /* 少し高さを出してメカニカルな重厚感を */
+		padding: 0 40px;
+		height: 72px; /* ゆったりとした高さで文字の視認性を確保 */
 	}
 	.site-title {
 		margin: 0;
-		font-size: 1.15rem;
-		font-weight: 900;
-		letter-spacing: 2px;
 		display: flex;
-		align-items: center;
+		align-items: baseline;
 		gap: 8px;
+		font-family: 'Helvetica Neue', Arial, sans-serif;
 	}
-	.title-indicator {
-		color: #008024; /* サイバーグリーン */
-		font-size: 0.9em;
-		text-shadow: 0 0 8px rgba(0, 128, 36, 0.6);
-		animation: blink 1.5s infinite steps(2, start); /* チカチカと点滅するSF演出 */
-	}
-	.site-title a {
+	.title-core {
 		color: #ffffff;
-		text-decoration: none;
-		font-family: monospace, sans-serif;
+		font-size: 1.2rem;
+		font-weight: 800;
+		letter-spacing: 1.5px;
+	}
+	.system-tag {
+		font-family: monospace;
+		font-size: 0.65rem;
+		color: #38bdf8; /* サイバーブルー */
+		background: rgba(56, 189, 248, 0.1);
+		padding: 2px 6px;
+		border-radius: 3px;
+		border: 1px solid rgba(56, 189, 248, 0.2);
 	}
 
 	.internal-links {
 		display: flex;
-		gap: 16px; /* リンク同士の間隔を広げてPCでの見栄えを最適化 */
+		gap: 8px;
 		height: 100%;
 		align-items: center;
 	}
 
-	/* --- SF仕様ドロップダウン --- */
+	/* --- 高視認性・ドロップダウン --- */
 	.dropdown {
 		position: relative;
 		height: 100%;
@@ -94,74 +101,88 @@ import { SITE_TITLE } from '../consts';
 	}
 	.chevron-icon {
 		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		color: #008024;
+		opacity: 0.6;
 	}
 	.dropdown:hover .chevron-icon {
 		transform: rotate(180deg);
-		color: #ffffff;
+		opacity: 1;
 	}
+	
 	.dropdown-menu {
 		position: absolute;
-		top: calc(100% - 2px);
+		top: calc(100% - 4px);
 		left: 50%;
-		width: 180px;
-		background: rgba(10, 15, 26, 0.95);
-		border: 1px solid #008024; /* グリーンのフレーム */
-		border-radius: 2px; /* SFはあえて直角気味に */
+		width: 200px; /* 少し横幅を広げて文字を読みやすく */
+		background: #1e2536; /* 背景を一段明るくして文字とのコントラストを強調 */
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-top: 2px solid #38bdf8; /* 上部に鮮やかなブルーのアクセント */
+		border-radius: 6px;
 		padding: 8px;
-		box-shadow: 0 0 20px rgba(0, 128, 36, 0.2);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+		
+		/* アニメーション：ブレを無くし、スッと綺麗に浮き出る */
 		opacity: 0;
-		transform: translateX(-50%) translateY(15px) scale(0.95);
+		transform: translateX(-50%) translateY(8px);
 		pointer-events: none;
-		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		font-family: monospace;
-	}
-	/* 近未来UIの角の装飾 */
-	.dropdown-corner-top {
-		position: absolute;
-		top: -1px;
-		left: -1px;
-		width: 6px;
-		height: 6px;
-		border-top: 2px solid #ffffff;
-		border-left: 2px solid #ffffff;
+		transition: opacity 0.2s ease, transform 0.2s ease;
 	}
 	.dropdown:hover .dropdown-menu {
 		opacity: 1;
 		pointer-events: auto;
-		transform: translateX(-50%) translateY(0) scale(1);
+		transform: translateX(-50%) translateY(0);
 	}
+	
+	.menu-label {
+		font-family: monospace;
+		font-size: 0.65rem;
+		color: #64748b;
+		padding: 4px 12px 8px 12px;
+		letter-spacing: 1px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+		margin-bottom: 4px;
+	}
+	
 	.dropdown-menu a {
 		display: block;
 		padding: 10px 12px;
-		color: #9ca3af;
+		color: #cbd5e1; /* くっきり見える明るいグレー */
 		text-decoration: none;
-		font-size: 0.8rem;
+		font-size: 0.9rem;
 		font-weight: 600;
-		transition: all 0.2s ease;
+		border-radius: 4px;
+		transition: all 0.15s ease;
+		display: flex;
+		align-items: center;
 	}
-	.sub-dir {
-		color: #008024;
-		margin-right: 4px;
+	.link-accent {
+		color: #38bdf8;
+		margin-right: 6px;
+		font-family: monospace;
+		font-weight: bold;
+		transition: transform 0.15s ease;
 	}
+	/* ホバー時は鮮やかなアンバー（琥珀色）でSFの警告灯・アクティブ感を演出 */
 	.dropdown-menu a:hover {
 		color: #ffffff;
-		background-color: rgba(0, 128, 36, 0.15);
-		padding-left: 18px; /* ホバーで右に少しスライドするアニメーション */
+		background-color: rgba(255, 255, 255, 0.03);
+		box-shadow: inset 3px 0 0 #f59e0b; /* 左側にアンバーのシャープな縦線 */
+	}
+	.dropdown-menu a:hover .link-accent {
+		color: #f59e0b;
+		transform: translateX(2px);
 	}
 	
-	/* JRグリーンのラインバーをSFの「ライトレール」風に */
+	/* ヘッダー最下部の極細の装飾ライン */
 	.header-line-bar {
-		background: linear-gradient(90deg, #008024, #00ff47, #008024);
+		background: linear-gradient(90deg, #38bdf8, #f59e0b, #38bdf8);
 		background-size: 200% 100%;
-		height: 3px;
+		height: 2px;
 		width: 100%;
-		animation: laserMove 4s linear infinite; /* 光が流れるようなアニメーション */
+		opacity: 0.8;
+		animation: cyberPulse 6s linear infinite;
 	}
 
-	/* アニメーション定義 */
-	@keyframes blink { to { opacity: 0; } }
-	@keyframes laserMove {
+	@keyframes cyberPulse {
 		0% { background-position: 0% 50%; }
 		100% { background-position: 200% 50%; }
 	}

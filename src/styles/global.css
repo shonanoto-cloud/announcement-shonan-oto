@@ -66,8 +66,8 @@ h1, h2, h3 {
 	font-weight: 700;
 }
 
-h1 { font-size: 48px; }
-h2 { font-size: 32px; }
+h1 { font-size: 4em; }
+h2 { font-size: 3em; }
 
 p {
 	font-size: 20px;
@@ -119,7 +119,7 @@ p {
 	padding: 10px 16px;
 	text-decoration: none;
 	font-weight: 700;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	letter-spacing: 0.5px;
 	border-radius: 4px; /* 直線的なシャープさを持たせる */
 	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -423,14 +423,14 @@ p {
     justify-content: flex-start; /* 文字を少し左寄りに（矢印と距離を保つ） */
     align-items: center;
     margin: 10px auto;
-	margin-top: 20px;
+	margin-top: 30px;
     max-width: 280px;
     padding: 12px 24px;
     color: #1e2536;
     text-decoration: none;
 	text-align: center;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.5px;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -476,11 +476,12 @@ p {
     border: 1px solid rgba(56, 189, 248, 0.4); /* 通常時は淡いサイバーブルーの枠 */
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 1px;
     border-radius: 24px; /* 元のカプセル形状を維持 */
     box-shadow: 0 2px 8px rgba(56, 189, 248, 0.04);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	margin-top: 50px;
 }
 
 .btn-app-back:hover {

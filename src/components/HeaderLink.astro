@@ -10,7 +10,8 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 ---
 
 <a href={href} class:list={[`menu-link ${className || ''}`, { active: isActive }]} {...props}>
-	<slot />
+	<span class="link-text"><slot /></span>
+	<span class="indicator-line"></span>
 </a>
 
 <style>
@@ -18,41 +19,54 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: 8px 20px;
-		color: #94a3b8; /* 通常時は落ち着いた、かつ暗すぎないグレー */
+		height: 100%; /* 親の高さ(72px)一杯に広げる */
+		padding: 0 20px;
+		color: #94a3b8;
 		text-decoration: none;
 		font-weight: 600;
 		font-size: 0.95rem;
-		border-radius: 20px; /* カプセル風の形状 */
-		transition: all 0.2s ease;
+		transition: color 0.2s ease;
 		position: relative;
 	}
+	.link-text {
+		position: relative;
+		z-index: 2;
+	}
 	
-	/* ホバー：文字を白くし、背景にほんのりサイバーブルーを乗せる */
+	/* ホバー時に文字色をサイバーブルーに */
 	.menu-link:hover {
 		color: #38bdf8;
-		background-color: rgba(56, 189, 248, 0.06);
 	}
 	
-	/* 現在地（アクティブ）：背景をハッキリとさせて最優先の視認性を確保 */
+	/* --- 新しいシャープライン・インジケーター --- */
+	.indicator-line {
+		position: absolute;
+		bottom: 0;
+		left: 20px;
+		right: 20px;
+		height: 2px;
+		background-color: #38bdf8;
+		box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+		
+		/* 初期状態（非アクティブ・非ホバー時）は中央に縮小して隠す */
+		transform: scaleX(0);
+		transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	
+	/* ホバーした時にラインが中央からシャープに広がるアニメーション */
+	.menu-link:hover .indicator-line {
+		transform: scaleX(1);
+	}
+	
+	/* 現在地（アクティブ）の時のスタイル固定 */
 	.menu-link.active {
 		color: #ffffff;
-		background-color: rgba(255, 255, 255, 0.06);
 		font-weight: 700;
-		box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
 	}
-	
-	/* 現在地用の小さなドットインジケーター */
-	.menu-link.active::after {
-		content: '';
-		position: absolute;
-		bottom: -2px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 4px;
-		height: 4px;
-		background-color: #38bdf8;
-		border-radius: 50%;
-		box-shadow: 0 0 8px #38bdf8;
+	/* アクティブ時はラインを最初から100%の幅で発光表示 */
+	.menu-link.active .indicator-line {
+		transform: scaleX(1);
+		background-color: #ffffff; /* 現在地はあえてホワイト発光にして最優先の視認性に */
+		box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
 	}
 </style>

@@ -301,7 +301,7 @@ const transfers = [
      ========================================================================== */
   .custom-route-melodiestation {
     width: 100%;
-    max-width: 600px;
+    max-width: 750px;
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
@@ -323,8 +323,6 @@ const transfers = [
     position: relative;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
     min-height: 100vh;
-    /* バッジエリア(約60px) + 重なりを防ぐ追加余白を含めたセーフエリアを確保 */
-    padding-bottom: 75px; 
   }
 
   /* ==========================================================================
@@ -454,7 +452,7 @@ const transfers = [
     color: #2ca85a !important;
     font-size: 1.6em !important;
     line-height: 1;
-    padding-bottom: 2px;
+    margin-bottom: 6px;
     display: inline-block !important;
     transition: transform 0.3s ease !important;
   }
@@ -505,6 +503,8 @@ const transfers = [
     white-space: nowrap !important;
     font-size: 0.7rem !important;
     display: inline-block;
+    width: 40px;
+    text-align: center;
   }
 
   .custom-route-melodiestation .melody-name {

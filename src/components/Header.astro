@@ -53,6 +53,12 @@ import { SITE_TITLE } from '../consts';
 </script>
 
 <style>
+	.site-header, 
+	.site-header *, 
+	.dropdown-menu a {
+	/* ページ側でどんなフォントが指定されても、ヘッダー内はこれを強制する */
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
 	.site-header {
 		position: sticky;
 		top: 0;

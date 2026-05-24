@@ -5,7 +5,7 @@ import Footer from '../../../components/Footer.astro';
 import { SITE_TITLE } from '../../../consts';
 
 // ==========================================================================
-// 1. 路線個別カスタマイズオプション（別路線を作るときはここを変えるだけ！）
+// 1. 路線個別カスタマイズオプション（他路線を作る時はここを変えるだけ！）
 // ==========================================================================
 const lineConfig = {
   lineColor: "#c92334",          // 線の色（京葉線は赤）
@@ -16,7 +16,7 @@ const lineConfig = {
 };
 
 // ==========================================================================
-// 2. 駅データ
+// 2. 駅データ（featureCardのON/OFF、乗換なしの終着駅制御に対応）
 // ==========================================================================
 const stations = [
   {
@@ -24,621 +24,368 @@ const stations = [
     name: "東京",
     link: "/audio/jreast/tokyo(keiyo)",
     hasPage: true,
+    showFeatureCard: true, // ★この駅はフィーチャーカードを表示する
     melodies: [
       { tracks: "1番線", name: "JRE-IKST-004-01" },
       { tracks: "2番線", name: "JRE-IKST-004-02" },
       { tracks: "3番線", name: "JRE-IKST-001-01" },
-      { tracks: "4番線", name: "JRE-IKST-001-02" }
+      { tracks: "4番線", name: "JRE-IKST-002-01" }
     ],
-    feature: { tag: "名所", text: "赤レンガ<br>駅舎", bgColor: "#ffc107", textColor: "#1a2530" }
+    transfers: [
+      { name: "山手線", color: "#80c241" },
+      { name: "中央線", color: "#f15a22" },
+      { name: "東海道線", color: "#f58220" },
+      { name: "横須賀線", color: "#0074bc" },
+      { name: "総武快速線", color: "#0074bc" },
+      { name: "京浜東北線", color: "#00b2e5" }
+    ]
   },
   {
     number: "02",
     name: "八丁堀",
-    link: "#",
-    hasPage: false,
+    link: "/audio/jreast/hatchobori",
+    hasPage: true,
+    showFeatureCard: false, // ★この駅はフィーチャーカードを非表示（OFF）にする
     melodies: [
-      { tracks: "1番線", name: "JRE-IKST-001-01" },
-      { tracks: "2番線", name: "JRE-IKST-001-02" }
+      { tracks: "1番線", name: "SH-1" },
+      { tracks: "2番線", name: "SH-3" }
     ],
-    feature: { tag: "乗換", text: "日比谷線<br>連絡", bgColor: "#17a2b8", textColor: "#ffffff" }
+    transfers: [
+      { name: "日比谷線", color: "#b5b5b6" }
+    ]
   },
   {
     number: "03",
     name: "越中島",
-    link: "#",
+    link: "",
     hasPage: false,
+    showFeatureCard: false, // ★非表示（OFF）
     melodies: [
-      { tracks: "1番線", name: "JRE-IKST-001-01" },
-      { tracks: "2番線", name: "JRE-IKST-001-02" }
+      { tracks: "1番線", name: "Verde Rayo" },
+      { tracks: "2番線", name: "See You Again" }
     ],
-    feature: { tag: "データ", text: "23区内の<br>JR駅で最少", bgColor: "#6c757d", textColor: "#ffffff" }
-  },
-  {
-    number: "04",
-    name: "潮見",
-    link: "#",
-    hasPage: true,
-    melodies: [
-      { tracks: "1番線", name: "Ocean Voyage", bg: "#2ca85a" },
-      { tracks: "2番線", name: "History", bg: "#c92334" }
-    ],
-    feature: { tag: "構造", text: "ここから<br>高架ホーム", bgColor: "#28a745", textColor: "#ffffff" }
-  },
-  {
-    number: "05",
-    name: "新木場",
-    link: "#",
-    hasPage: true,
-    melodies: [
-      { tracks: "1番線", name: "La Moraleja", bg: "#2ca85a" },
-      { tracks: "2番線", name: "See You Again", bg: "#c92334" }
-    ],
-    feature: { tag: "乗換", text: "有楽町線<br>りんかい線", bgColor: "#17a2b8", textColor: "#ffffff" }
-  },
-  {
-    number: "06",
-    name: "葛西臨海公園",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "緑の車窓", bg: "#2ca85a" },
-      { tracks: "2番線", name: "海辺 of 散歩", bg: "#c92334" }
-    ],
-    feature: { tag: "名所", text: "大観覧車<br>水族館", bgColor: "#ffc107", textColor: "#1a2530" }
-  },
-  {
-    number: "07",
-    name: "舞浜",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "It's a Small World", bg: "#2ca85a" },
-      { tracks: "2番線", name: "Zip-A-Dee-Doo-Dah", bg: "#c92334" }
-    ],
-    feature: { tag: "限定", text: "ディズニー<br>ソング", bgColor: "#e83e8c", textColor: "#ffffff" }
-  },
-  {
-    number: "08",
-    name: "新浦安",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1・2番", name: "Sparkling Time" },
-      { tracks: "3・4番", name: "A Way of Life" }
-    ],
-    feature: { tag: "運行", text: "快速の<br>緩急接続駅", bgColor: "#007bff", textColor: "#ffffff" }
-  },
-  {
-    number: "09",
-    name: "市川塩浜",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "Harbor Light", bg: "#2ca85a" },
-      { tracks: "2番線", name: "Sunset Cruise", bg: "#c92334" }
-    ],
-    feature: { tag: "分岐", text: "高谷支線<br>（西船橋方面）", bgColor: "#6f42c1", textColor: "#ffffff" }
-  },
-  {
-    number: "10",
-    name: "二俣新町",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "Blue Sky", bg: "#2ca85a" },
-      { tracks: "2番線", name: "Winds of Change", bg: "#c92334" }
-    ],
-    feature: { tag: "周辺", text: "工業地帯・<br>デルタ線中央", bgColor: "#6c757d", textColor: "#ffffff" }
-  },
-  {
-    number: "11",
-    name: "南船橋",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1・2番", name: "Seaside Journey" },
-      { tracks: "3・4番", name: "Coast Line" }
-    ],
-    feature: { tag: "分岐", text: "武蔵野線<br>直通分岐駅", bgColor: "#6f42c1", textColor: "#ffffff" }
-  },
-  {
-    number: "12",
-    name: "新習志野",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1-4番線", name: "千葉ロッテ<br>応援歌" }
-    ],
-    feature: { tag: "車庫", text: "京葉車両<br>センター隣接", bgColor: "#fd7e14", textColor: "#ffffff" }
-  },
-  {
-    number: "13",
-    name: "幕張豊砂",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "希望の風", bg: "#2ca85a" },
-      { tracks: "2番線", name: "そよ風のロンド", bg: "#c92334" }
-    ],
-    feature: { tag: "新駅", text: "2023年開業<br>イオンモール前", bgColor: "#28a745", textColor: "#ffffff" }
-  },
-  {
-    number: "14",
-    name: "海浜幕張",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1-4番線", name: "We Love Marines" }
-    ],
-    feature: { tag: "名所", text: "幕張メッセ<br>マリーンズ", bgColor: "#ffc107", textColor: "#1a2530" }
-  },
-  {
-    number: "15",
-    name: "検見川浜",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "Lover's Concerto", bg: "#2ca85a" },
-      { tracks: "2番線", name: "Minuet", bg: "#c92334" }
-    ],
-    feature: { tag: "周辺", text: "美浜区役所<br>ニュータウン", bgColor: "#6c757d", textColor: "#ffffff" }
-  },
-  {
-    number: "16",
-    name: "稲毛海岸",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "1番線", name: "Ocean Wave", bg: "#2ca85a" },
-      { tracks: "2番線", name: "Beach Side", bg: "#c92334" }
-    ],
-    feature: { tag: "名所", text: "稲毛海浜公園<br>いなげの浜", bgColor: "#ffc107", textColor: "#1a2530" }
-  },
-  {
-    number: "17",
-    name: "蘇我",
-    link: "#",
-    hasPage: false,
-    melodies: [
-      { tracks: "3・4番線", name: "Over" }
-    ],
-    feature: { tag: "注意", text: "当駅始発・<br>終着多数", bgColor: "#e24a00", textColor: "#ffffff" }
+    transfers: [] // ★乗換なし＆最後の駅になった場合、路線がここでピタッと止まります
   }
 ];
 
-const transfers = [
-  { name: "外房線", url: "https://example.com/sotobo", color: "#c92334" },
-  { name: "内房線", url: "https://example.com/uchibo", color: "#0070bc" }
-];
+// 最後の駅のインデックスを取得
+const lastStationIndex = stations.length - 1;
 ---
 
 <!doctype html>
 <html lang="ja">
-  <head>
-    <BaseHead title={`${lineConfig.pageTitle} | ${SITE_TITLE}`} description="京葉線" />
-  </head>
-  <body>
-    <Header/>
-	<main>
-	<h1>京葉線</h1>
-	<p>※灰色の駅は駅ページ未作成</p>
-    <div class="custom-route-melodiestation">
-      <div class="line-container">
-        
-        <div class="sticky-header">
-          <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
-            {lineConfig.topBadgeText}
-          </span>
-        </div>
+	<head>
+		<BaseHead title={`${lineConfig.pageTitle} - ${SITE_TITLE}`} description={`${lineConfig.pageTitle}の駅放送・発車メロディ一覧です。`} />
+	</head>
+	<body class="custom-route-melodiestation">
+		<Header/>
+		<main>
+			<div class="line-hero" style={`--line-color: ${lineConfig.lineColor}`}>
+				<div class="hero-container">
+					<div class="route-symbol">{lineConfig.routeBadgeText}</div>
+					<h1 class="line-name-title">{lineConfig.pageTitle}</h1>
+				</div>
+			</div>
 
-        <div class="timeline">
-          {stations.map((station) => (
-            <div class={`station-block ${!station.hasPage ? 'is-disabled' : ''}`}>
-              <div class="route-track">
-                <div class="route-line" style={{ backgroundColor: lineConfig.lineColor }}></div>
-                <div class="station-dot" style={{ borderColor: lineConfig.lineColor }}></div>
-              </div>
+			<div class="station-list-container">
+				{stations.map((station, index) => {
+					const isLastStation = index === lastStationIndex;
+					const hasTransfers = station.transfers && station.transfers.length > 0;
+					// ★「最後の駅」かつ「乗換データが空（存在しない）」の時だけ特別なクラスを付与する条件分岐
+					const isTerminalWithNoTransfers = isLastStation && !hasTransfers;
 
-              <div class="station-info">
-                <div>
-                  {station.hasPage ? (
-                    <a href={station.link} class="station-name">{station.name}</a>
-                  ) : (
-                    <span class="station-name-disabled">{station.name}</span>
-                  )}
-                </div>
-                <div class="melody-container">
-                  {station.melodies && station.melodies.map((melody) => (
-                    <div class="melody-row">
-                      <span class="track-badge" style={melody.bg ? { backgroundColor: melody.bg } : undefined}>
-                        {melody.tracks}
-                      </span>
-                      <span class="melody-name" set:html={melody.name}></span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+					return (
+						<div class:list={["station-node-block", { "terminal-no-line": isTerminalWithNoTransfers }]}>
+							
+							{/* 左側：路線ライン（縦線）と駅シンボル */}
+							<div class="route-track-column">
+								<div class="route-line-segment" style={`background-color: ${lineConfig.lineColor}`}></div>
+								<div class="station-dot-outer" style={`border-color: ${lineConfig.lineColor}`}>
+									<div class="station-dot-inner" style={`background-color: ${lineConfig.lineColor}`}></div>
+								</div>
+							</div>
 
-              <div class="station-features">
-                <div class="feature-card">
-                  <span class="card-tag" style={{ backgroundColor: station.feature.bgColor, color: station.feature.textColor }}>
-                    {station.feature.tag}
-                  </span>
-                  <div class="card-text" set:html={station.feature.text}></div>
-                </div>
-              </div>
-            </div>
-          ))}
+							{/* 右側：コンテンツエリア */}
+							<div class="station-content-card">
+								<div class="station-meta-row">
+									<span class="station-id-badge" style={`color: ${lineConfig.lineColor}; border-color: ${lineConfig.lineColor};`}>
+										{lineConfig.routeBadgeText}-{station.number}
+									</span>
+									{station.hasPage ? (
+										<a href={station.link} class="station-name-link">{station.name}</a>
+									) : (
+										<span class="station-name-text">{station.name}</span>
+									)}
+								</div>
 
-          <div class="footer-terminal">
-            <div class="route-line" style={{ backgroundColor: lineConfig.lineColor }}></div>
-            <div class="transfer-container">
-              {transfers.map((transfer) => (
-                <a href={transfer.url} class="transfer-button" style={{ borderColor: transfer.color, color: transfer.color }}>
-                  {transfer.name} <span>❯</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+								{/* メロディ情報一覧 */}
+								<div class="melody-info-box">
+									{station.melodies.map((melody) => (
+										<div class="melody-track-row">
+											<span class="track-label">{melody.tracks}</span>
+											<span class="melody-title-name">{melody.name}</span>
+										</div>
+									))}
+								</div>
 
-      	<div class="fixed-footer">
-        <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
-          {lineConfig.bottomBadgeText}
-        </span>
-		</div>
-      </div>
-    </div>
-      <a href="../" class="btn-app-back">
-                会社別へ戻る
-      </a>
-	</main>
-	<Footer/>
-  </body>
+								{/* ★要望2: feature-card の条件付きレンダリング (ONの時だけ表示) */}
+								{station.showFeatureCard && (
+									<div class="feature-card">
+										<div class="feature-badge">FEATURED</div>
+										<p class="feature-text">当駅のメロディは環境対策用の最新音源に更新されています。</p>
+									</div>
+								)}
+
+								{/* 乗換路線がある場合のみ表示 */}
+								{hasTransfers && (
+									<div class="transfer-zone">
+										<div class="transfer-header-label">TRANSFER</div>
+										<div class="transfer-badge-grid">
+											{station.transfers.map((trans) => (
+												<span class="transfer-tag" style={`border-left-color: ${trans.color}`}>
+													{trans.name}
+												</span>
+											))}
+										</div>
+									</div>
+								)}
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</main>
+		<Footer />
+	</body>
 </html>
 
 <style>
-  /* ==========================================================================
-     1. スコープ＆全体リセット
-     ========================================================================== */
-  .custom-route-melodiestation {
-    width: 100%;
-    max-width: 750px;
-    margin: 0 auto;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f7f9fa;
-    position: relative;
-  }
+	/* ==========================================================================
+	   路線図基本レイアウト＆スマート化CSS
+	   ========================================================================== */
+	.custom-route-melodiestation {
+		background-color: #ffffff;
+		color: #1e2536;
+	}
 
-  .custom-route-melodiestation * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    writing-mode: horizontal-tb !important;
-    letter-spacing: normal;
-  }
+	.line-hero {
+		background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+		padding: 40px 20px;
+		color: #ffffff;
+		border-bottom: 4px solid var(--line-color);
+		margin-bottom: 40px;
+	}
+	.hero-container {
+		max-width: 800px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+	.route-symbol {
+		background: var(--line-color);
+		color: #ffffff;
+		font-weight: 900;
+		font-size: 1.5rem;
+		padding: 6px 16px;
+		border-radius: 6px;
+		font-family: monospace;
+	}
+	.line-name-title {
+		margin: 0;
+		font-size: 2rem;
+		font-weight: 900;
+		letter-spacing: 1px;
+	}
 
-  .custom-route-melodiestation .line-container {
-    width: 100%;
-    background: #ffffff;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-    min-height: 100vh;
-  }
+	/* 路線図タイムラインコンテナ */
+	.station-list-container {
+		max-width: 700px;
+		margin: 0 auto;
+		padding: 0 20px 80px 20px;
+	}
 
-  /* ==========================================================================
-     2. 上下追従・固定ヘッダー・フッター
-     ========================================================================== */
-  .custom-route-melodiestation .sticky-header {
-    background-color: rgba(244, 245, 248, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    text-align: center;
-    padding: 14px 15px;
-    border-bottom: 1px solid rgba(225, 229, 232, 0.8);
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
-  }
-  .custom-route-melodiestation .fixed-footer {
-    background-color: rgba(244, 245, 248, 0.9);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    text-align: center;
-    padding: 14px 15px;
-    border-top: 1px solid rgba(225, 229, 232, 0.8);
-    bottom: 0;
-    z-index: 10;    /* 共通Footerよりも手前に表示する設定 */
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
-  }
+	/* 各駅のブロック構造 */
+	.station-node-block {
+		display: flex;
+		gap: 24px;
+		position: relative;
+	}
 
-  .custom-route-melodiestation .line-badge {
-    display: inline-block;
-    color: #ffffff;
-    padding: 5px 22px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-  }
+	/* 左側：縦線カラム */
+	.route-track-column {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 32px;
+		flex-shrink: 0;
+	}
 
-  /* ==========================================================================
-     3. タイムライン構造
-     ========================================================================== */
-  .custom-route-melodiestation .timeline {
-    width: 100%;
-    display: block;
-  }
+	/* 縦の路線ライン本体 */
+	.route-line-segment {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 6px;
+		z-index: 1;
+	}
 
-  .custom-route-melodiestation .station-block {
-    display: flex !important;
-    flex-direction: row !important;
-    position: relative;
-    min-height: 180px;
-    width: 100%;
-  }
+	/* ★要望1: 最後の駅で、かつ乗換がない場合はラインを「駅の丸ポチ」で完全にストップさせる */
+	.station-node-block.terminal-no-line .route-line-segment {
+		bottom: auto;
+		height: 24px; /* 駅のドットの中心（上半分）までしか線を伸ばさない */
+	}
 
-  .custom-route-melodiestation .station-block:nth-child(odd) {
-    background-color: #f4f5f8 !important;
-  }
-  .custom-route-melodiestation .station-block:nth-child(even) {
-    background-color: #ffffff !important;
-  }
+	/* 駅のドット（丸ポチ） */
+	.station-dot-outer {
+		position: relative;
+		z-index: 2;
+		width: 24px;
+		height: 24px;
+		background: #ffffff;
+		border: 4px solid #fff;
+		border-radius: 50%;
+		margin-top: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	}
+	.station-dot-inner {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+	}
 
-  /* ==========================================================================
-     4. 中央トラック配置
-     ========================================================================== */
-  .custom-route-melodiestation .route-track {
-    position: absolute;
-    left: 55% !important;
-    top: 0;
-    bottom: 0;
-    width: 20px;
-    transform: translateX(-50%);
-    display: flex !important;
-    justify-content: center !important;
-    align-items: stretch !important;
-    z-index: 2;
-  }
+	/* 右側：コンテンツエリア */
+	.station-content-card {
+		flex-grow: 1;
+		background: #ffffff;
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+		padding: 20px;
+		margin-bottom: 32px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+	}
 
-  .custom-route-melodiestation .route-line {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 6px;
-    z-index: 1;
-  }
+	/* 駅名エリア */
+	.station-meta-row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 16px;
+	}
+	.station-id-badge {
+		font-family: monospace;
+		font-weight: 700;
+		font-size: 0.85rem;
+		border: 1px solid;
+		padding: 2px 6px;
+		border-radius: 4px;
+		background: rgba(0, 0, 0, 0.02);
+	}
+	.station-name-link {
+		font-size: 1.4rem;
+		font-weight: 900;
+		color: #1e2536;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	.station-name-link:hover {
+		color: #38bdf8; /* 前に作成したサイバーブルーにホバー変色 */
+	}
+	.station-name-text {
+		font-size: 1.4rem;
+		font-weight: 800;
+		color: #64748b;
+	}
 
-  .custom-route-melodiestation .station-block:first-child .route-line {
-    top: 46px;
-  }
+	/* メロディのコンテナ */
+	.melody-info-box {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		background: #f8fafc;
+		padding: 12px 16px;
+		border-radius: 6px;
+	}
+	.melody-track-row {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		font-size: 0.9rem;
+	}
+	.track-label {
+		font-weight: 700;
+		color: #64748b;
+		min-width: 60px;
+	}
+	.melody-title-name {
+		font-weight: 600;
+		color: #1e2536;
+	}
 
-  .custom-route-melodiestation .station-dot {
-    position: absolute;
-    top: 40px;
-    width: 12px;
-    height: 12px;
-    background-color: #ffffff !important;
-    border-width: 3px;
-    border-style: solid;
-    border-radius: 50%;
-    z-index: 3;
-  }
+	/* 特徴カード (feature-card) スタイル */
+	.feature-card {
+		margin-top: 16px;
+		background: rgba(245, 158, 11, 0.04); /* ヘッダー調和用のアンバーの淡い背景 */
+		border: 1px solid rgba(245, 158, 11, 0.2);
+		border-left: 4px solid #f59e0b;
+		border-radius: 4px;
+		padding: 12px;
+	}
+	.feature-badge {
+		font-family: monospace;
+		font-size: 0.7rem;
+		font-weight: 800;
+		color: #f59e0b;
+		margin-bottom: 4px;
+		letter-spacing: 0.5px;
+	}
+	.feature-text {
+		margin: 0;
+		font-size: 0.85rem;
+		color: #475569;
+		line-height: 1.5;
+	}
 
-  /* ==========================================================================
-     5. 左側エリア：駅情報
-     ========================================================================== */
-  .custom-route-melodiestation .station-info {
-    width: 55% !important;
-    padding: 30px 10px 20px 20px !important;
-    z-index: 4;
-    display: block;
-    text-align: left;
-  }
+	/* 乗換案内スタイル */
+	.transfer-zone {
+		margin-top: 16px;
+		border-top: 1px dashed #e2e8f0;
+		padding-top: 12px;
+	}
+	.transfer-header-label {
+		font-family: monospace;
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: #94a3b8;
+		margin-bottom: 8px;
+		letter-spacing: 0.5px;
+	}
+	.transfer-badge-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.transfer-tag {
+		font-size: 0.8rem;
+		font-weight: 700;
+		background: #f1f5f9;
+		color: #334155;
+		padding: 4px 10px;
+		border-radius: 4px;
+		border-left: 3px solid #cbd5e1;
+	}
 
-  .custom-route-melodiestation .station-name {
-    font-size: 1.3em !important;
-    font-weight: bold !important;
-    color: #1a2530 !important;
-    text-decoration: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 5px;
-    margin-bottom: 12px !important;
-  }
-
-  .custom-route-melodiestation .station-name::after {
-    content: '›' !important;
-    color: #2ca85a !important;
-    font-size: 1.6em !important;
-    line-height: 1;
-    margin-bottom: 6px;
-    display: inline-block !important;
-    transition: transform 0.3s ease !important;
-  }
-
-  .custom-route-melodiestation .station-name:hover::after {
-    transform: translateX(6px) !important;
-  }
-
-  .custom-route-melodiestation .station-name-disabled {
-    font-size: 1.3em !important;
-    font-weight: bold !important;
-    color: #a0aec0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    margin-bottom: 12px !important;
-    cursor: not-allowed;
-  }
-
-  .custom-route-melodiestation .is-disabled .melody-name,
-  .custom-route-melodiestation .is-disabled .track-badge,
-  .custom-route-melodiestation .is-disabled .station-number {
-    opacity: 0.6;
-  }
-
-  .custom-route-melodiestation .melody-container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-    max-width: 200px;
-    width: auto;
-  }
-
-  .custom-route-melodiestation .melody-row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 6px !important;
-    font-size: 0.75rem !important;
-    text-align: left;
-  }
-
-  .custom-route-melodiestation .track-badge {
-    background-color: #555555 !important;
-    color: #ffffff !important;
-    font-weight: bold !important;
-    padding: 2px 6px !important;
-    border-radius: 3px !important;
-    white-space: nowrap !important;
-    font-size: 0.7rem !important;
-    display: inline-block;
-    width: 40px;
-    text-align: center;
-  }
-
-  .custom-route-melodiestation .melody-name {
-    color: #616d7a !important;
-    font-weight: 500 !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap !important;
-    display: inline-block;
-  }
-
-  /* ==========================================================================
-     6. 右側エリア：お役立ちカード
-     ========================================================================== */
-  .custom-route-melodiestation .station-features {
-    width: 45% !important;
-    padding: 25px 15px 20px 10px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    z-index: 4;
-    margin-left: 0 !important;
-    gap: 0 !important;
-  }
-
-  .custom-route-melodiestation .feature-card {
-    background: #ffffff !important;
-    border: 1px solid #e1e5e8 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    width: 100% !important;
-    max-width: 130px !important;
-    padding: 10px !important;
-    text-align: center !important;
-    font-size: 0.8rem !important;
-    position: relative;
-    display: block !important;
-    margin: 0 auto !important;
-    min-width: unset !important;
-  }
-
-  .custom-route-melodiestation .feature-card::before {
-    content: '' !important;
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 12px;
-    height: 12px;
-    background: #ffffff !important;
-    border-left: 1px solid #e1e5e8 !important;
-    border-top: 1px solid #e1e5e8 !important;
-    display: block;
-  }
-
-  .custom-route-melodiestation .card-tag {
-    font-weight: bold !important;
-    padding: 2px 6px !important;
-    border-radius: 4px !important;
-    font-size: 0.7rem !important;
-    margin-bottom: 6px !important;
-    display: inline-block !important;
-  }
-
-  .custom-route-melodiestation .card-text {
-    font-size: 0.8rem !important;
-    font-weight: bold !important;
-    line-height: 1.3 !important;
-    color: #1a2530 !important;
-    display: block;
-    text-align: center !important;
-  }
-
-  /* ==========================================================================
-     7. 終端接続エリア（乗り換えリンク）
-     ========================================================================== */
-  .custom-route-melodiestation .footer-terminal {
-    display: block !important;
-    position: relative;
-    padding-top: 20px;
-    padding-bottom: 40px;
-    background-color: #ffffff !important;
-    width: 100%;
-  }
-
-  .custom-route-melodiestation .footer-terminal .route-line {
-    position: absolute;
-    top: 0;
-    bottom: 30px;
-    width: 6px;
-    left: 55% !important;
-    transform: translateX(-50%);
-  }
-
-  .custom-route-melodiestation .transfer-container {
-    position: relative;
-    left: 55% !important;
-    transform: translateX(-50%);
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 12px !important;
-    z-index: 4;
-    width: auto;
-  }
-
-  .custom-route-melodiestation .transfer-button {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px;
-    background-color: #ffffff !important;
-    width: 120px !important;
-    height: 36px !important;
-    border-radius: 18px !important;
-    font-size: 0.9rem !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
-    transition: transform 0.2s, box-shadow 0.2s !important;
-    border-width: 2px !important;
-    border-style: solid !important;
-  }
-
-  .custom-route-melodiestation .transfer-button span {
-    font-size: 0.8rem !important;
-    margin-top: -2px;
-  }
-
-  .custom-route-melodiestation .transfer-button:hover,
-  .custom-route-melodiestation .transfer-button:active {
-    transform: scale(1.05) !important;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1) !important;
-  }
+	/* スマートフォン最適化 */
+	@media (max-width: 640px) {
+		.station-name-link, .station-name-text {
+			font-size: 1.2rem;
+		}
+		.station-content-card {
+			padding: 16px;
+		}
+	}
 </style>

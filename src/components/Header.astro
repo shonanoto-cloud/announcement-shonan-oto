@@ -3,11 +3,11 @@ import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
-<header class="site-header">
+<header class="site-header" id="site-header">
 	<nav class="header-nav">
 		<h2 class="site-title">
 			<span class="title-core">{SITE_TITLE}</span>
-			<span class="system-tag">UI_v2.6</span>
+			<span class="system-tag">UI_v2.7</span>
 		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
@@ -15,8 +15,10 @@ import { SITE_TITLE } from '../consts';
 			
 			<div class="dropdown">
 				<HeaderLink href="/audio" class="dropdown-trigger">
-					Audio
-					<svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+					<span class="trigger-text">
+						Audio
+						<svg class="chevron-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+					</span>
 				</HeaderLink>
 				<div class="dropdown-menu">
 					<div class="menu-label">SELECT DIRECTORY</div>
@@ -35,6 +37,21 @@ import { SITE_TITLE } from '../consts';
 	<div class="header-line-bar"></div>
 </header>
 
+<script>
+	const header = document.getElementById('site-header');
+	
+	if (header) {
+		window.addEventListener('scroll', () => {
+			// 20px以上下にスクロールしたら「縮小モード(.scrolled)」を起動
+			if (window.scrollY > 20) {
+				header.classList.add('scrolled');
+			} else {
+				header.classList.remove('scrolled');
+			}
+		});
+	}
+</script>
+
 <style>
 	.site-header {
 		position: sticky;
@@ -46,7 +63,25 @@ import { SITE_TITLE } from '../consts';
 		backdrop-filter: blur(16px);
 		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+		
+		/* アニメーションの速度設定 */
+		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
+	
+	/* ★【SFスクロール縮小ギミック】★ 
+	   下にスクロールした時に、ヘッダーの厚みを抑えてスタイリッシュにする設定 */
+	.site-header.scrolled {
+		background-color: rgba(11, 16, 27, 0.85); /* 透過率を上げてより軽快に */
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	}
+	.site-header.scrolled .header-nav {
+		height: 54px; /* 通常72pxから54pxへシャープに縮小 */
+	}
+	.site-header.scrolled .header-line-bar {
+		height: 1px; /* 下のネオンラインも極細に変化させてシャープさを強調 */
+		opacity: 0.6;
+	}
+
 	.header-nav {
 		display: flex;
 		align-items: center;
@@ -55,13 +90,16 @@ import { SITE_TITLE } from '../consts';
 		margin: 0 auto;
 		padding: 0 40px;
 		height: 72px;
+		transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* 高さが滑らかに変わる */
 	}
+	
 	.site-title {
 		margin: 0;
 		display: flex;
 		align-items: baseline;
 		gap: 8px;
 		font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+		white-space: nowrap; /* タイトルの改行を防止 */
 	}
 	.title-core {
 		color: #ffffff;
@@ -86,7 +124,7 @@ import { SITE_TITLE } from '../consts';
 		align-items: center;
 	}
 
-	/* --- ドロップダウン位置バグ修正 --- */
+	/* --- ドロップダウンとスマホ改行対策 --- */
 	.dropdown {
 		position: relative;
 		height: 100%;
@@ -96,11 +134,18 @@ import { SITE_TITLE } from '../consts';
 	.dropdown-trigger {
 		display: flex;
 		align-items: center;
-		gap: 6px;
+	}
+	/* 文字と矢印をまとめるコンテナ */
+	.trigger-text {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px; /* 文字と矢印の隙間 */
+		white-space: nowrap; /* 矢印が絶対に次の行に落ちないように強制 */
 	}
 	.chevron-icon {
 		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 		opacity: 0.6;
+		flex-shrink: 0; /* スマホ画面で潰されないように保護 */
 	}
 	.dropdown:hover .chevron-icon {
 		transform: rotate(180deg);
@@ -109,15 +154,14 @@ import { SITE_TITLE } from '../consts';
 	
 	.dropdown-menu {
 		position: absolute;
-		/* 完全にナビゲーションバーの真下に配置（被りを解消） */
 		top: 100%; 
 		left: 50%;
 		width: 200px;
 		background: #1e2536;
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-top: 2px solid #38bdf8;
-		border-radius: 0 0 6px 6px; /* 上はヘッダーに付けるので下だけ丸みに */
-		padding: 10px; /* 余白を少し広げて視認性向上 */
+		border-radius: 0 0 6px 6px;
+		padding: 10px;
 		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 		
 		opacity: 0;
@@ -176,10 +220,27 @@ import { SITE_TITLE } from '../consts';
 		width: 100%;
 		opacity: 0.8;
 		animation: cyberPulse 6s linear infinite;
+		transition: height 0.3s, opacity 0.3s;
 	}
 
 	@keyframes cyberPulse {
 		0% { background-position: 0% 50%; }
 		100% { background-position: 200% 50%; }
+	}
+
+	/* --- 【超重要】スマホ画面（幅が狭い時）の調整 --- */
+	@media (max-width: 640px) {
+		.header-nav {
+			padding: 0 16px; /* 左右の余白を詰め、横幅をフル活用 */
+		}
+		.title-core {
+			font-size: 1rem; /* タイトルの文字サイズを少し縮小 */
+		}
+		.system-tag {
+			display: none; /* スマホではタグを隠してナビゲーションの領域を確保 */
+		}
+		.internal-links {
+			gap: 2px; /* リンク同士の隙間を狭くしてはみ出し防止 */
+		}
 	}
 </style>

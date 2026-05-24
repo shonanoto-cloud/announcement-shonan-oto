@@ -19,8 +19,8 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		height: 100%; /* 親の高さ(72px)一杯に広げる */
-		padding: 0 20px;
+		height: 100%; /* 親（nav）の高さ変化に完全自動追従 */
+		padding: 0 16px; /* スマホを考慮して横幅を少しだけコンパクトに(20px→16px) */
 		color: #94a3b8;
 		text-decoration: none;
 		font-weight: 600;
@@ -33,40 +33,47 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		z-index: 2;
 	}
 	
-	/* ホバー時に文字色をサイバーブルーに */
 	.menu-link:hover {
 		color: #38bdf8;
 	}
 	
-	/* --- 新しいシャープライン・インジケーター --- */
+	/* シャープライン・インジケーター */
 	.indicator-line {
 		position: absolute;
-		bottom: 0;
-		left: 20px;
-		right: 20px;
+		bottom: 0; /* 常にヘッダーが縮小しても底面に張り付きます */
+		left: 12px;
+		right: 12px;
 		height: 2px;
 		background-color: #38bdf8;
 		box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
 		
-		/* 初期状態（非アクティブ・非ホバー時）は中央に縮小して隠す */
 		transform: scaleX(0);
 		transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	
-	/* ホバーした時にラインが中央からシャープに広がるアニメーション */
 	.menu-link:hover .indicator-line {
 		transform: scaleX(1);
 	}
 	
-	/* 現在地（アクティブ）の時のスタイル固定 */
 	.menu-link.active {
 		color: #ffffff;
 		font-weight: 700;
 	}
-	/* アクティブ時はラインを最初から100%の幅で発光表示 */
 	.menu-link.active .indicator-line {
 		transform: scaleX(1);
-		background-color: #ffffff; /* 現在地はあえてホワイト発光にして最優先の視認性に */
+		background-color: #ffffff;
 		box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+	}
+
+	/* スマホ用の文字サイズ微調整 */
+	@media (max-width: 640px) {
+		.menu-link {
+			padding: 0 8px; /* スマホではさらにリンクの余白を詰める */
+			font-size: 0.85rem; /* 文字を少し小さくして確実に1行に収める */
+		}
+		.indicator-line {
+			left: 6px;
+			right: 6px;
+		}
 	}
 </style>

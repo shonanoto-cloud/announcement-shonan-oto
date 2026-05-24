@@ -20,7 +20,7 @@ const lineConfig = {
 const stations = [
   {
     name: "宇都宮",
-    link: "/audio/jreast/tokyo(keiyo)",
+    link: "/audio/jreast/utsunomiya",
     hasPage: true,
     melodies: [
       { tracks: "5番線", name: "-" },
@@ -32,14 +32,14 @@ const stations = [
     link: "#",
     hasPage: false,
     melodies: [
-      { tracks: "1番線", name: "JRE-IKST-001-01" },
-      { tracks: "2番線", name: "JRE-IKST-001-02" }
+      { tracks: "1番線", name: "--" },
+      { tracks: "2番線", name: "--" }
     ],
     feature: { tag: "乗換", text: "日比谷線<br>連絡", bgColor: "#17a2b8", textColor: "#ffffff" }
   },
   {
     name: "鹿沼",
-    link: "#",
+    link: "/audio/jreast/kanuma",
     hasPage: true,
     melodies: [
       { tracks: "1番線", name: "--" },
@@ -85,7 +85,7 @@ const stations = [
       { tracks: "1番線", name: "ROMベル"},
       { tracks: "2番線", name: "ROMベル"}
     ],
-    feature: { tag: "限定", text: "ディズニー<br>ソング", bgColor: "#e83e8c", textColor: "#ffffff" }
+    feature: { tag: "注意", text: "一部集約臨のみベル扱い", bgColor: "#e83e8c", textColor: "#ffffff" }
   },
 ];
 
@@ -102,8 +102,9 @@ const transfers = [
   <body>
     <Header/>
 	<main>
-	<h1>京葉線</h1>
+	<h1>日光線</h1>
 	<p>※灰色の駅は駅ページ未作成</p>
+  <img src="/images/nikko205.jpg" alt="205系Y3編成"/>
     <div class="custom-route-melodiestation">
       <div class="line-container">
         
@@ -151,17 +152,6 @@ const transfers = [
               </div>
             </div>
           ))}
-
-          <div class="footer-terminal">
-            <div class="route-line" style={{ backgroundColor: lineConfig.lineColor }}></div>
-            <div class="transfer-container">
-              {transfers.map((transfer) => (
-                <a href={transfer.url} class="transfer-button" style={{ borderColor: transfer.color, color: transfer.color }}>
-                  {transfer.name} <span>❯</span>
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
 
       	<div class="fixed-footer">

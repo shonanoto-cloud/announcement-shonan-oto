@@ -9,7 +9,18 @@ import { SITE_TITLE } from '../consts';
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/audio">Audio</HeaderLink>
+			
+			<div class="dropdown">
+				<HeaderLink href="/audio" class="dropdown-trigger">
+					Audio
+					<svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+				</HeaderLink>
+				<div class="dropdown-menu">
+					<a href="/audio/tracks">音源一覧</a>
+					<a href="/audio/equipment">収録機材</a>
+				</div>
+			</div>
+
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 	</nav>
@@ -18,42 +29,108 @@ import { SITE_TITLE } from '../consts';
 
 <style>
 	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
 		margin: 0;
 		padding: 0;
-		background-color: #111827; /* 共通のサイネージ風ブラック */
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		background-color: rgba(17, 24, 39, 0.95); /* 背景色を維持しつつ、ほんのり透過させてモダンに */
+		backdrop-filter: blur(8px); /* 背後をぼかすトレンドのガラスエフェクト */
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 	}
 	.header-nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 480px; /* 詳細ページのコンテンツ幅と統一 */
+		max-width: 800px; /* 少し幅を広げてゆとりを持たせました */
 		margin: 0 auto;
-		padding: 0 16px;
-		height: 56px;
+		padding: 0 24px;
+		height: 64px; /* 少し高さを出してスマートな印象に */
 	}
 	.site-title {
 		margin: 0;
-		font-size: 1em;
+		font-size: 1.1rem;
 		font-weight: 800;
-		letter-spacing: 1px;
+		letter-spacing: 1.5px;
+		text-transform: uppercase;
 	}
 	.site-title a {
 		color: #ffffff;
 		text-decoration: none;
+		transition: opacity 0.2s;
+	}
+	.site-title a:hover {
+		opacity: 0.8;
 	}
 	.internal-links {
 		display: flex;
-		gap: 4px;
+		gap: 8px;
 		height: 100%;
 		align-items: center;
 	}
+
+	/* --- ドロップダウンのスタイリング --- */
+	.dropdown {
+		position: relative;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.dropdown-trigger {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+	.chevron-icon {
+		transition: transform 0.2s ease;
+	}
+	/* ホバー時に矢印を回転 */
+	.dropdown:hover .chevron-icon {
+		transform: rotate(180deg);
+	}
+	/* 子ページメニューのボックス */
+	.dropdown-menu {
+		position: absolute;
+		top: calc(100% - 4px); /* ヘッダーの底面に合わせる */
+		left: 50%;
+		transform: translateX(-50%) translateY(10px);
+		width: 160px;
+		background-color: #1f2937; /* ヘッダーより一段明るいダークグレー */
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 8px;
+		padding: 6px;
+		box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+		opacity: 0;
+		pointer-events: none;
+		transition: all 0.2s ease;
+	}
+	/* ホバー時にふわっと表示 */
+	.dropdown:hover .dropdown-menu {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateX(-50%) translateY(0);
+	}
+	/* 子ページリンクのスタイル */
+	.dropdown-menu a {
+		display: block;
+		padding: 10px 14px;
+		color: #9ca3af;
+		text-decoration: none;
+		font-size: 0.85rem;
+		font-weight: 600;
+		border-radius: 6px;
+		transition: all 0.15s ease;
+	}
+	.dropdown-menu a:hover {
+		color: #ffffff;
+		background-color: rgba(255, 255, 255, 0.05);
+	}
 	
-	/* JRグリーンのライン */
+	/* JRグリーンのアクセントライン */
 	.header-line-bar {
 		background-color: #008024;
-		height: 4px;
+		height: 3px; /* 4pxから3pxにしてよりシャープに */
 		width: 100%;
 	}
-
 </style>

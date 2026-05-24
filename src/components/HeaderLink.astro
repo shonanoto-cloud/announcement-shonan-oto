@@ -9,41 +9,41 @@ const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
+<a href={href} class:list={[`nav-link ${className || ''}`, { active: isActive }]} {...props}>
 	<slot />
 </a>
 
 <style>
-	a {
+	.nav-link {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		height: 56px; /* ヘッダーの高さに合わせる */
-		padding: 0 12px;
-		color: #9ca3af; /* 通常時は落ち着いたグレー */
+		height: 100%;
+		padding: 0 16px; /* 少し余白を広げてゆったりと */
+		color: #9ca3af; 
 		text-decoration: none;
 		font-weight: 700;
-		font-size: 0.85rem;
+		font-size: 0.9rem;
 		position: relative;
 		transition: color 0.2s ease;
 	}
-	a:hover {
+	.nav-link:hover {
 		color: #ffffff;
 	}
 	
-	/* アクティブ（現在地）の時に直線的な下線を表示 */
-	a.active {
+	/* アクティブ（現在地）の下線エフェクトをモダンに微調整 */
+	.nav-link.active {
 		color: #ffffff;
 		font-weight: 800;
 	}
-	a.active::after {
+	.nav-link.active::after {
 		content: '';
 		position: absolute;
 		bottom: 0;
-		left: 12px;
-		right: 12px;
+		left: 16px;
+		right: 16px;
 		height: 3px;
 		background-color: #008024;
-		border-radius: 1.5px 1.5px 0 0;
+		border-radius: 3px 3px 0 0;
 	}
 </style>

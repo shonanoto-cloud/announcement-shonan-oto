@@ -92,6 +92,7 @@ const stations = [
 const transfers = [
   {},
 ];
+const hasTransfers = transfers && transfers.length > 0;
 ---
 
 <!doctype html>
@@ -155,9 +156,12 @@ const transfers = [
         </div>
 
       	<div class="fixed-footer">
-        <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
+          {hasTransfers && (
+						<div class="route-line" style={`background-color: ${lineConfig.lineColor};`}></div>
+            <span class="line-badge" style={{ backgroundColor: lineConfig.lineColor }}>
           {lineConfig.bottomBadgeText}
         </span>
+          )}
 		</div>
       </div>
     </div>
@@ -281,6 +285,9 @@ const transfers = [
     width: 6px;
     z-index: 1;
   }
+  .station-node:last-child .route-line {
+		bottom: 50%;
+	}
 
   .custom-route-melodiestation .station-block:first-child .route-line {
     top: 46px;

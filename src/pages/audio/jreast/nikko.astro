@@ -92,7 +92,7 @@ const stations = [
 const transfers = [
   {},
 ];
-const hasTransfers = transfers && transfers.length > 0;
+const hasTransfers = false;
 ---
 
 <!doctype html>
@@ -105,7 +105,7 @@ const hasTransfers = transfers && transfers.length > 0;
 	<main>
 	<h1>日光線</h1>
 	<p>※灰色の駅は駅ページ未作成</p>
-  <img width= "80%" src="/images/nikko205.jpg" alt="205系Y3編成"/>
+  <img src="/images/nikko205.jpg" alt="205系Y3編成"/>
     <div class="custom-route-melodiestation">
       <div class="line-container">
         
@@ -119,7 +119,9 @@ const hasTransfers = transfers && transfers.length > 0;
           {stations.map((station) => (
             <div class={`station-block ${!station.hasPage ? 'is-disabled' : ''}`}>
               <div class="route-track">
+                <div class={`station-block ${!hasTransfers ? 'is-disabled' : ''}`}>
                 <div class="route-line" style={{ backgroundColor: lineConfig.lineColor }}></div>
+                </div>
                 <div class="station-dot" style={{ borderColor: lineConfig.lineColor }}></div>
               </div>
 
@@ -285,8 +287,8 @@ const hasTransfers = transfers && transfers.length > 0;
     width: 6px;
     z-index: 1;
   }
-  .station-node:last-child .route-line {
-		bottom: 50%;
+  .custom-route-melodiestation .is-disabled .station-block:last-child .route-line {
+		bottom: 134px;
 	}
 
   .custom-route-melodiestation .station-block:first-child .route-line {

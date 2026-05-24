@@ -92,13 +92,12 @@ const stations = [
 const transfers = [
   {},
 ];
-const hasTransfers = false;
 ---
 
 <!doctype html>
 <html lang="ja">
   <head>
-    <BaseHead title={`${lineConfig.pageTitle} | ${SITE_TITLE}`} description="京葉線" />
+    <BaseHead title={`${lineConfig.pageTitle} | ${SITE_TITLE}`} description="日光線" />
   </head>
   <body>
     <Header/>
@@ -119,9 +118,7 @@ const hasTransfers = false;
           {stations.map((station) => (
             <div class={`station-block ${!station.hasPage ? 'is-disabled' : ''}`}>
               <div class="route-track">
-                <div class={`station-block ${!hasTransfers ? 'is-disabled' : ''}`}>
                 <div class="route-line" style={{ backgroundColor: lineConfig.lineColor }}></div>
-                </div>
                 <div class="station-dot" style={{ borderColor: lineConfig.lineColor }}></div>
               </div>
 
@@ -287,9 +284,6 @@ const hasTransfers = false;
     width: 6px;
     z-index: 1;
   }
-  .custom-route-melodiestation .is-disabled .station-block:last-child .route-line {
-		bottom: 134px;
-	}
 
   .custom-route-melodiestation .station-block:first-child .route-line {
     top: 46px;

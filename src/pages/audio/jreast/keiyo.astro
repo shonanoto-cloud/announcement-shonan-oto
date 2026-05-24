@@ -290,7 +290,7 @@ const transfers = [
 		</div>
       </div>
     </div>
-      <a href="../jreast" class="btn-app-back">
+      <a href="../" class="btn-app-back">
                 会社別へ戻る
       </a>
 	</main>
@@ -316,7 +316,7 @@ const transfers = [
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    writing-mode: horizontal-tb !important;
+    writing-mode: horizontal-tb;
     letter-spacing: normal;
   }
 
@@ -326,6 +326,7 @@ const transfers = [
     position: relative;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
     min-height: 100vh;
+    margin-bottom: 20px;
   }
 
   /* ==========================================================================
@@ -373,18 +374,18 @@ const transfers = [
   }
 
   .custom-route-melodiestation .station-block {
-    display: flex !important;
-    flex-direction: row !important;
+    display: flex !;
+    flex-direction: row !;
     position: relative;
     min-height: 180px;
     width: 100%;
   }
 
   .custom-route-melodiestation .station-block:nth-child(odd) {
-    background-color: #f4f5f8 !important;
+    background-color: #f4f5f8 !;
   }
   .custom-route-melodiestation .station-block:nth-child(even) {
-    background-color: #ffffff !important;
+    background-color: #ffffff !;
   }
 
   /* ==========================================================================
@@ -392,14 +393,14 @@ const transfers = [
      ========================================================================== */
   .custom-route-melodiestation .route-track {
     position: absolute;
-    left: 55% !important;
+    left: 55% !;
     top: 0;
     bottom: 0;
     width: 20px;
     transform: translateX(-50%);
-    display: flex !important;
-    justify-content: center !important;
-    align-items: stretch !important;
+    display: flex !;
+    justify-content: center !;
+    align-items: stretch !;
     z-index: 2;
   }
 
@@ -420,7 +421,7 @@ const transfers = [
     top: 40px;
     width: 12px;
     height: 12px;
-    background-color: #ffffff !important;
+    background-color: #ffffff !;
     border-width: 3px;
     border-style: solid;
     border-radius: 50%;
@@ -431,45 +432,45 @@ const transfers = [
      5. 左側エリア：駅情報
      ========================================================================== */
   .custom-route-melodiestation .station-info {
-    width: 55% !important;
-    padding: 30px 10px 20px 20px !important;
+    width: 55% !;
+    padding: 30px 10px 20px 20px !;
     z-index: 4;
     display: block;
     text-align: left;
   }
 
   .custom-route-melodiestation .station-name {
-    font-size: 1.3em !important;
-    font-weight: bold !important;
-    color: #1a2530 !important;
-    text-decoration: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
+    font-size: 1.3em !;
+    font-weight: bold !;
+    color: #1a2530 !;
+    text-decoration: none !;
+    display: inline-flex !;
+    align-items: center !;
     gap: 5px;
-    margin-bottom: 12px !important;
+    margin-bottom: 12px !;
   }
 
   .custom-route-melodiestation .station-name::after {
-    content: '›' !important;
-    color: #2ca85a !important;
-    font-size: 1.6em !important;
+    content: '›' !;
+    color: #2ca85a !;
+    font-size: 1.6em !;
     line-height: 1;
     margin-bottom: 6px;
-    display: inline-block !important;
-    transition: transform 0.3s ease !important;
+    display: inline-block !;
+    transition: transform 0.3s ease !;
   }
 
   .custom-route-melodiestation .station-name:hover::after {
-    transform: translateX(6px) !important;
+    transform: translateX(6px) !;
   }
 
   .custom-route-melodiestation .station-name-disabled {
-    font-size: 1.3em !important;
-    font-weight: bold !important;
-    color: #a0aec0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    margin-bottom: 12px !important;
+    font-size: 1.3em !;
+    font-weight: bold !;
+    color: #a0aec0 !;
+    display: inline-flex !;
+    align-items: center !;
+    margin-bottom: 12px !;
     cursor: not-allowed;
   }
 
@@ -480,41 +481,41 @@ const transfers = [
   }
 
   .custom-route-melodiestation .melody-container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
+    display: flex !;
+    flex-direction: column !;
+    gap: 6px !;
     max-width: 200px;
     width: auto;
   }
 
   .custom-route-melodiestation .melody-row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 6px !important;
-    font-size: 0.75rem !important;
+    display: flex !;
+    flex-direction: row !;
+    align-items: center !;
+    gap: 6px !;
+    font-size: 0.75rem !;
     text-align: left;
   }
 
   .custom-route-melodiestation .track-badge {
-    background-color: #555555 !important;
-    color: #ffffff !important;
-    font-weight: bold !important;
-    padding: 2px 6px !important;
-    border-radius: 3px !important;
-    white-space: nowrap !important;
-    font-size: 0.7rem !important;
+    background-color: #555555 !;
+    color: #ffffff !;
+    font-weight: bold !;
+    padding: 2px 6px !;
+    border-radius: 3px !;
+    white-space: nowrap !;
+    font-size: 0.7rem !;
     display: inline-block;
     width: 40px;
     text-align: center;
   }
 
   .custom-route-melodiestation .melody-name {
-    color: #616d7a !important;
-    font-weight: 500 !important;
+    color: #616d7a !;
+    font-weight: 500 !;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap !important;
+    white-space: nowrap !;
     display: inline-block;
   }
 
@@ -522,73 +523,73 @@ const transfers = [
      6. 右側エリア：お役立ちカード
      ========================================================================== */
   .custom-route-melodiestation .station-features {
-    width: 45% !important;
-    padding: 25px 15px 20px 10px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
+    width: 45% !;
+    padding: 25px 15px 20px 10px !;
+    display: flex !;
+    justify-content: center !;
+    align-items: flex-start !;
     z-index: 4;
-    margin-left: 0 !important;
-    gap: 0 !important;
+    margin-left: 0 !;
+    gap: 0 !;
   }
 
   .custom-route-melodiestation .feature-card {
-    background: #ffffff !important;
-    border: 1px solid #e1e5e8 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    width: 100% !important;
-    max-width: 130px !important;
-    padding: 10px !important;
-    text-align: center !important;
-    font-size: 0.8rem !important;
+    background: #ffffff !;
+    border: 1px solid #e1e5e8 !;
+    border-radius: 12px !;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !;
+    width: 100% !;
+    max-width: 130px !;
+    padding: 10px !;
+    text-align: center !;
+    font-size: 0.8rem !;
     position: relative;
-    display: block !important;
-    margin: 0 auto !important;
-    min-width: unset !important;
+    display: block !;
+    margin: 0 auto !;
+    min-width: unset !;
   }
 
   .custom-route-melodiestation .feature-card::before {
-    content: '' !important;
+    content: '' !;
     position: absolute;
     top: -6px;
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
     width: 12px;
     height: 12px;
-    background: #ffffff !important;
-    border-left: 1px solid #e1e5e8 !important;
-    border-top: 1px solid #e1e5e8 !important;
+    background: #ffffff !;
+    border-left: 1px solid #e1e5e8 !;
+    border-top: 1px solid #e1e5e8 !;
     display: block;
   }
 
   .custom-route-melodiestation .card-tag {
-    font-weight: bold !important;
-    padding: 2px 6px !important;
-    border-radius: 4px !important;
-    font-size: 0.7rem !important;
-    margin-bottom: 6px !important;
-    display: inline-block !important;
+    font-weight: bold !;
+    padding: 2px 6px !;
+    border-radius: 4px !;
+    font-size: 0.7rem !;
+    margin-bottom: 6px !;
+    display: inline-block !;
   }
 
   .custom-route-melodiestation .card-text {
-    font-size: 0.8rem !important;
-    font-weight: bold !important;
-    line-height: 1.3 !important;
-    color: #1a2530 !important;
+    font-size: 0.8rem !;
+    font-weight: bold !;
+    line-height: 1.3 !;
+    color: #1a2530 !;
     display: block;
-    text-align: center !important;
+    text-align: center !;
   }
 
   /* ==========================================================================
      7. 終端接続エリア（乗り換えリンク）
      ========================================================================== */
   .custom-route-melodiestation .footer-terminal {
-    display: block !important;
+    display: block !;
     position: relative;
     padding-top: 20px;
     padding-bottom: 40px;
-    background-color: #ffffff !important;
+    background-color: #ffffff !;
     width: 100%;
   }
 
@@ -597,48 +598,48 @@ const transfers = [
     top: 0;
     bottom: 30px;
     width: 6px;
-    left: 55% !important;
+    left: 55% !;
     transform: translateX(-50%);
   }
 
   .custom-route-melodiestation .transfer-container {
     position: relative;
-    left: 55% !important;
+    left: 55% !;
     transform: translateX(-50%);
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 12px !important;
+    display: flex !;
+    flex-direction: column !;
+    align-items: center !;
+    gap: 12px !;
     z-index: 4;
     width: auto;
   }
 
   .custom-route-melodiestation .transfer-button {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: inline-flex !;
+    align-items: center !;
+    justify-content: center !;
     gap: 6px;
-    background-color: #ffffff !important;
-    width: 120px !important;
-    height: 36px !important;
-    border-radius: 18px !important;
-    font-size: 0.9rem !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
-    transition: transform 0.2s, box-shadow 0.2s !important;
-    border-width: 2px !important;
-    border-style: solid !important;
+    background-color: #ffffff !;
+    width: 120px !;
+    height: 36px !;
+    border-radius: 18px !;
+    font-size: 0.9rem !;
+    font-weight: bold !;
+    text-decoration: none !;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !;
+    transition: transform 0.2s, box-shadow 0.2s !;
+    border-width: 2px !;
+    border-style: solid !;
   }
 
   .custom-route-melodiestation .transfer-button span {
-    font-size: 0.8rem !important;
+    font-size: 0.8rem !;
     margin-top: -2px;
   }
 
   .custom-route-melodiestation .transfer-button:hover,
   .custom-route-melodiestation .transfer-button:active {
-    transform: scale(1.05) !important;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1) !important;
+    transform: scale(1.05) !;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1) !;
   }
 </style>

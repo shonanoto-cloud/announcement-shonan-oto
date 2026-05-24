@@ -1,6 +1,6 @@
 /* --- 共通変数とベース --- */
 :root {
-	--accent: #008024; /* JR東日本のグリーンをアクセントに */
+	--accent: #f59e0b; /* JR東日本のグリーンをアクセントに */
 	--accent-dark: #005a18;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
@@ -423,10 +423,12 @@ p {
     justify-content: flex-start; /* 文字を少し左寄りに（矢印と距離を保つ） */
     align-items: center;
     margin: 10px auto;
+	margin-top: 20px;
     max-width: 280px;
     padding: 12px 24px;
     color: #1e2536;
     text-decoration: none;
+	text-align: center;
     font-weight: 700;
     font-size: 0.9rem;
     letter-spacing: 0.5px;

@@ -6,8 +6,10 @@ import { SITE_TITLE } from '../consts';
 <header class="site-header" id="site-header">
 	<nav class="header-nav">
 		<h2 class="site-title">
-			<span class="title-core">{SITE_TITLE}</span>
-			<span class="system-tag">UI_v2.7</span>
+			<a href="/" class="logo-link">
+				<span class="title-core">{SITE_TITLE}</span>
+				<span class="system-tag">UI_v2.7</span>
+			</a>
 		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
@@ -39,10 +41,8 @@ import { SITE_TITLE } from '../consts';
 
 <script>
 	const header = document.getElementById('site-header');
-	
 	if (header) {
 		window.addEventListener('scroll', () => {
-			// 20px以上下にスクロールしたら「縮小モード(.scrolled)」を起動
 			if (window.scrollY > 20) {
 				header.classList.add('scrolled');
 			} else {
@@ -53,12 +53,13 @@ import { SITE_TITLE } from '../consts';
 </script>
 
 <style>
-	.site-header, 
-	.site-header *, 
-	.dropdown-menu a {
-	/* ページ側でどんなフォントが指定されても、ヘッダー内はこれを強制する */
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-}
+	/* ページ側CSSとの競合を完全ブロック */
+	.site-header,
+	.site-header * {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		box-sizing: border-box;
+	}
+
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -69,22 +70,18 @@ import { SITE_TITLE } from '../consts';
 		backdrop-filter: blur(16px);
 		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-		
-		/* アニメーションの速度設定 */
 		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	
-	/* ★【SFスクロール縮小ギミック】★ 
-	   下にスクロールした時に、ヘッダーの厚みを抑えてスタイリッシュにする設定 */
 	.site-header.scrolled {
-		background-color: rgba(11, 16, 27, 0.85); /* 透過率を上げてより軽快に */
+		background-color: rgba(11, 16, 27, 0.85);
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 	}
 	.site-header.scrolled .header-nav {
-		height: 54px; /* 通常72pxから54pxへシャープに縮小 */
+		height: 54px;
 	}
 	.site-header.scrolled .header-line-bar {
-		height: 1px; /* 下のネオンラインも極細に変化させてシャープさを強調 */
+		height: 1px;
 		opacity: 0.6;
 	}
 
@@ -96,22 +93,28 @@ import { SITE_TITLE } from '../consts';
 		margin: 0 auto;
 		padding: 0 40px;
 		height: 72px;
-		transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* 高さが滑らかに変わる */
+		transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	
 	.site-title {
 		margin: 0;
+	}
+	
+	/* --- ★ホームページ名（ロゴ）のリンク＆ホバースタイル --- */
+	.logo-link {
 		display: flex;
 		align-items: baseline;
 		gap: 8px;
-		font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-		white-space: nowrap; /* タイトルの改行を防止 */
+		text-decoration: none;
+		white-space: nowrap;
+		cursor: pointer;
 	}
 	.title-core {
-		color: #ffffff;
+		color: #94a3b8; /* 通常時は少し落ち着いたテックグレー（メニューの通常時と同期） */
 		font-size: 1.2rem;
 		font-weight: 800;
 		letter-spacing: 1.5px;
+		transition: color 0.25s ease, text-shadow 0.25s ease;
 	}
 	.system-tag {
 		font-family: monospace;
@@ -121,6 +124,19 @@ import { SITE_TITLE } from '../consts';
 		padding: 2px 6px;
 		border-radius: 3px;
 		border: 1px solid rgba(56, 189, 248, 0.2);
+		transition: all 0.25s ease;
+	}
+
+	/* ホームページ名ホバー時：文字が白く覚醒し、サイバー発光する */
+	.logo-link:hover .title-core {
+		color: #ffffff;
+		text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+	}
+	/* タグもホバーでアンバー（警告・起動灯カラー）に変色 */
+	.logo-link:hover .system-tag {
+		color: #f59e0b;
+		background: rgba(245, 158, 11, 0.1);
+		border-color: rgba(245, 158, 11, 0.3);
 	}
 
 	.internal-links {
@@ -130,7 +146,6 @@ import { SITE_TITLE } from '../consts';
 		align-items: center;
 	}
 
-	/* --- ドロップダウンとスマホ改行対策 --- */
 	.dropdown {
 		position: relative;
 		height: 100%;
@@ -141,17 +156,16 @@ import { SITE_TITLE } from '../consts';
 		display: flex;
 		align-items: center;
 	}
-	/* 文字と矢印をまとめるコンテナ */
 	.trigger-text {
 		display: inline-flex;
 		align-items: center;
-		gap: 4px; /* 文字と矢印の隙間 */
-		white-space: nowrap; /* 矢印が絶対に次の行に落ちないように強制 */
+		gap: 4px;
+		white-space: nowrap;
 	}
 	.chevron-icon {
 		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 		opacity: 0.6;
-		flex-shrink: 0; /* スマホ画面で潰されないように保護 */
+		flex-shrink: 0;
 	}
 	.dropdown:hover .chevron-icon {
 		transform: rotate(180deg);
@@ -219,6 +233,7 @@ import { SITE_TITLE } from '../consts';
 		transform: translateX(2px);
 	}
 	
+	/* 最下部のパルスライン */
 	.header-line-bar {
 		background: linear-gradient(90deg, #38bdf8, #f59e0b, #38bdf8);
 		background-size: 200% 100%;
@@ -226,7 +241,16 @@ import { SITE_TITLE } from '../consts';
 		width: 100%;
 		opacity: 0.8;
 		animation: cyberPulse 6s linear infinite;
-		transition: height 0.3s, opacity 0.3s;
+		transition: height 0.3s, opacity 0.3s, background 0.3s;
+	}
+
+	/* ★ギミック：ロゴにホバーしている間、最下部のラインのパルスが高速化＆アンバー化する */
+	.site-header:has(.logo-link:hover) .header-line-bar {
+		background: linear-gradient(90deg, #f59e0b, #ffffff, #f59e0b);
+		background-size: 200% 100%;
+		animation: cyberPulse 1.5s linear infinite; /* 6sから1.5sへ超高速化 */
+		opacity: 1;
+		box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
 	}
 
 	@keyframes cyberPulse {
@@ -234,19 +258,18 @@ import { SITE_TITLE } from '../consts';
 		100% { background-position: 200% 50%; }
 	}
 
-	/* --- 【超重要】スマホ画面（幅が狭い時）の調整 --- */
 	@media (max-width: 640px) {
 		.header-nav {
-			padding: 0 16px; /* 左右の余白を詰め、横幅をフル活用 */
+			padding: 0 16px;
 		}
 		.title-core {
-			font-size: 1rem; /* タイトルの文字サイズを少し縮小 */
+			font-size: 1rem;
 		}
 		.system-tag {
-			display: none; /* スマホではタグを隠してナビゲーションの領域を確保 */
+			display: none;
 		}
 		.internal-links {
-			gap: 2px; /* リンク同士の隙間を狭くしてはみ出し防止 */
+			gap: 2px;
 		}
 	}
 </style>

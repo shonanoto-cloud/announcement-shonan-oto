@@ -25,7 +25,7 @@ const stations = [
     melodies: [
       { tracks: "5番線", name: "-" },
     ],
-    feature: { tag: "乗換", text: "宇都宮線、東北新幹線", bgColor: "#ffc107", textColor: "#1a2530" }
+    feature: { tag: "宇都宮改良型", text: "防錆小丸VOSS", bgColor: "#ffc107", textColor: "#1a2530" }
   },
   {
     name: "鶴田",
@@ -35,7 +35,7 @@ const stations = [
       { tracks: "1番線", name: "--" },
       { tracks: "2番線", name: "--" }
     ],
-    feature: { tag: "乗換", text: "日比谷線<br>連絡", bgColor: "#17a2b8", textColor: "#ffffff" }
+    feature: { tag: "永楽型", text: "日比谷線<br>連絡", bgColor: "#17a2b8", textColor: "#ffffff" }
   },
   {
     name: "鹿沼",
@@ -45,7 +45,7 @@ const stations = [
       { tracks: "1番線", name: "--" },
       { tracks: "2番線", name: "--" }
     ],
-    feature: { tag: "データ", text: "23区内の<br>JR駅で最少", bgColor: "#6c757d", textColor: "#ffffff" }
+    feature: { tag: "永楽型", text: "23区内の<br>JR駅で最少", bgColor: "#6c757d", textColor: "#ffffff" }
   },
   {
     name: "文挟",
@@ -85,7 +85,7 @@ const stations = [
       { tracks: "1番線", name: "ROMベル"},
       { tracks: "2番線", name: "ROMベル"}
     ],
-    feature: { tag: "注意", text: "一部集約臨のみベル扱い", bgColor: "#e83e8c", textColor: "#ffffff" }
+    feature: { tag: "永楽型", text: "一部集約臨のみベル扱い", bgColor: "#e83e8c", textColor: "#ffffff" }
   },
 ];
 
@@ -104,7 +104,7 @@ const transfers = [
 	<main>
 	<h1>日光線</h1>
 	<p>※灰色の駅は駅ページ未作成</p>
-  <img src="/images/nikko205.jpg" alt="205系Y3編成"/>
+  <img class="line-image" src="/images/nikko205.jpg" alt="205系Y3編成"/>
     <div class="custom-route-melodiestation">
       <div class="line-container">
         
@@ -162,7 +162,7 @@ const transfers = [
       </div>
     </div>
       <a href="../" class="btn-app-back">
-                会社別へ戻る
+                路線別へ戻る
       </a>
 	</main>
 	<Footer/>
@@ -170,6 +170,12 @@ const transfers = [
 </html>
 
 <style>
+  .line-image{
+      max-width: 800px;
+      margin: auto;
+      display: flex;
+      margin-bottom: 30px
+  }
   /* ==========================================================================
      1. スコープ＆全体リセット
      ========================================================================== */
@@ -284,6 +290,10 @@ const transfers = [
 
   .custom-route-melodiestation .station-block:first-child .route-line {
     top: 46px;
+  }
+
+   .custom-route-melodiestation .station-block:last-child .route-line {
+    bottom: 134px;
   }
 
   .custom-route-melodiestation .station-dot {

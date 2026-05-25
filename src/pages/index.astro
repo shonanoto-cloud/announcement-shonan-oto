@@ -49,7 +49,7 @@ const posts = (await getCollection("blog"))
         {
           posts.map((post) => (
             <li class="blog-item">
-              <a href={`/blog/${post.slug}/`} class="blog-link">
+              <a href={`/blog/${post.id}/`} class="blog-link">
                 <div>{post.data.title}</div>
                 <div class="blog-date">
                   <FormattedDate date={post.data.pubDate} />

@@ -135,7 +135,7 @@ const transfers = [
                 <div class="melody-container">
                   {station.melodies && station.melodies.map((melody) => (
                     <div class="melody-row">
-                      <span class="track-badge" style={melody.bg ? { backgroundColor: melody.bg } : undefined}>
+                      <span class="track-badge">
                         {melody.tracks}
                       </span>
                       <span class="melody-name" set:html={melody.name}></span>

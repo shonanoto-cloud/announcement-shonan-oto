@@ -68,7 +68,6 @@ const posts = (await getCollection("blog"))
 
     <script is:inline>
       let currentSlideIndex = 0;
-      // スライダーロジック（元のまま維持）
       function showSliderSlide(index) {
         const slides = document.querySelectorAll(".slider-slide");
         const dots = document.querySelectorAll(".slider-dot");
@@ -80,7 +79,7 @@ const posts = (await getCollection("blog"))
         document.querySelector(".slider-slides").style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         dots.forEach((dot, i) => dot.classList.toggle("slider-active", i === currentSlideIndex));
       }
-      setInterval(() => { showSliderSlide(currentSlideIndex + 1); }, 5000);
+      setInterval(() => { showSliderSlide(currentSlideIndex + 1); }, 7500);
     </script>
   </body>
 </html>

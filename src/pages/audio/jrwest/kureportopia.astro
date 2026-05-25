@@ -1,0 +1,394 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { SITE_TITLE } from '../../../consts';
+
+// 駅個別の情報を管理するオブジェクト
+const stationConfig = {
+  pageTitle: "呉ポートピア",
+  lineName: "呉線",
+  lineColor: "#09c0b0",
+  stationName: "呉ポートピア",
+  stationEn: "Kure-Portopia",
+};
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{stationConfig.pageTitle}</title>
+</head>
+<body>
+  <Header/>
+    <div class="app-wrapper">
+        
+        <div class="signage-header">
+            <div class="neighbor-stations">
+                <span class="prev">小屋浦</span>
+                <span class="next">天応</span>
+            </div>
+            <h1 class="station-title-ja">{stationConfig.stationName}</h1>
+            <p class="station-title-sub">{stationConfig.stationEn}</p>
+        </div>
+
+        <div class="hero-gallery">
+            <div class="hero-img-box">
+                <img src="https://picsum.photos/id/1015/800/500" alt="駅写真1">
+            </div>
+            <div class="hero-img-box">
+                <img src="https://picsum.photos/id/1016/800/500" alt="駅写真2">
+            </div>
+        </div>
+        <div class ="main">
+        <div class="section-title">基本情報</div>
+        <div class="info-card">
+            <div class="info-grid">
+                <div>
+                    <p class="info-item-label">収録難易度</p>
+                    <p class="info-item-value" style="color: #ff9f43;">★★★☆☆ (本数少なめ)</p>
+                </div>
+                <div>
+                    <p class="info-item-label">スピーカー</p>
+                    <p class="info-item-value">UNI-PEXクリアホーン: 低い</p>
+                </div>
+                <div>
+                    <p class="info-item-label">放送種類</p>
+                    <p class="info-item-value">西日本永楽型</p>
+                </div>
+                <div>
+                    <p class="info-item-label">ホーム環境</p>
+                    <p class="info-item-value">国道沿い、環境悪め</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">駅放送・発車ベル</div>
+        <div class="platform-container">
+
+            <div class="platform-track-card">
+                <div class="track-header">
+                    <span class="track-title">ホーム</span>
+                    <span class="track-destination">海田市・広島・呉・三原方面</span>
+                </div>
+                
+                <div class="track-body">
+                    <div class="audio-row">
+                        <div class="audio-tags">
+                            <span class="tag accent">接近放送</span>
+                            <span class="tag">広島地区標準接近メロディ</span>
+                        </div>
+                        <div class="audio-heading">
+                            <span>下り接近放送</span>
+                            <span class="audio-subname"></span>
+                        </div>
+                        <audio controls src="/audiofiles/250325_1019.wav"></audio>
+                        <div class="audio-details">
+                            環境が悪いです。
+                        </div>
+                    </div>
+                    <div class="audio-row">
+                        <div class="audio-tags">
+                            <span class="tag accent">接近放送</span>
+                            <span class="tag">広島地区標準接近メロディ</span>
+                        </div>
+                        <div class="audio-heading">
+                            <span>上り接近放送</span>
+                            <span class="audio-subname"></span>
+                        </div>
+                        <audio controls src="/audiofiles/250325_1019.wav"></audio>
+                        <div class="audio-details">
+                            発車ベルの設備がありますが、8連しか扱えないので収録はほぼ無理です。
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="../" class="btn-app-back">
+                路線別へ戻る
+            </a>
+        </div>
+      </div>
+    </div>
+    <Footer/>
+</body>
+<style define:vars={{ lineColor: stationConfig.lineColor }}>
+        /* ==========================================================================
+           1. デザインシステム（クリーン白ベース × サイネージのメリハリ）
+           ========================================================================== */
+        :root {
+            --jr-green: #008024; /* JR東日本コーポレートカラー */
+            --line-color: var(--lineColor); /* フロントマターの値を適用 */
+            --bg-dark: #111827; /* ヘッダー用の引き締まった黒 */
+            --bg-main: #f4f6f8; /* ボディ背景（見やすい薄グレー） */
+            --card-white: #ffffff;
+            --text-main: #1f2937; /* メイン文字色 */
+            --text-sub: #4b5563; /* 補足文字色 */
+            --border-light: #e5e8eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Atkinson,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Hiragino Kaku Gothic ProN,sans-serif;
+        }
+
+        main {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* レスポンシブ対応コンテナ（スマホでは全幅、PCではスマートなカード風に） */
+        .app-wrapper {
+            width: 100%;
+            background: #ffffff;
+            padding-bottom: 60px;
+            box-shadow: 0 0 24px rgba(0,0,0,0.05);
+        }
+
+        /* ==========================================================================
+           2. 駅サイネージ風ヘッダー
+           ========================================================================== */
+        .signage-header {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            padding: 24px 16px;
+            text-align: center;
+            border-bottom: 6px solid var(--line-color); /* 下部に路線カラーの帯 */
+            position: relative;
+        }
+
+        /* 隣の駅案内 */
+        .neighbor-stations {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .neighbor-stations .prev::before { content: '◀ '; }
+        .neighbor-stations .next::after { content: ' ▶'; }
+
+        /* 駅名表示 */
+        .station-title-ja {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        .station-title-sub {
+            font-size: 1rem;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        /* ==========================================================================
+           3. 大型写真エリア（レスポンス対応）
+           ========================================================================== */
+        .hero-gallery {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            background: #000;
+        }
+        .hero-gallery::-webkit-scrollbar { display: none; }
+        
+        .hero-img-box {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            aspect-ratio: 16 / 9; /* より一般的な16:9比率に修正 */
+        }
+        .hero-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ==========================================================================
+           4. セクションタイトル
+           ========================================================================== */
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-left: 5px;
+            padding: 30px 30px 15px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 1.5em;
+            background-color: var(--jr-green);
+            border-radius: 2px;
+        }
+
+        /* 駅環境情報カード */
+        .info-card {
+            background: var(--card-white);
+            margin: 0 16px;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-light);
+            background-color: #f9fafb;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .info-item-label {
+            color: var(--text-sub);
+            font-weight: bold;
+            margin-bottom: 2px;
+            font-size: 16px;
+        }
+        .info-item-value {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* ==========================================================================
+           5. 駅放送メイン・番線別セクション
+           ========================================================================== */
+        .main{
+          max-width: 800px;
+          margin: auto;
+          align-items: center;
+        }
+           .platform-container {
+            padding: 0 16px;
+        }
+
+        .platform-track-card {
+            background: var(--card-white);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .track-header {
+            padding: 10px 0;
+            border-bottom: 2px solid var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 16px;
+            flex-wrap: wrap; /* 画面が狭い時に破綻しないよう折り返し許可 */
+            gap: 4px;
+        }
+        .track-title {
+            font-weight: 900;
+            font-size: 1.5em;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .track-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 1.5em;
+            border-radius: 2px;
+            background-color: var(--line-color);
+        }
+        .track-destination {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: 700;
+        }
+
+        .track-body {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .audio-row {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid #edf2f7;
+        }
+
+        .audio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+        .tag.accent {
+            background: #e6f4ea;
+            color: var(--jr-green);
+        }
+
+        .audio-heading {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .audio-subname {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            font-weight: normal;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px; /* 少し押しやすく高さを調整 */
+            margin-top: 4px;
+            display: block; /* 隙間をなくす */
+        }
+
+        .audio-details {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        /* ==========================================================================
+           6. フッターボタン
+           ========================================================================== */
+        .footer-nav {
+            padding: 20px 16px;
+        }
+    </style>
+</html>

@@ -8,7 +8,7 @@ import { SITE_TITLE } from '../../../consts';
 // 1. 路線個別カスタマイズオプション（別路線を作るときはここを変えるだけ！）
 // ==========================================================================
 const lineConfig = {
-  lineColor: "#09c0b0",          // 線の色（京葉線は赤）
+  lineColor: "#d28b0e",          // 線の色（京葉線は赤）
   topBadgeText: "広島方面",       // 上部固定ヘッダー内のバッジ文字
   bottomBadgeText: "三原方面",    // 下部固定フッター内のバッジ文字
   pageTitle: "呉線",
@@ -25,7 +25,7 @@ const stations = [
     hasPage: true,
     melodies: [
     ],
-    feature: { tag: "名所", text: "赤レンガ<br>駅舎", bgColor: "#ffc107", textColor: "#1a2530" }
+    feature: { tag: "カンノ詳細型", text: "ベル設備あり", bgColor: "#007ac0", textColor: "ffffff" }
   },
   {
     number: "02",
@@ -34,7 +34,7 @@ const stations = [
     hasPage: true,
     melodies: [
     ],
-    feature: { tag: "乗換", text: "日比谷線<br>連絡", bgColor: "#17a2b8", textColor: "#ffffff" }
+    feature: { tag: "広島詳細型", text: "", bgColor: "#cb342e", textColor: "#ffffff" }
   },
   {
     number: "03",
@@ -42,10 +42,8 @@ const stations = [
     link: "#",
     hasPage: false,
     melodies: [
-      { tracks: "1番線", name: "JRE-IKST-001-01" },
-      { tracks: "2番線", name: "JRE-IKST-001-02" }
     ],
-    feature: { tag: "データ", text: "23区内の<br>JR駅で最少", bgColor: "#6c757d", textColor: "#ffffff" }
+    feature: { tag: "広島詳細型", text: "", bgColor: "#cb342e", textColor: "#ffffff" }
   },
   {
     number: "04",
@@ -53,10 +51,8 @@ const stations = [
     link: "#",
     hasPage: false,
     melodies: [
-      { tracks: "1番線", name: "Ocean Voyage", bg: "#2ca85a" },
-      { tracks: "2番線", name: "History", bg: "#c92334" }
     ],
-    feature: { tag: "構造", text: "ここから<br>高架ホーム", bgColor: "#28a745", textColor: "#ffffff" }
+    feature: { tag: "広島詳細型", text: "ベル設備あり", bgColor: "#cb342e5", textColor: "#ffffff" }
   },
   {
     number: "05",
@@ -64,10 +60,8 @@ const stations = [
     link: "#",
     hasPage: false,
     melodies: [
-      { tracks: "1番線", name: "La Moraleja", bg: "#2ca85a" },
-      { tracks: "2番線", name: "See You Again", bg: "#c92334" }
     ],
-    feature: { tag: "乗換", text: "有楽町線<br>りんかい線", bgColor: "#17a2b8", textColor: "#ffffff" }
+    feature: { tag: "西永楽型", text: "", bgColor: "#67dc00", textColor: "#ffffff" }
   },
   {
     number: "06",
@@ -76,7 +70,7 @@ const stations = [
     hasPage: false,
     melodies: [
     ],
-    feature: { tag: "名所", text: "大観覧車<br>水族館", bgColor: "#ffc107", textColor: "#1a2530" }
+    feature: { tag: "西永楽型", text: "", bgColor: "#67dc00", textColor: "#ffffff" }
   },
   {
     number: "07",
@@ -85,7 +79,7 @@ const stations = [
     hasPage: false,
     melodies: [
     ],
-    feature: { tag: "限定", text: "ディズニー<br>ソング", bgColor: "#e83e8c", textColor: "#ffffff" }
+    feature: { tag: "西永楽型", text: "", bgColor: "#67dc00", textColor: "#ffffff" }
   },
   {
     number: "08",
@@ -94,7 +88,7 @@ const stations = [
     hasPage: true,
     melodies: [
     ],
-    feature: { tag: "運行", text: "快速の<br>緩急接続駅", bgColor: "#007bff", textColor: "#ffffff" }
+    feature: { tag: "西永楽型", text: "", bgColor: "#67dc00", textColor: "#ffffff" }
   },
   {
     number: "09",
@@ -103,7 +97,7 @@ const stations = [
     hasPage: true,
     melodies: [
     ],
-    feature: { tag: "分岐", text: "高谷支線<br>（西船橋方面）", bgColor: "#6f42c1", textColor: "#ffffff" }
+    feature: { tag: "西永楽型", text: "ベル設備あり", bgColor: "#67dc00", textColor: "#ffffff" }
   },
   {
     number: "10",

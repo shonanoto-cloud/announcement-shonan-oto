@@ -53,8 +53,8 @@ img {
 
 main {
 	width: 100%;
-	max-width: 1000px; /* 元の読みやすい幅に調整 */
-	margin: 0 auto;
+	max-width: 1000px;
+	margin: auto;
 	padding: 3em 1em;
 	box-sizing: border-box;
 }
